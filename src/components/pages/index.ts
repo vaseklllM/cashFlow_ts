@@ -1,5 +1,5 @@
 import Loader from "./Loader"
 import Error from "./Error"
-import UsersList from "./UsersList"
+import App from "./App"
 
-export { Loader, Error, UsersList }
+export { Loader, Error, App }

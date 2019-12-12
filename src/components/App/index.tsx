@@ -1,16 +1,16 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { serverMoney } from "../../server"
-import { ICashFlow, IValut } from "../interfaces"
+import { ICashFlow, IValut } from "../../interfaces"
 import { getCashFlow, getVallet } from "../../store/serverMoney/action"
-import { App } from "../pages"
+import AppPage from "./App-Page"
 
 interface props {
     getCashFlow(payload: ICashFlow[]): void
     getVallet(payload: IValut[]): void
 }
 
-export class AppContainer extends Component<props> {
+export class App extends Component<props> {
     componentDidMount(): void {
         const { getCashFlow } = this.props
         const serv: serverMoney = new serverMoney()
@@ -39,7 +39,7 @@ export class AppContainer extends Component<props> {
     }
 
     render() {
-        return <App />
+        return <AppPage />
     }
 }
 
@@ -50,4 +50,4 @@ const mapDispatchToProps = (dispatch: any) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(AppContainer)
+export default connect(null, mapDispatchToProps)(App)

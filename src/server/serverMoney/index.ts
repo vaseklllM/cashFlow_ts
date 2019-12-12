@@ -4,7 +4,7 @@ import {
     IValut,
     TCurrency,
     TRate
-} from "../../components/interfaces"
+} from "../../interfaces"
 
 class serverMoney {
     private valletUrl = (valletCode: string, date: string): string =>

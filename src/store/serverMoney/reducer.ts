@@ -1,4 +1,4 @@
-import { IServerMoney, IAction } from "../../components/interfaces"
+import { IServerMoney, IAction } from "../../interfaces"
 import { SET_CASH_FLOW, SET_VALLET_COURSE } from "./action"
 
 const cashFlowState: IServerMoney = {
@@ -16,7 +16,6 @@ const serverMoneyReducer = (
         case SET_CASH_FLOW:
             return { ...state, cashFlow: action.payload }
         case SET_VALLET_COURSE:
-            console.log(action.payload)
             return { ...state, vallets: action.payload }
         default:
             return state

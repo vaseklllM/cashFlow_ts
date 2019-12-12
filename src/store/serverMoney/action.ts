@@ -1,4 +1,4 @@
-import { ICashFlow, IValut } from "../../components/interfaces"
+import { ICashFlow, IValut } from "../../interfaces"
 
 export const SET_CASH_FLOW: string = "SET_CASH_FLOW"
 export const SET_VALLET_COURSE: string = "SET_VALLET_COURSE"

@@ -1,4 +1,4 @@
-import { ICashFlow } from "../../components/interfaces"
+import { ICashFlow } from "../../interfaces"
 
 const cashFlow: ICashFlow[] = [
     {

@@ -2,14 +2,14 @@ import React from "react"
 import { connect } from "react-redux"
 import { IServerMoney, ICashFlow } from "../../interfaces"
 
-interface props {
+interface IProps {
     cashFlow: ICashFlow[] | null
 }
 
 // Таблиця активів
-function ActiveTable(props: props) {
+function ActiveTable(props: IProps) {
     const { cashFlow } = props
-    console.log(cashFlow)
+    // console.log(cashFlow)
     return <div></div>
 }
 
@@ -23,6 +23,5 @@ const mapStateToProps = (state: IRootState) => {
         cashFlow: serverMoney.cashFlow
     }
 }
-
-// export default ActiveTable
+    
 export default connect(mapStateToProps)(ActiveTable)

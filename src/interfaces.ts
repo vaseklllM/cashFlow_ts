@@ -32,4 +32,3 @@ export interface IValut {
     sumbol: TCurrency
     value: number | null
 }
-

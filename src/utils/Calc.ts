@@ -5,7 +5,7 @@ interface Calc {
     showFullPrice(item: ICashFlow): string
     showPrice(item: ICashFlow): string
     showPcs(item: ICashFlow): string
-    lastIdFromCashFlow(item: ICashFlow[]): number
+    lastIdFromCashFlow(item: ICashFlow[] | null): number
     showIncome(item: ICashFlow): string
     deepEqual(obj1: object, obj2: object): boolean
     showNawBarPrice(value: number | null): string | number
@@ -59,11 +59,14 @@ const Calc: Calc = {
     },
     // повертає новий id для масива cashFlow
     lastIdFromCashFlow: cashFlow => {
-        let lastId: number = 0
-        cashFlow.forEach(i => {
-            if (lastId < i.id) lastId = i.id
-        })
-        return ++lastId
+        if (cashFlow !== null) {
+
+            let lastId: number = 0
+            cashFlow.forEach(i => {
+                if (lastId < i.id) lastId = i.id
+            })
+            return ++lastId
+        } else return 1
     },
 
     // повертає витрати/доходи

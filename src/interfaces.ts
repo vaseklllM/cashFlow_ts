@@ -1,8 +1,8 @@
 export interface IServerMoney {
-    searchCashFlow: string | null
-    cashFlow: string | null
+    searchCashFlow: ICashFlow[] | null
+    cashFlow: ICashFlow[] | null
     vallets: Array<string>
-    newCashFlowItem: INewCashFlowItem
+    newCashFlowItem: ICashFlow | null
 }
 
 export interface INewCashFlowItem {}
@@ -20,7 +20,7 @@ export interface ICashFlow {
     income: number
     currency: TCurrency
     rate: TRate
-    dateBuy: string
+    dateBuy: string | Date
     checked: boolean
 }
 

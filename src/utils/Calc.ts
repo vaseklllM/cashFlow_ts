@@ -1,4 +1,6 @@
-import { ICashFlow } from "../interfaces"
+import { ICashFlow, TRate, IValut } from "../interfaces"
+
+type Tcollbar = "price" | "pcs" | "income"
 
 interface Calc {
     roi(item: ICashFlow): string | number
@@ -10,6 +12,8 @@ interface Calc {
     deepEqual(obj1: object, obj2: object): boolean
     showNawBarPrice(value: number | null): string | number
     randomColor(): string
+    mathFullPrice(obj: ICashFlow[], collArr: Array<Tcollbar>): any
+    convertToNumber(num: number): number
 }
 
 const Calc: Calc = {
@@ -60,7 +64,6 @@ const Calc: Calc = {
     // повертає новий id для масива cashFlow
     lastIdFromCashFlow: cashFlow => {
         if (cashFlow !== null) {
-
             let lastId: number = 0
             cashFlow.forEach(i => {
                 if (lastId < i.id) lastId = i.id
@@ -101,6 +104,80 @@ const Calc: Calc = {
     randomColor: () => {
         const rndNum = () => Math.floor(Math.random() * 255)
         return `rgb(${rndNum()}, ${rndNum()}, ${rndNum()})`
+    },
+
+    mathFullPrice: (obj, collArr) => {
+        const priceArr = obj.map(item => {
+            return {
+                value: MathPrice(item, collArr),
+                cc: item.rate,
+                sumbol: item.currency
+            }
+        })
+
+        // оставляет только уникальные обьекты
+        let valetArr = priceArr.map(i => i.cc)
+        valetArr = unique(valetArr)
+
+        let newArr = []
+        for (let i = 0; i < valetArr.length; i++) {
+            const tempArr = priceArr.filter(item => {
+                return item.cc.indexOf(valetArr[i]) > -1
+            })
+            // console.log(tempArr)
+            if (tempArr.length === 1) {
+                newArr.push(tempArr[0])
+            } else {
+                newArr.push(uniqueObject(tempArr))
+            }
+        }
+        return newArr
+    },
+
+    // Конвертер забирає лишні нулі після коми 5.0000001 => 5
+    convertToNumber: num => {
+        if (num > -20 && num < 20) {
+            return parseFloat(num.toFixed(4))
+        } else {
+            return Math.floor(num)
+        }
     }
 }
+
+// об'єдиняє однакові об'єкти
+function uniqueObject(arr: IValut[]): IValut {
+    let newObj: IValut = {
+        ...arr[0]
+    }
+    arr.forEach((item: IValut, index: number) => {
+        if (index !== 0) {
+            newObj = {
+                ...newObj,
+                value: newObj.value! + item.value!
+            }
+        }
+    })
+    return newObj
+}
+
+// Повертає price * pcs з полученого обэкта
+function MathPrice(item: ICashFlow, collArr: Array<Tcollbar>): number {
+    let price: number = 1
+    collArr.forEach(i => {
+        price = item[i] * price
+    })
+    return price
+}
+
+// Удаляє в массиві елементи які повторюються
+function unique(arr: TRate[]): TRate[] {
+    let result: TRate[] = []
+    for (let str of arr) {
+        if (!result.includes(str)) {
+            result.push(str)
+        }
+    }
+    return result
+}
+
 export default Calc

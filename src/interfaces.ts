@@ -1,8 +1,8 @@
 export interface IServerMoney {
-    searchCashFlow: ICashFlow[] | null
-    cashFlow: ICashFlow[] | null
-    vallets: Array<string>
-    newCashFlowItem: ICashFlow | null
+    searchCashFlow: ICashFlow[]
+    cashFlow: ICashFlow[]
+    vallets: IValut[]
+    newCashFlowItem?: ICashFlow
 }
 
 export interface INewCashFlowItem {}
@@ -32,3 +32,11 @@ export interface IValut {
     sumbol: TCurrency
     value: number | null
 }
+
+// Интерфейс BodyText в генераторі таблиці
+export interface ITableCreatorBodyText {
+    title: string
+    emptyArray: string
+    collumn: Array<string>
+}
+

@@ -3,18 +3,18 @@ import {
     SET_CASH_FLOW,
     SET_VALLET_COURSE,
     SEARCH_CASH_FLOW,
-    ON_DELETE_CASH_FLOW_ITEM,
-    CREATE_NEW_CASH_FLOW_ITEM,
+    // ON_DELETE_CASH_FLOW_ITEM,
+    // CREATE_NEW_CASH_FLOW_ITEM,
     SET_NEW_CASH_FLOW_ITEM,
     SET_CASH_FLOW_CHACKBOX
 } from "./action"
-import { Calc } from "../../utils"
+// import { Calc } from "../../utils"
 
 const cashFlowState: IServerMoney = {
-    searchCashFlow: null,
-    cashFlow: null,
+    searchCashFlow: [],
+    cashFlow: [],
     vallets: [],
-    newCashFlowItem: null
+    // newCashFlowItem: {}
 }
 
 const serverMoneyReducer = (
@@ -53,7 +53,7 @@ const serverMoneyReducer = (
 
         // пошук по всіх таблицях
         case SEARCH_CASH_FLOW:
-            let arr: ICashFlow[] | null = null
+            let arr: ICashFlow[] = []
             if (action.payload !== "" && state.cashFlow !== null) {
                 arr = state.cashFlow.filter(item => {
                     const name = item.name.toLowerCase()
@@ -66,21 +66,21 @@ const serverMoneyReducer = (
             }
 
         // видалення з cashFlow приймає массив з id елементами які треба видалити
-        case ON_DELETE_CASH_FLOW_ITEM:
-            return {
-                ...state,
-                cashFlow: deleteId(action.payload, state.cashFlow),
-                searchCashFlow: state.searchCashFlow
-                    ? deleteId(action.payload, state.searchCashFlow)
-                    : null
-            }
+        // case ON_DELETE_CASH_FLOW_ITEM:
+        //     return {
+        //         ...state,
+        //         cashFlow: deleteId(action.payload, state.cashFlow),
+        //         searchCashFlow: state.searchCashFlow
+        //             ? deleteId(action.payload, state.searchCashFlow)
+        //             : null
+        //     }
 
         // Створює новий обєкт в cashFlow
-        case CREATE_NEW_CASH_FLOW_ITEM:
-            return {
-                ...state,
-                cashFlow: CreateNewItem(state.cashFlow)
-            }
+        // case CREATE_NEW_CASH_FLOW_ITEM:
+        //     return {
+        //         ...state,
+        //         cashFlow: CreateNewItem(state.cashFlow)
+        //     }
 
         // змінює cashFlow обєкти
         // case CHANGE_PARAMETRS_CASH_FLOW:
@@ -139,33 +139,33 @@ const serverMoneyReducer = (
     }
 }
 
-function CreateNewItem(cashFlow: ICashFlow[] | null) {
-    if (cashFlow !== null) {
-        const newItem: ICashFlow = {
-            checked: false,
-            dateBuy: new Date(),
-            id: Calc.lastIdFromCashFlow(cashFlow),
-            currency: "₴",
-            income: 0,
-            name: "Назва",
-            pcs: 1,
-            price: 0,
-            rate: "UAH"
-        }
-        return [newItem, ...cashFlow]
-    } else return cashFlow
-}
+// function CreateNewItem(cashFlow: ICashFlow[] | null) {
+//     if (cashFlow !== null) {
+//         const newItem: ICashFlow = {
+//             checked: false,
+//             dateBuy: new Date(),
+//             id: Calc.lastIdFromCashFlow(cashFlow),
+//             currency: "₴",
+//             income: 0,
+//             name: "Назва",
+//             pcs: 1,
+//             price: 0,
+//             rate: "UAH"
+//         }
+//         return [newItem, ...cashFlow]
+//     } else return cashFlow
+// }
 
-function deleteId(arr: Array<number>, cashFlow: ICashFlow[] | null) {
-    if (cashFlow !== null) {
-        let delCashFlow = [...cashFlow]
-        arr.forEach((item: number) => {
-            delCashFlow = delCashFlow.filter((i: ICashFlow) => i.id !== item)
-        })
-        return delCashFlow
-    } else {
-        return cashFlow
-    }
-}
+// function deleteId(arr: Array<number>, cashFlow: ICashFlow[] | null) {
+//     if (cashFlow !== null) {
+//         let delCashFlow = [...cashFlow]
+//         arr.forEach((item: number) => {
+//             delCashFlow = delCashFlow.filter((i: ICashFlow) => i.id !== item)
+//         })
+//         return delCashFlow
+//     } else {
+//         return cashFlow
+//     }
+// }
 
 export default serverMoneyReducer

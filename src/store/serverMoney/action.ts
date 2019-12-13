@@ -24,10 +24,10 @@ export const getVallet = (vallets: IValut[]): action => ({
     payload: vallets
 })
 
-// export const setCheckBox = index => ({
-//     type: SET_CASH_FLOW_CHACKBOX,
-//     payload: index
-// })
+export const setCheckBox = (index: number): action => ({
+    type: SET_CASH_FLOW_CHACKBOX,
+    payload: index
+})
 // export const setNewCashFlowItem = value => ({
 //     type: SET_NEW_CASH_FLOW_ITEM,
 //     payload: value

@@ -1,5 +1,5 @@
 import React from "react"
-import SearchPage from "./Search-Page"
+import SearchPage from "./Search_Page"
 
 const Search = () => {
     return <SearchPage />

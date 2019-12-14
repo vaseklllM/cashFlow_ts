@@ -1,5 +1,5 @@
 import React from "react"
-import NavBarPage from "./NavBar-Page"
+import NavBarPage from "./NavBar_Page"
 import { IValut, IServerMoney } from "../../interfaces"
 import { connect } from "react-redux"
 

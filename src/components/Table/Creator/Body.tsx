@@ -1,7 +1,8 @@
 import React from "react"
-import { Table, TableBody, TableHead, TableRow, Paper } from "@material-ui/core"
+import { Table, TableHead, TableRow, Paper } from "@material-ui/core"
 import { StyledTableCell } from "../utils"
 import { ITableCreatorBodyText } from "../../../interfaces"
+import RowList from "./Row_list"
 
 interface IBodyProps {
     rows: string[][]
@@ -39,15 +40,13 @@ const Body = (props: IBodyProps) => {
                         })}
                     </TableRow>
                 </TableHead>
-                <TableBody>
-                    {/* {rowList(
-                        rows,
-                        emptyArray,
-                        collumn.length,
-                        checked,
-                        setCheckBox
-                    )} */}
-                </TableBody>
+                <RowList
+                    rows={rows}
+                    emptyArray={emptyArray}
+                    colSpan={collumn.length}
+                    checked={checked}
+                    setCheckBox={setCheckBox}
+                />
             </Table>
         </Paper>
     )

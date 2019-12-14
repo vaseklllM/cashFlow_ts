@@ -1,5 +1,5 @@
 import React from "react"
-import LoaderPage from "./LoaderCircle-Page"
+import LoaderPage from "./LoaderCircle_Page"
 
 const Loader = () => {
     return <LoaderPage />

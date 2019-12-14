@@ -11,7 +11,7 @@ import {
 import { Calc } from "../../utils"
 import { IValut } from "../../interfaces"
 import "./NavBar.scss"
-import LoaderCircle from "../LoaderCircle"
+import LoaderCircle from "../Loader_Circle"
 import Search from "../Search"
 
 interface props {

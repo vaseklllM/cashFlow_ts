@@ -1,6 +1,6 @@
 export interface IServerMoney {
-    searchCashFlow: ICashFlow[]
-    cashFlow: ICashFlow[]
+    searchCashFlow: TCashFlow
+    cashFlow: TCashFlow
     vallets: IValut[]
     newCashFlowItem?: ICashFlow
 }
@@ -11,6 +11,8 @@ export interface IAction {
     type: string
     payload?: any
 }
+
+export type TCashFlow = ICashFlow[] | "Loading..." | "Error"
 
 export interface ICashFlow {
     name: string
@@ -39,4 +41,3 @@ export interface ITableCreatorBodyText {
     emptyArray: string
     collumn: Array<string>
 }
-

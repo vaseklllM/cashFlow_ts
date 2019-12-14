@@ -2,6 +2,7 @@ import React, { Dispatch } from "react"
 import { connect } from "react-redux"
 import {
     IServerMoney,
+    TCashFlow,
     ICashFlow,
     ITableCreatorBodyText,
     IValut
@@ -11,22 +12,39 @@ import { Calc } from "../../../utils"
 import CreateTable from "../Creator"
 
 interface IProps {
-    cashFlow: ICashFlow[]
-    searchCashFlow: ICashFlow[]
+    cashFlow: TCashFlow
+    searchCashFlow: TCashFlow
     setCheckBox(index: number): void
 }
 
 // Таблиця активів
 function ActiveTable({ cashFlow, searchCashFlow, setCheckBox }: IProps) {
-    const mainArray = searchCashFlow.length === 0 ? cashFlow : searchCashFlow
+    let mainArray: TCashFlow = "Loading..."
 
-    const obj = mainArray.filter(item => item.income > 0)
+    if (
+        searchCashFlow !== "Loading..." &&
+        searchCashFlow !== "Error" &&
+        searchCashFlow.length !== 0
+    ) {
+        mainArray = searchCashFlow
+    } else if (
+        cashFlow !== "Loading..." &&
+        cashFlow !== "Error" &&
+        cashFlow.length !== 0
+    ) {
+        mainArray = cashFlow
+    }
+
+    let obj: ICashFlow[] = []
     let checked: number | null = null
-    obj.forEach((item, index) => {
-        if (item.checked) {
-            checked = index
-        }
-    })
+    if (mainArray !== "Loading...") {
+        obj = mainArray.filter(item => item.income > 0)
+        obj.forEach((item, index) => {
+            if (item.checked) {
+                checked = index
+            }
+        })
+    }
 
     const setId = (id: number): void => {
         obj.forEach((item, index) => {
@@ -36,7 +54,10 @@ function ActiveTable({ cashFlow, searchCashFlow, setCheckBox }: IProps) {
         })
     }
 
-    const rows: string[][] = createTableContent(obj)
+    let rows: string[][] = []
+    if (mainArray !== "Loading...") {
+        rows = createTableContent(obj)
+    }
     let fullPrice: IValut[] = Calc.mathFullPrice(obj, ["price", "pcs"])
 
     return (

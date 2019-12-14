@@ -11,9 +11,9 @@ import {
 // import { Calc } from "../../utils"
 
 const cashFlowState: IServerMoney = {
-    searchCashFlow: [],
-    cashFlow: [],
-    vallets: [],
+    searchCashFlow: "Loading...",
+    cashFlow: "Loading...",
+    vallets: []
     // newCashFlowItem: {}
 }
 
@@ -32,7 +32,7 @@ const serverMoneyReducer = (
 
         // Змінює item.checked по id переданому в action.payload
         case SET_CASH_FLOW_CHACKBOX:
-            if (state.cashFlow !== null) {
+            if (state.cashFlow !== 'Loading...' && state.cashFlow !== 'Error') {
                 const newCashFlow = state.cashFlow.map(item => {
                     if (item.id === action.payload) {
                         item.checked = !item.checked
@@ -54,7 +54,7 @@ const serverMoneyReducer = (
         // пошук по всіх таблицях
         case SEARCH_CASH_FLOW:
             let arr: ICashFlow[] = []
-            if (action.payload !== "" && state.cashFlow !== null) {
+            if (action.payload !== "" && state.cashFlow !== 'Loading...' && state.cashFlow !== 'Error') {
                 arr = state.cashFlow.filter(item => {
                     const name = item.name.toLowerCase()
                     return name.indexOf(action.payload.toLowerCase()) > -1

@@ -20,10 +20,29 @@ class Row extends React.Component<IProps> {
     render() {
         const { row, checked, setCheckBox, id } = this.props
         return (
-            <StyledTableRow hover>
+            <StyledTableRow
+                hover
+                style={
+                    checked ? { backgroundColor: "rgba(0, 0, 0, 0.15)" } : {}
+                }
+                onClick={() => {
+                    setCheckBox(id)
+                }}
+            >
                 {row.map((item: string, index: number) => {
+                    if (index === 0) {
+                        return (
+                            <StyledTableCell
+                                key={index}
+                                component='th'
+                                scope='row'
+                            >
+                                {item}
+                            </StyledTableCell>
+                        )
+                    }
                     return (
-                        <StyledTableCell key={index} component='th' scope='row'>
+                        <StyledTableCell key={index} align='right'>
                             {item}
                         </StyledTableCell>
                     )

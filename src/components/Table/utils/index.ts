@@ -1,4 +1,4 @@
-import styledTableCell from "./styledTableCell"
-import styledTableRow from "./styledTableRow"
+import StyledTableCell from "./StyledTableCell"
+import StyledTableRow from "./StyledTableRow"
 
-export { styledTableCell, styledTableRow }
+export { StyledTableCell, StyledTableRow }

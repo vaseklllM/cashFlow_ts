@@ -1,0 +1,13 @@
+.activeTable {
+    width: 100%;
+    overflow-x: auto;
+}
+
+@media (max-width: 550px) {
+    .tableTitle {
+        overflow-x: scroll;
+        &-content {
+            min-width: max-content;
+        }
+    }
+}

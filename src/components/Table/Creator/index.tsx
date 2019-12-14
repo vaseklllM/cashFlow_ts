@@ -2,6 +2,7 @@ import React from "react"
 import Title from "./Title"
 import Body from "./Body"
 import { IValut, ITableCreatorBodyText } from "../../../interfaces"
+import './style.scss'
 
 interface props {
     rows: string[][]

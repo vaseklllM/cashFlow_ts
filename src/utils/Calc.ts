@@ -9,7 +9,8 @@ interface Calc {
     showDate(dateStr: string | Date, symbul?: string, type?: boolean): any
     roi(item: ICashFlow): string | number
     showFullPrice(item: ICashFlow): string
-    showPrice(item: ICashFlow): string
+    showPriceValut(item: IValut): string
+    showPriceCashFlow(item: ICashFlow): string
     showPcs(item: ICashFlow): string
     lastIdFromCashFlow(item: ICashFlow[] | null): number
     showIncome(item: ICashFlow): string
@@ -76,7 +77,20 @@ const Calc: Calc = {
     },
 
     // повертає ціну актива
-    showPrice: item => {
+    showPriceValut: item => {
+        const { value, sumbol } = item
+        if (!value) return "-"
+        if (value < 1 && value > -1) {
+            return `${parseFloat(value.toFixed(5))} ${sumbol}`
+        } else if (value < 0) {
+            return `${Math.abs(value).toLocaleString("ru-RU")} ${sumbol}`
+        } else {
+            return `${value.toLocaleString("ru-RU")} ${sumbol}`
+        }
+    },
+    
+    // повертає ціну актива
+    showPriceCashFlow: item => {
         const { price, currency } = item
         if (!price) return "-"
         if (price < 1 && price > -1) {

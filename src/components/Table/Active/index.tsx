@@ -73,7 +73,7 @@ const createTableContent = (obj: ICashFlow[]): string[][] => {
             Calc.showDate(dateBuy),
             Calc.retentionTime(dateBuy),
             Calc.showPcs(item),
-            Calc.showPrice(item),
+            Calc.showPriceCashFlow(item),
             Calc.showFullPrice(item),
             Calc.roi(item)
         ]

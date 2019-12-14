@@ -5,7 +5,7 @@ import { ITableCreatorBodyText } from "../../../interfaces"
 import RowList from "./Row_list"
 
 interface IBodyProps {
-    rows: string[][]
+    rows: string[][] | "Loading..."
     text: ITableCreatorBodyText
     checked: number | null
     setCheckBox(id: number): void

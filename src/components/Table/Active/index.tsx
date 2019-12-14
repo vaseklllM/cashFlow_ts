@@ -27,17 +27,13 @@ function ActiveTable({ cashFlow, searchCashFlow, setCheckBox }: IProps) {
         searchCashFlow.length !== 0
     ) {
         mainArray = searchCashFlow
-    } else if (
-        cashFlow !== "Loading..." &&
-        cashFlow !== "Error" &&
-        cashFlow.length !== 0
-    ) {
+    } else {
         mainArray = cashFlow
     }
 
     let obj: ICashFlow[] = []
     let checked: number | null = null
-    if (mainArray !== "Loading...") {
+    if (mainArray !== "Loading..." && mainArray !== "Error") {
         obj = mainArray.filter(item => item.income > 0)
         obj.forEach((item, index) => {
             if (item.checked) {
@@ -54,12 +50,11 @@ function ActiveTable({ cashFlow, searchCashFlow, setCheckBox }: IProps) {
         })
     }
 
-    let rows: string[][] = []
-    if (mainArray !== "Loading...") {
+    let rows: string[][] | "Loading..." = "Loading..."
+    if (mainArray !== "Loading..." && mainArray !== "Error") {
         rows = createTableContent(obj)
     }
     let fullPrice: IValut[] = Calc.mathFullPrice(obj, ["price", "pcs"])
-
     return (
         <CreateTable
             rows={rows}

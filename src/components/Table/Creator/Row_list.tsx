@@ -5,7 +5,7 @@ import Row from "./Row"
 import { StyledTableCell, StyledTableRow } from "../utils"
 
 interface IProps {
-    rows: string[][]
+    rows: string[][] | "Loading..."
     emptyArray: string
     colSpan: number
     checked: number | null
@@ -15,33 +15,35 @@ interface IProps {
 const RowList = (props: IProps) => {
     const { rows, emptyArray, colSpan, checked, setCheckBox } = props
 
-    const newRow: JSX.Element[] = rows.map((row, index) => {
-        return (
-            <Row
-                key={index}
-                row={row}
-                checked={index === checked}
-                setCheckBox={setCheckBox}
-                id={index}
-            />
+    let newRow: JSX.Element[] | JSX.Element = (
+        <StyledTableRow>
+            <StyledTableCell component='th' scope='row' colSpan={colSpan}>
+                <Loader_linear />
+            </StyledTableCell>
+        </StyledTableRow>
+    )
+    if (rows !== "Loading..." && rows.length === 0) {
+        newRow = (
+            <StyledTableRow>
+                <StyledTableCell component='th' scope='row' colSpan={colSpan}>
+                    {emptyArray}
+                </StyledTableCell>
+            </StyledTableRow>
         )
-    })
-
-    if (rows.length === 0) {
-        return (
-            <TableBody>
-                <StyledTableRow>
-                    <StyledTableCell
-                        component='th'
-                        scope='row'
-                        colSpan={colSpan}
-                    >
-                        <Loader_linear />
-                    </StyledTableCell>
-                </StyledTableRow>
-            </TableBody>
-        )
+    } else if (rows !== "Loading..." && rows.length > 0) {
+        newRow = rows.map((row, index) => {
+            return (
+                <Row
+                    key={index}
+                    row={row}
+                    checked={index === checked}
+                    setCheckBox={setCheckBox}
+                    id={index}
+                />
+            )
+        })
     }
+
     return <TableBody>{newRow}</TableBody>
 }
 

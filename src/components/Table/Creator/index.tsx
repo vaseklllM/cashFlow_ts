@@ -5,7 +5,7 @@ import { IValut, ITableCreatorBodyText } from "../../../interfaces"
 import './style.scss'
 
 interface props {
-    rows: string[][]
+    rows: string[][] | "Loading..."
     bodyText: ITableCreatorBodyText
     fullPrice: IValut[]
     checked: number | null

@@ -1,8 +1,12 @@
+import formatDistanceToNow from "date-fns/formatDistanceToNow"
+import localeRu from "date-fns/locale/ru"
 import { ICashFlow, TRate, IValut } from "../interfaces"
 
 type Tcollbar = "price" | "pcs" | "income"
 
 interface Calc {
+    retentionTime(dateStr: string | Date): string
+    showDate(dateStr: string | Date, symbul?: string, type?: boolean): any
     roi(item: ICashFlow): string | number
     showFullPrice(item: ICashFlow): string
     showPrice(item: ICashFlow): string
@@ -17,6 +21,35 @@ interface Calc {
 }
 
 const Calc: Calc = {
+    // Бібліотека "date-fns"
+    retentionTime: dateStr => {
+        const past = new Date(dateStr)
+        return formatDistanceToNow(past, {
+            locale: localeRu
+        })
+    },
+
+    // приймає dateBuy повертає дату для вивода в таблицю
+    showDate: (dateStr, sumbol = ".", type = false) => {
+        const date: Date = new Date(dateStr)
+
+        const day: string =
+            date.getDate() >= 10
+                ? date.getDate().toString()
+                : `0${date.getDate()}`
+
+        const month: string =
+            date.getMonth() + 1 >= 10
+                ? (date.getMonth() + 1).toString()
+                : `0${date.getMonth() + 1}`
+
+        if (type) {
+            return `${month}${sumbol}${day}${sumbol}${date.getFullYear()}`
+        } else if (!type) {
+            return `${day}${sumbol}${month}${sumbol}${date.getFullYear()}`
+        }
+    },
+
     // повертає roi актива
     roi: item => {
         const { income, price, pcs } = item

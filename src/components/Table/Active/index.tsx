@@ -67,8 +67,16 @@ const bodyText: ITableCreatorBodyText = {
 
 const createTableContent = (obj: ICashFlow[]): string[][] => {
     var newObj: string[][] = obj.map(item => {
-        const { name } = item
-        return [name]
+        const { name, dateBuy } = item
+        return [
+            name,
+            Calc.showDate(dateBuy),
+            Calc.retentionTime(dateBuy),
+            Calc.showPcs(item),
+            Calc.showPrice(item),
+            Calc.showFullPrice(item),
+            Calc.roi(item)
+        ]
     })
     return newObj || null
 }

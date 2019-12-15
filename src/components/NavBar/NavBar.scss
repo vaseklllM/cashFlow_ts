@@ -2,3 +2,8 @@
     text-decoration: none;
     color: #fff;
 }
+.title {
+    flex-grow: 1;
+    justify-content: start;
+    overflow-x: auto;
+}

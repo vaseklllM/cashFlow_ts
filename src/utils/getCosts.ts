@@ -13,6 +13,7 @@ export default function(arr: ICashFlow[], vallets: IValut[]) {
         if (item.currency === "₴") {
             fullPrice += item.income
         }
+        return null
     })
     newArr = newArr.map(item => {
         for (let i = 0; i < vallets.length; i++) {
@@ -23,6 +24,7 @@ export default function(arr: ICashFlow[], vallets: IValut[]) {
                 }
             }
         }
+        return null
     })
     newArr.forEach(item => {
         if (item && item.income) {

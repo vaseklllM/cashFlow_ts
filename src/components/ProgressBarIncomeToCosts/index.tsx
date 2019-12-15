@@ -1,7 +1,7 @@
 import React from "react"
 import ProgressBar from "../ProgressBar"
 import { connect } from "react-redux"
-import { IServerMoney, IValut, TCashFlow, TValut } from "../../interfaces"
+import { IServerMoney, TCashFlow, TValut } from "../../interfaces"
 import { getIncome, getCosts } from "../../utils"
 
 interface IIncomeProps {
@@ -13,7 +13,7 @@ const ProgressBarIncomeToCosts = (props: IIncomeProps) => {
 
     let fullIncome: number = 0
     let fullCosts: number = 0
-    if (cashFlow !== "Error" && cashFlow !== "Loading..." && vallets !== 'Loading...' && vallets !== 'Error') {
+    if (Array.isArray(cashFlow) && Array.isArray(vallets)) {
         fullIncome = getIncome(cashFlow, vallets)
         fullCosts =
             getCosts(cashFlow, vallets) < 0
@@ -43,9 +43,7 @@ const ProgressBarIncomeToCosts = (props: IIncomeProps) => {
             />
         )
     }
-    return (
-        <ProgressBar width={100} title={{ left: "", right: "" }} />
-    )
+    return <ProgressBar width={100} title={{ left: "", right: "" }} />
 }
 
 interface IMapState {

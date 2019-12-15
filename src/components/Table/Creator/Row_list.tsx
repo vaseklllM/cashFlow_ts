@@ -1,6 +1,5 @@
 import React from "react"
-import Loader_linear from "../../Loader_Linear"
-import { TableBody } from "@material-ui/core"
+import { TableBody, LinearProgress } from "@material-ui/core"
 import Row from "./Row"
 import { StyledTableCell, StyledTableRow } from "../utils"
 
@@ -18,7 +17,9 @@ const RowList = (props: IProps) => {
     let newRow: JSX.Element[] | JSX.Element = (
         <StyledTableRow>
             <StyledTableCell component='th' scope='row' colSpan={colSpan}>
-                <Loader_linear />
+                <div style={{ flexGrow: 1 }}>
+                    <LinearProgress />
+                </div>
             </StyledTableCell>
         </StyledTableRow>
     )

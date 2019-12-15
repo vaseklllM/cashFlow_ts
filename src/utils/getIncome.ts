@@ -13,7 +13,9 @@ function getIncome(arr: ICashFlow[], vallets: IValut[]) {
         if (item.currency === "₴") {
             fullPrice += item.income
         }
+        return null
     })
+
     const tempArr = newArr.map((item: ICashFlow) => {
         for (let i = 0; i < vallets.length; i++) {
             if (item.currency === vallets[i].sumbol) {
@@ -23,6 +25,7 @@ function getIncome(arr: ICashFlow[], vallets: IValut[]) {
                 }
             }
         }
+        return null
     })
 
     tempArr.forEach(item => {

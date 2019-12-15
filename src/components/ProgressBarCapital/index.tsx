@@ -1,11 +1,11 @@
 import React from "react"
 import ProgressBar from "../ProgressBar"
 import { connect } from "react-redux"
-import { IServerMoney, IValut, TCashFlow } from "../../interfaces"
+import { IServerMoney, IValut, TCashFlow, TValut } from "../../interfaces"
 
 interface ICapitalProps {
     cashFlow: TCashFlow
-    vallets: IValut[]
+    vallets: TValut
 }
 const ProgressBarCapital = (props: ICapitalProps) => {
     const { cashFlow, vallets } = props
@@ -13,11 +13,11 @@ const ProgressBarCapital = (props: ICapitalProps) => {
     if (
         cashFlow !== "Error" &&
         cashFlow !== "Loading..." &&
-        vallets.length !== 0
+        vallets.length !== 0 && vallets !== 'Error' && vallets !== 'Loading...'
     ) {
         const capitalArr = cashFlow.filter(item => item.income === 0)
         capitalArr.forEach(item => {
-            let valet = vallets.filter(i => i.cc === item.rate)
+            let valet: IValut[] = vallets.filter(i => i.cc === item.rate)
             if (valet[0] && valet[0].value) {
                 capital += item.price * item.pcs * valet[0].value
             } else {

@@ -1,19 +1,19 @@
 import React from "react"
 import ProgressBar from "../ProgressBar"
 import { connect } from "react-redux"
-import { IServerMoney, IValut, TCashFlow } from "../../interfaces"
+import { IServerMoney, IValut, TCashFlow, TValut } from "../../interfaces"
 import { getIncome, getCosts } from "../../utils"
 
 interface IIncomeProps {
     cashFlow: TCashFlow
-    vallets: IValut[]
+    vallets: TValut
 }
 const ProgressBarIncomeToCosts = (props: IIncomeProps) => {
     const { cashFlow, vallets } = props
 
     let fullIncome: number = 0
     let fullCosts: number = 0
-    if (cashFlow !== "Error" && cashFlow !== "Loading...") {
+    if (cashFlow !== "Error" && cashFlow !== "Loading..." && vallets !== 'Loading...' && vallets !== 'Error') {
         fullIncome = getIncome(cashFlow, vallets)
         fullCosts =
             getCosts(cashFlow, vallets) < 0

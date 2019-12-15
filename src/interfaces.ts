@@ -1,7 +1,7 @@
 export interface IServerMoney {
     searchCashFlow: TCashFlow
     cashFlow: TCashFlow
-    vallets: IValut[]
+    vallets: TValut
     newCashFlowItem?: ICashFlow
 }
 
@@ -13,6 +13,8 @@ export interface IAction {
 }
 
 export type TCashFlow = ICashFlow[] | "Loading..." | "Error"
+export type TValut = IValut[] | "Loading..." | "Error"
+
 
 export interface ICashFlow {
     name: string

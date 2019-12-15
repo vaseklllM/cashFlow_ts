@@ -1,4 +1,4 @@
-import { TCashFlow, IValut, ICashFlow } from "../interfaces"
+import { IValut, ICashFlow } from "../interfaces"
 
 function getIncome(arr: ICashFlow[], vallets: IValut[]) {
     let newArr: ICashFlow[] = []

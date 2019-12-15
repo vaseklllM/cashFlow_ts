@@ -9,22 +9,23 @@ import {
     Hidden
 } from "@material-ui/core"
 import { Calc } from "../../utils"
-import { IValut } from "../../interfaces"
+import { IValut, TValut } from "../../interfaces"
 import "./NavBar.scss"
 import LoaderCircle from "../Loader_Circle"
 import Search from "../Search"
 
 interface props {
-    vallets: IValut[]
+    vallets: TValut
 }
 
 const NavBarPage = (props: props) => {
     const { vallets } = props
     let blockValute = (): JSX.Element | JSX.Element[] => <LoaderCircle />
     if (Object.keys(vallets).length !== 0) {
-        const newValletst: IValut[] = vallets.filter(
-            (i: IValut) => i.sumbol !== "₴"
-        )
+        let newValletst: IValut[] = []
+        if (vallets !== "Loading..." && vallets !== "Error") {
+            newValletst = vallets.filter((i: IValut) => i.sumbol !== "₴")
+        }
         blockValute = () =>
             newValletst.map((item: IValut, index: number) => {
                 return (

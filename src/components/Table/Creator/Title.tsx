@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { IValut, IServerMoney } from "../../../interfaces"
+import { IValut, IServerMoney, TValut } from "../../../interfaces"
 import { connect } from "react-redux"
 import { Typography, Box } from "@material-ui/core"
 import { Calc } from "../../../utils"
@@ -7,7 +7,7 @@ import { Calc } from "../../../utils"
 interface IProps {
     title: string
     fullPrice: IValut[]
-    vallets: IValut[]
+    vallets: TValut
 }
 
 class Title extends Component<IProps> {
@@ -16,7 +16,9 @@ class Title extends Component<IProps> {
         const { title, fullPrice, vallets } = this.props
         if (title !== nextProps.title) return true
         if (!Calc.deepEqual(fullPrice, nextProps.fullPrice)) return true
-        if (!Calc.deepEqual(vallets, nextProps.vallets)) return true
+        if (Array.isArray(vallets) && Array.isArray(nextProps.vallets)) {
+            if (!Calc.deepEqual(vallets, nextProps.vallets)) return true
+        }
         return false
     }
 
@@ -32,7 +34,7 @@ class Title extends Component<IProps> {
         })
 
         let fullPriceUAH: number = 0
-        if (vallets.length !== 0 && fullPrice.length !== 0) {
+        if (Array.isArray(fullPrice) && Array.isArray(vallets)) {
             fullPrice.forEach(item => {
                 const vallet: IValut[] = vallets.filter(
                     i => i.sumbol === item.sumbol

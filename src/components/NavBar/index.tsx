@@ -1,10 +1,10 @@
 import React from "react"
 import NavBarPage from "./NavBar_Page"
-import { IValut, IServerMoney } from "../../interfaces"
+import { IServerMoney, TValut } from "../../interfaces"
 import { connect } from "react-redux"
 
 interface IProps {
-    vallets: IValut[]
+    vallets: TValut
 }
 
 const NavBar = ({ vallets }: IProps) => {

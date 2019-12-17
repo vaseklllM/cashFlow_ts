@@ -19,6 +19,7 @@ interface Calc {
     randomColor(): string
     mathFullPrice(obj: ICashFlow[], collArr: Array<Tcollbar>): any
     convertToNumber(num: number): number
+    lastConvert(num: number): string
 }
 
 const Calc: Calc = {
@@ -88,7 +89,7 @@ const Calc: Calc = {
             return `${value.toLocaleString("ru-RU")} ${sumbol}`
         }
     },
-    
+
     // повертає ціну актива
     showPriceCashFlow: item => {
         const { price, currency } = item
@@ -188,6 +189,11 @@ const Calc: Calc = {
         } else {
             return Math.floor(num)
         }
+    },
+
+    lastConvert: num => {
+        const resize = Calc.convertToNumber(num)
+        return resize.toLocaleString("ru-RU")
     }
 }
 

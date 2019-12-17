@@ -3,6 +3,7 @@ import { IValut, IServerMoney, TValut } from "../../../interfaces"
 import { connect } from "react-redux"
 import { Typography, Box } from "@material-ui/core"
 import { Calc } from "../../../utils"
+import TitleFullPriceText from "./Title_FullPrice_Text"
 
 interface IProps {
     title: string
@@ -23,35 +24,7 @@ class Title extends Component<IProps> {
     }
 
     render() {
-        const { title, fullPrice, vallets } = this.props
-        // console.log(vallets)
-        // if (Array.isArray(vallets)){}
-        const fullPriceSpan: Array<JSX.Element> = fullPrice.map(item => {
-            return (
-                <span key={item.cc}>
-                    {Calc.showPriceValut(item)}
-                    &nbsp;&nbsp;
-                </span>
-            )
-        })
-
-        let fullPriceUAH: number = 0
-        if (Array.isArray(fullPrice) && Array.isArray(vallets)) {
-            fullPrice.forEach(item => {
-                const vallet: IValut[] = vallets.filter(
-                    i => i.sumbol === item.sumbol
-                )
-                if (vallet[0].value && item.value) {
-                    fullPriceUAH += vallet[0].value * item.value
-                }
-            })
-        }
-        const newElement: JSX.Element = (
-            <span key='last'>{Calc.convertToNumber(fullPriceUAH)}</span>
-        )
-
-        fullPriceSpan.push(newElement)
-
+        const { title, fullPrice } = this.props
         return (
             <Box
                 display='flex'
@@ -71,7 +44,7 @@ class Title extends Component<IProps> {
                         variant='subtitle1'
                         gutterBottom
                     >
-                        {fullPriceSpan}
+                        <TitleFullPriceText fullPrice={fullPrice} />
                     </Typography>
                 </Box>
             </Box>
@@ -83,10 +56,8 @@ interface IMapState {
     serverMoney: IServerMoney
 }
 
-const mapStateToProps = ({ serverMoney }: IMapState) => {
-    return {
-        vallets: serverMoney.vallets
-    }
-}
+const mapStateToProps = ({ serverMoney }: IMapState) => ({
+    vallets: serverMoney.vallets
+})
 
 export default connect(mapStateToProps)(Title)

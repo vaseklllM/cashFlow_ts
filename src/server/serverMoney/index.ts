@@ -2,11 +2,11 @@ import cashFlow from "./arrayCashFlow"
 import { ICashFlow, IValut, TCurrency, TRate, TValut } from "../../interfaces"
 
 class serverMoney {
-    private valletUrl = (valletCode: string, date: string): string =>
-        `https://old.bank.gov.ua/NBUStahtService/v1/statdirectory/exchange?valcode=${valletCode}&date=${date}&json`
-
     // private valletUrl = (valletCode: string, date: string): string =>
-    //     `https://old.bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=${valletCode}&date=${date}&json`
+    //     `https://old.bank.gov.ua/NBUStahtService/v1/statdirectory/exchange?valcode=${valletCode}&date=${date}&json`
+
+    private valletUrl = (valletCode: string, date: string): string =>
+        `https://old.bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=${valletCode}&date=${date}&json`
 
     private btc_uah_url: string = "https://kuna.io/api/v2/tickers/btcuah"
 

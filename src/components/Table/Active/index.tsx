@@ -20,7 +20,7 @@ interface IProps {
 // Таблиця активів
 function ActiveTable({ cashFlow, searchCashFlow, setCheckBox }: IProps) {
     let mainArray: TCashFlow = "Loading..."
-
+    
     if (
         searchCashFlow !== "Loading..." &&
         searchCashFlow !== "Error" &&

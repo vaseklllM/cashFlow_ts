@@ -9,7 +9,7 @@ const App = () => {
         <Router>
             <Switch>
                 <Route path='/graphs'>
-                    <NavBar />
+                    {/* <NavBar /> */}
                     {/* <Graphs /> */}
                 </Route>
                 <Route path='/'>

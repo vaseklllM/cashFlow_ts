@@ -24,6 +24,8 @@ class Title extends Component<IProps> {
 
     render() {
         const { title, fullPrice, vallets } = this.props
+        // console.log(vallets)
+        // if (Array.isArray(vallets)){}
         const fullPriceSpan: Array<JSX.Element> = fullPrice.map(item => {
             return (
                 <span key={item.cc}>

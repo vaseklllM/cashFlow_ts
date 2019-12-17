@@ -1,14 +1,13 @@
 import cashFlow from "./arrayCashFlow"
-import {
-    ICashFlow,
-    IValut,
-    TCurrency,
-    TRate
-} from "../../interfaces"
+import { ICashFlow, IValut, TCurrency, TRate, TValut } from "../../interfaces"
 
 class serverMoney {
     private valletUrl = (valletCode: string, date: string): string =>
-        `https://old.bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=${valletCode}&date=${date}&json`
+        `https://old.bank.gov.ua/NBUStahtService/v1/statdirectory/exchange?valcode=${valletCode}&date=${date}&json`
+
+    // private valletUrl = (valletCode: string, date: string): string =>
+    //     `https://old.bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=${valletCode}&date=${date}&json`
+
     private btc_uah_url: string = "https://kuna.io/api/v2/tickers/btcuah"
 
     private getVallet = async (url: string): Promise<any> => {
@@ -30,7 +29,7 @@ class serverMoney {
         const todaysDate: string = `${date.getFullYear()}${date.getMonth() +
             1}${date.getDate()}`
 
-        const vallut: IValut[] = [
+        const vallut: TValut = [
             createValut("USD", "$", null),
             createValut("EUR", "€", null),
             createValut("RUB", "₽", null),

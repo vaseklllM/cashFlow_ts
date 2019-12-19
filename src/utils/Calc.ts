@@ -8,10 +8,6 @@ interface Calc {
     retentionTime(dateStr: string | Date): string
     showDate(dateStr: string | Date, symbul?: string, type?: boolean): any
     roi(item: ICashFlow): string | number
-    showFullPrice(item: ICashFlow): string
-    showPriceValut(item: IValut): string
-    showPriceCashFlow(item: ICashFlow): string
-    showPcs(item: ICashFlow): string
     lastIdFromCashFlow(item: ICashFlow[] | null): number
     showIncome(item: ICashFlow): string
     deepEqual(obj1: object, obj2: object): boolean
@@ -19,7 +15,7 @@ interface Calc {
     randomColor(): string
     mathFullPrice(obj: ICashFlow[], collArr: Array<Tcollbar>): any
     convertToNumber(num: number): number
-    LC(num: number | null | undefined): string // last Convert
+    LC(num: number | null | undefined, sumbol?: string): string // last Convert
 }
 
 const Calc: Calc = {
@@ -63,52 +59,6 @@ const Calc: Calc = {
         } else return "-"
     },
 
-    // повертає повну ціну актива
-    showFullPrice: item => {
-        const { price, pcs, currency } = item
-        const lastPrice = price * pcs
-        if (!lastPrice) return "-"
-        if (lastPrice < 1 && lastPrice > -1) {
-            return `${parseFloat(lastPrice.toFixed(5))} ${currency}`
-        } else {
-            return `${parseInt(lastPrice + "").toLocaleString(
-                "ru-RU"
-            )} ${currency}`
-        }
-    },
-
-    // повертає ціну актива
-    showPriceValut: item => {
-        const { value, sumbol } = item
-        if (!value) return "-"
-        if (value < 1 && value > -1) {
-            return `${parseFloat(value.toFixed(5))} ${sumbol}`
-        } else if (value < 0) {
-            return `${Math.abs(value).toLocaleString("ru-RU")} ${sumbol}`
-        } else {
-            return `${value.toLocaleString("ru-RU")} ${sumbol}`
-        }
-    },
-
-    // повертає ціну актива
-    showPriceCashFlow: item => {
-        const { price, currency } = item
-        if (!price) return "-"
-        if (price < 1 && price > -1) {
-            return `${parseFloat(price.toFixed(5))} ${currency}`
-        } else if (price < 0) {
-            return `${Math.abs(price).toLocaleString("ru-RU")} ${currency}`
-        } else {
-            return `${price.toLocaleString("ru-RU")} ${currency}`
-        }
-    },
-
-    // повертає кількісь активів
-    showPcs: item => {
-        const { pcs } = item
-        if (!pcs) return "-"
-        return `${pcs.toLocaleString("ru-RU")} шт.`
-    },
     // повертає новий id для масива cashFlow
     lastIdFromCashFlow: cashFlow => {
         if (cashFlow !== null) {
@@ -193,13 +143,13 @@ const Calc: Calc = {
         }
     },
 
-    LC: num => {
+    LC: (num, sumbol = "") => {
         if (num) {
             const resize = Calc.convertToNumber(num)
             if (resize < -999 || resize > 999) {
-                return resize.toLocaleString("ru-RU")
+                return resize.toLocaleString("ru-RU") + sumbol
             } else {
-                return resize.toString()
+                return resize.toString() + sumbol
             }
         } else {
             return "-"

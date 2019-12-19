@@ -24,7 +24,7 @@ const ProgressBarIncomeToCosts = (props: IIncomeProps) => {
 
     const title = {
         left: "Відношення витрат до доходів в грн.",
-        right: `${Calc.LC(fullIncome)} грн. / ${Calc.LC(num2)} грн.`
+        right: `${Calc.LC(fullIncome, " грн.")} / ${Calc.LC(num2, " грн.")}`
     }
     if (fullIncome < num2) {
         return (

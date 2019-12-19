@@ -13,7 +13,7 @@ const TitleFullPriceText = ({ fullPrice, vallets }: IProps) => {
         return (
             <span key={item.cc}>
                 &nbsp;&nbsp;
-                {Calc.showPriceValut(item)}
+                {Calc.LC(item.value, ` ${item.sumbol}`)}
             </span>
         )
     })
@@ -34,7 +34,7 @@ const TitleFullPriceText = ({ fullPrice, vallets }: IProps) => {
         })
     }
     const newElement: JSX.Element = (
-        <span key='last'>{Calc.LC(fullPriceUAH)} ₴</span>
+        <span key='last'> ( {Calc.LC(fullPriceUAH, " ₴")} )</span>
     )
 
     fullPriceSpan.push(newElement)

@@ -20,7 +20,7 @@ interface IProps {
 // Таблиця активів
 function ActiveTable({ cashFlow, searchCashFlow, setCheckBox }: IProps) {
     let mainArray: TCashFlow = "Loading..."
-    
+
     if (
         searchCashFlow !== "Loading..." &&
         searchCashFlow !== "Error" &&
@@ -88,9 +88,9 @@ const createTableContent = (obj: ICashFlow[]): string[][] => {
             name,
             Calc.showDate(dateBuy),
             Calc.retentionTime(dateBuy),
-            Calc.showPcs(item),
-            Calc.showPriceCashFlow(item),
-            Calc.showFullPrice(item),
+            Calc.LC(item.pcs, " шт."),
+            Calc.LC(item.price, ` ${item.currency}`),
+            Calc.LC(item.pcs * item.price, ` ${item.currency}`),
             Calc.roi(item)
         ]
     })

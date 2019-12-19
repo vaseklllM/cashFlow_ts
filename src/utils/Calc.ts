@@ -19,7 +19,7 @@ interface Calc {
     randomColor(): string
     mathFullPrice(obj: ICashFlow[], collArr: Array<Tcollbar>): any
     convertToNumber(num: number): number
-    lastConvert(num: number): string
+    lastConvert(num: number | null | undefined): string
 }
 
 const Calc: Calc = {
@@ -184,16 +184,26 @@ const Calc: Calc = {
 
     // Конвертер забирає лишні нулі після коми 5.0000001 => 5
     convertToNumber: num => {
-        if (num > -20 && num < 20) {
+        if (num > -9 && num < 9) {
             return parseFloat(num.toFixed(4))
+        } else if (num > -999 && num < 999) {
+            return parseFloat(num.toFixed(2))
         } else {
             return Math.floor(num)
         }
     },
 
     lastConvert: num => {
-        const resize = Calc.convertToNumber(num)
-        return resize.toLocaleString("ru-RU")
+        if (num) {
+            const resize = Calc.convertToNumber(num)
+            if (resize < -999 || resize > 999) {
+                return resize.toLocaleString("ru-RU")
+            } else {
+                return resize.toString()
+            }
+        } else {
+            return "-"
+        }
     }
 }
 

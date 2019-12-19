@@ -1,22 +1,19 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { serverMoney } from "../../server"
-import { ICashFlow, IValut, TValut } from "../../interfaces"
+import { ICashFlow, IValut, TValut, TCashFlow } from "../../interfaces"
 import { getCashFlow, getVallet } from "../../store/serverMoney/action"
 import AppPage from "./App-Page"
 
 interface props {
-    getCashFlow(payload: ICashFlow[]): void
+    getCashFlow(payload: TCashFlow): void
     getVallet(payload: TValut): void
 }
 
 export class App extends Component<props> {
     componentDidMount(): void {
-        const { getCashFlow } = this.props
         const serv: serverMoney = new serverMoney()
-        serv.getCashFlow().then(res => {
-            getCashFlow(res)
-        })
+        this.getCashFlowFetch(serv)
         this.getValletFetch(serv)
     }
 
@@ -26,11 +23,26 @@ export class App extends Component<props> {
             const res = await server.GetVallets()
             getVallet(res)
         } catch {
-            getVallet('Error')
+            getVallet("Error")
             setTimeout(() => {
-                getVallet('Loading...')
+                getVallet("Loading...")
                 this.getValletFetch(server)
                 console.log("reload vallet")
+            }, 2000)
+        }
+    }
+
+    async getCashFlowFetch(server: serverMoney) {
+        const { getCashFlow } = this.props
+        try {
+            const res = await server.getCashFlow()
+            getCashFlow(res)
+        } catch {
+            getCashFlow("Error")
+            setTimeout(() => {
+                getCashFlow("Loading...")
+                this.getCashFlowFetch(server)
+                console.log("reload cash flow")
             }, 2000)
         }
     }

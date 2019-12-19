@@ -3,7 +3,7 @@ import { TValut, IServerMoney, IValut } from "../../interfaces"
 import { connect } from "react-redux"
 import { Calc } from "../../utils"
 import { CircularProgress } from "@material-ui/core"
-import WarningIcon from "@material-ui/icons/Warning"
+import WarningRoundedIcon from "@material-ui/icons/WarningRounded"
 
 interface IProps {
     vallets: TValut
@@ -11,7 +11,7 @@ interface IProps {
 
 const Valuts_Text = ({ vallets }: IProps) => {
     if (vallets === "Error") {
-        return <WarningIcon fontSize='large' />
+        return <WarningRoundedIcon fontSize='large' />
     }
     if (vallets === "Loading...") {
         return <CircularProgress color='inherit' />
@@ -23,7 +23,7 @@ const Valuts_Text = ({ vallets }: IProps) => {
             {newValletst.map((item: IValut, index: number) => {
                 return (
                     <span key={index} className='circle'>
-                        {`${item.sumbol} ${Calc.showNawBarPrice(item.value)}`}
+                        {`${item.sumbol} ${Calc.lastConvert(item.value)}`}
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </span>
                 )

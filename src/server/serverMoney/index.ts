@@ -1,12 +1,10 @@
 import cashFlow from "./arrayCashFlow"
-import { ICashFlow, IValut, TCurrency, TRate, TValut } from "../../interfaces"
+import { ICashFlow, IValut } from "../../interfaces"
+import { Calc } from "../../utils"
 
 class serverMoney {
-    // private valletUrl = (valletCode: string, date: string): string =>
-    //     `https://old.bank.gov.ua/NBUStahtService/v1/statdirectory/exchange?valcode=${valletCode}&date=${date}&json`
-
-    private valletUrl = (valletCode: string, date: string): string =>
-        `https://old.bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=${valletCode}&date=${date}&json`
+    private valletPrivatbank =
+        "https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11"
 
     private btc_uah_url: string = "https://kuna.io/api/v2/tickers/btcuah"
 
@@ -17,6 +15,7 @@ class serverMoney {
     }
 
     public getCashFlow = (): Promise<ICashFlow[]> => {
+        // throw new Error('test')
         return new Promise(resolve => {
             setTimeout(() => {
                 resolve(cashFlow)
@@ -25,50 +24,37 @@ class serverMoney {
     }
 
     public async GetVallets(): Promise<IValut[]> {
-        const date: Date = new Date()
-        const todaysDate: string = `${date.getFullYear()}${date.getMonth() +
-            1}${date.getDate()}`
+        // get BTC ---------------------------------------------------
+        const BTC_json: any = await this.getVallet(this.btc_uah_url)
+        const BTC: number = Math.floor(BTC_json.ticker.low)
 
-        const vallut: TValut = [
-            createValut("USD", "$", null),
-            createValut("EUR", "€", null),
-            createValut("RUB", "₽", null),
-            createValut("BTC", "₿", null),
-            createValut("UAH", "₴", 1)
+        // get USD ---------------------------------------------------
+        const USD_json = await this.getVallet(this.valletPrivatbank)
+        const USD: number = parseFloat(
+            USD_json.filter((i: any) => i.ccy === "USD")[0].sale
+        )
+
+        // get EUR ---------------------------------------------------
+        const EUR_json = await this.getVallet(this.valletPrivatbank)
+        const EUR: number = parseFloat(
+            EUR_json.filter((i: any) => i.ccy === "EUR")[0].sale
+        )
+
+        // get RUB ---------------------------------------------------
+        const RUB_json = await this.getVallet(this.valletPrivatbank)
+        const RUB: number = parseFloat(
+            RUB_json.filter((i: any) => i.ccy === "RUR")[0].sale
+        )
+
+        const arr: IValut[] = [
+            { cc: "BTC", sumbol: "₿", value: Calc.convertToNumber(BTC) },
+            { cc: "EUR", sumbol: "€", value: Calc.convertToNumber(EUR) },
+            { cc: "RUB", sumbol: "₽", value: Calc.convertToNumber(RUB) },
+            { cc: "UAH", sumbol: "₴", value: 1 },
+            { cc: "USD", sumbol: "$", value: Calc.convertToNumber(USD) }
         ]
 
-        function createValut(
-            cc: TRate,
-            sumbol: TCurrency,
-            value: number | null
-        ): IValut {
-            return {
-                cc,
-                sumbol,
-                value
-            }
-        }
-
-        // add btc course
-        await this.getVallet(this.btc_uah_url).then(res => {
-            vallut.forEach(item =>
-                item.cc === "BTC"
-                    ? (item.value = parseFloat(res.ticker.low))
-                    : null
-            )
-        })
-
-        // add usd, eur, rub course
-        for (let i = 0; i < vallut.length; i++) {
-            await this.getVallet(this.valletUrl(vallut[i].cc, todaysDate)).then(
-                res => {
-                    if (res.length) {
-                        vallut[i].value = parseFloat(res[0].rate.toFixed(2))
-                    }
-                }
-            )
-        }
-        return vallut
+        return arr
     }
 }
 export default serverMoney

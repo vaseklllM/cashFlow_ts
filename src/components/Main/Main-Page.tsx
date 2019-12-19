@@ -1,8 +1,8 @@
 import React from "react"
 import { Grid, Container, Box } from "@material-ui/core"
 import ActiveTable from "../Table/Active"
-import ProgressBarCapital from "../ProgressBarCapital"
-import ProgressBarincomeToCosts from "../ProgressBarIncomeToCosts"
+import ProgressBarCapital from "../ProgressBar_Capital"
+import ProgressBarincomeToCosts from "../ProgressBar_IncomeToCosts"
 import "./style.scss"
 
 const MainContainer = () => {
@@ -19,7 +19,7 @@ const MainContainer = () => {
                         </Grid>
                     </Grid>
                 </Box>
-                <div className='separator-horizontal' />
+                <div className='range-horizontal' />
                 <Grid container justify='space-between'>
                     <Grid item container spacing={3}>
                         <Grid item xs={12} lg={6} xl={4}>
@@ -42,7 +42,7 @@ const MainContainer = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <div className='separator-horizontal' />
+                <div className='range-horizontal' />
             </Container>
         </>
     )

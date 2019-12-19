@@ -23,7 +23,7 @@ const Valuts_Text = ({ vallets }: IProps) => {
             {newValletst.map((item: IValut, index: number) => {
                 return (
                     <span key={index} className='circle'>
-                        {`${item.sumbol} ${Calc.lastConvert(item.value)}`}
+                        {`${item.sumbol} ${Calc.LC(item.value)}`}
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </span>
                 )

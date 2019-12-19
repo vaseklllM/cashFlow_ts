@@ -34,7 +34,7 @@ const TitleFullPriceText = ({ fullPrice, vallets }: IProps) => {
         })
     }
     const newElement: JSX.Element = (
-        <span key='last'>{Calc.lastConvert(fullPriceUAH)} ₴</span>
+        <span key='last'>{Calc.LC(fullPriceUAH)} ₴</span>
     )
 
     fullPriceSpan.push(newElement)

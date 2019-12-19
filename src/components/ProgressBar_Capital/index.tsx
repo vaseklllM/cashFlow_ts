@@ -2,6 +2,7 @@ import React from "react"
 import ProgressBar from "../ProgressBar"
 import { connect } from "react-redux"
 import { IServerMoney, IValut, TCashFlow, TValut } from "../../interfaces"
+import { Calc } from "../../utils"
 
 interface ICapitalProps {
     cashFlow: TCashFlow
@@ -13,7 +14,9 @@ const ProgressBarCapital = (props: ICapitalProps) => {
     if (
         cashFlow !== "Error" &&
         cashFlow !== "Loading..." &&
-        vallets.length !== 0 && vallets !== 'Error' && vallets !== 'Loading...'
+        vallets.length !== 0 &&
+        vallets !== "Error" &&
+        vallets !== "Loading..."
     ) {
         const capitalArr = cashFlow.filter(item => item.income === 0)
         capitalArr.forEach(item => {
@@ -42,9 +45,7 @@ const ProgressBarCapital = (props: ICapitalProps) => {
         if (num1 < num2[i]) {
             const title = {
                 left: "Капитал в грн.",
-                right: `${num1.toLocaleString("ru-RU")} грн. / ${num2[
-                    i
-                ].toLocaleString("ru-RU")} грн.`
+                right: `${Calc.LC(num1)} грн. / ${Calc.LC(num2[i])} грн.`
             }
             return (
                 <ProgressBar

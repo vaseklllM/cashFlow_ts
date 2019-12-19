@@ -19,7 +19,7 @@ interface Calc {
     randomColor(): string
     mathFullPrice(obj: ICashFlow[], collArr: Array<Tcollbar>): any
     convertToNumber(num: number): number
-    lastConvert(num: number | null | undefined): string
+    LC(num: number | null | undefined): string // last Convert
 }
 
 const Calc: Calc = {
@@ -193,7 +193,7 @@ const Calc: Calc = {
         }
     },
 
-    lastConvert: num => {
+    LC: num => {
         if (num) {
             const resize = Calc.convertToNumber(num)
             if (resize < -999 || resize > 999) {

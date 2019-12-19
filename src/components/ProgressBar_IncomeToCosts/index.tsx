@@ -2,7 +2,7 @@ import React from "react"
 import ProgressBar from "../ProgressBar"
 import { connect } from "react-redux"
 import { IServerMoney, TCashFlow, TValut } from "../../interfaces"
-import { getIncome, getCosts } from "../../utils"
+import { getIncome, getCosts, Calc } from "../../utils"
 
 interface IIncomeProps {
     cashFlow: TCashFlow
@@ -24,9 +24,7 @@ const ProgressBarIncomeToCosts = (props: IIncomeProps) => {
 
     const title = {
         left: "Відношення витрат до доходів в грн.",
-        right: `${Math.floor(fullIncome).toLocaleString(
-            "en-IN"
-        )} грн. / ${Math.floor(num2).toLocaleString("ru-RU")} грн.`
+        right: `${Calc.LC(fullIncome)} грн. / ${Calc.LC(num2)} грн.`
     }
     if (fullIncome < num2) {
         return (

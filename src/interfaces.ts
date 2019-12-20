@@ -1,5 +1,5 @@
 export interface IServerMoney {
-    searchCashFlow: TCashFlow
+    searchCashFlow: TSearchCashFlow
     cashFlow: TCashFlow
     vallets: TValut
     newCashFlowItem?: ICashFlow
@@ -14,7 +14,7 @@ export interface IAction {
 
 export type TCashFlow = ICashFlow[] | "Loading..." | "Error"
 export type TValut = IValut[] | "Loading..." | "Error"
-
+export type TSearchCashFlow = ICashFlow[] | "None"
 
 export interface ICashFlow {
     name: string
@@ -35,11 +35,4 @@ export interface IValut {
     cc: TRate
     sumbol: TCurrency
     value: number | null
-}
-
-// Интерфейс BodyText в генераторі таблиці
-export interface ITableCreatorBodyText {
-    title: string
-    emptyArray: string
-    collumn: Array<string>
 }

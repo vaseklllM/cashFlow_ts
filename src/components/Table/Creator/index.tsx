@@ -1,12 +1,13 @@
 import React from "react"
 import Title from "./Title"
 import Body from "./Body"
-import { IValut, ITableCreatorBodyText } from "../../../interfaces"
-import './style.scss'
+import { IValut } from "../../../interfaces"
+import { IBodyText } from "../interface"
+import "./style.scss"
 
 interface props {
     rows: string[][] | "Loading..."
-    bodyText: ITableCreatorBodyText
+    bodyText: IBodyText
     fullPrice: IValut[]
     checked: number | null
     setCheckBox(id: number): void

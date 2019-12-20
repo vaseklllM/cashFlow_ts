@@ -1,12 +1,12 @@
 import React from "react"
 import { Table, TableHead, TableRow, Paper } from "@material-ui/core"
 import { StyledTableCell } from "../utils"
-import { ITableCreatorBodyText } from "../../../interfaces"
+import { IBodyText } from "../interface"
 import RowList from "./Row_list"
 
 interface IBodyProps {
     rows: string[][] | "Loading..."
-    text: ITableCreatorBodyText
+    text: IBodyText
     checked: number | null
     setCheckBox(id: number): void
     minWidth: string

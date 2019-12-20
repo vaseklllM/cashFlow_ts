@@ -28,6 +28,10 @@ export const setCheckBox = (index: number): action => ({
     type: SET_CASH_FLOW_CHACKBOX,
     payload: index
 })
+export const searchCashFlowAction = (newCashFlow: string) => ({
+    type: SEARCH_CASH_FLOW,
+    payload: newCashFlow
+})
 // export const setNewCashFlowItem = value => ({
 //     type: SET_NEW_CASH_FLOW_ITEM,
 //     payload: value
@@ -35,10 +39,6 @@ export const setCheckBox = (index: number): action => ({
 // export const changeParametersCashFlow = itemId => ({
 //     type: CHANGE_PARAMETRS_CASH_FLOW,
 //     payload: itemId
-// })
-// export const searchCashFlowAction = newCashFlow => ({
-//     type: SEARCH_CASH_FLOW,
-//     payload: newCashFlow
 // })
 // export const onDeleteCashFlowItem = itemId => ({
 //     type: ON_DELETE_CASH_FLOW_ITEM,

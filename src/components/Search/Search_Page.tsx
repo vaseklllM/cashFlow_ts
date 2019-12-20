@@ -1,7 +1,9 @@
-import React, { ChangeEvent } from "react"
+import React, { ChangeEvent, Dispatch } from "react"
 import { InputBase } from "@material-ui/core"
 import SearchIcon from "@material-ui/icons/Search"
 import { createStyles, fade, Theme, makeStyles } from "@material-ui/core/styles"
+import { connect } from "react-redux"
+import { searchCashFlowAction } from "../../store/serverMoney/action"
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -58,11 +60,15 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 )
 
-const SearchPage = () => {
+interface IProps {
+    searchCashFlowAction(newCashFlow: string): void
+}
+
+const SearchPage = ({ searchCashFlowAction }: IProps) => {
     const classes = useStyles()
 
     const onChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
-        // searchCashFlowAction(event.target.value)
+        searchCashFlowAction(event.target.value)
     }
     return (
         <div className={classes.search}>
@@ -82,4 +88,11 @@ const SearchPage = () => {
     )
 }
 
-export default SearchPage
+const MapDispatchToProps = (dispatch: Dispatch<any>) => {
+    return {
+        searchCashFlowAction: (newCashFlow: string) =>
+            dispatch(searchCashFlowAction(newCashFlow))
+    }
+}
+
+export default connect(null, MapDispatchToProps)(SearchPage)

@@ -11,7 +11,7 @@ import {
 // import { Calc } from "../../utils"
 
 const cashFlowState: IServerMoney = {
-    searchCashFlow: "Loading...",
+    searchCashFlow: "None",
     cashFlow: "Loading...",
     vallets: 'Loading...'
     // newCashFlowItem: {}
@@ -53,8 +53,14 @@ const serverMoneyReducer = (
 
         // пошук по всіх таблицях
         case SEARCH_CASH_FLOW:
+            if (action.payload === '') {
+                return {
+                    ...state,
+                    searchCashFlow: 'None'
+                }
+            }
             let arr: ICashFlow[] = []
-            if (action.payload !== "" && state.cashFlow !== 'Loading...' && state.cashFlow !== 'Error') {
+            if (action.payload !== "" && Array.isArray(state.cashFlow)) {
                 arr = state.cashFlow.filter(item => {
                     const name = item.name.toLowerCase()
                     return name.indexOf(action.payload.toLowerCase()) > -1

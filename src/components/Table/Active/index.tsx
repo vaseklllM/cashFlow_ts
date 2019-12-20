@@ -4,16 +4,17 @@ import {
     IServerMoney,
     TCashFlow,
     ICashFlow,
-    ITableCreatorBodyText,
-    IValut
+    IValut,
+    TSearchCashFlow
 } from "../../../interfaces"
+import { IBodyText } from "../interface"
 import { setCheckBox } from "../../../store/serverMoney/action"
 import { Calc } from "../../../utils"
 import CreateTable from "../Creator"
 
 interface IProps {
     cashFlow: TCashFlow
-    searchCashFlow: TCashFlow
+    searchCashFlow: TSearchCashFlow
     setCheckBox(index: number): void
 }
 
@@ -21,11 +22,7 @@ interface IProps {
 function ActiveTable({ cashFlow, searchCashFlow, setCheckBox }: IProps) {
     let mainArray: TCashFlow = "Loading..."
 
-    if (
-        searchCashFlow !== "Loading..." &&
-        searchCashFlow !== "Error" &&
-        searchCashFlow.length !== 0
-    ) {
+    if (searchCashFlow !== "None" && Array.isArray(searchCashFlow)) {
         mainArray = searchCashFlow
     } else {
         mainArray = cashFlow
@@ -67,7 +64,7 @@ function ActiveTable({ cashFlow, searchCashFlow, setCheckBox }: IProps) {
     )
 }
 
-const bodyText: ITableCreatorBodyText = {
+const bodyText: IBodyText = {
     title: "Активи",
     emptyArray: "Немає Активів",
     collumn: [

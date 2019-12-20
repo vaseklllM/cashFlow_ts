@@ -47,14 +47,12 @@ function ActiveTable({ cashFlow, searchCashFlow, setCheckBox }: IProps) {
         })
     }
 
-    let rows: string[][] | "Loading..." = "Loading..."
     if (mainArray !== "Loading..." && mainArray !== "Error") {
-        rows = createTableContent(obj)
+        bodyText.rows = createTableContent(obj)
     }
     let fullPrice: IValut[] = Calc.mathFullPrice(obj, ["price", "pcs"])
     return (
         <CreateTable
-            rows={rows}
             fullPrice={fullPrice}
             bodyText={bodyText}
             checked={checked}
@@ -75,19 +73,20 @@ const bodyText: IBodyText = {
         "Ціна за шт.",
         "Ціна загалом",
         "ROI"
-    ]
+    ],
+    rows: "Loading..."
 }
 
-const createTableContent = (obj: ICashFlow[]): string[][] => {
+function createTableContent(obj: ICashFlow[]): string[][] {
     var newObj: string[][] = obj.map(item => {
-        const { name, dateBuy } = item
+        const { name, dateBuy, pcs, price, currency } = item
         return [
             name,
             Calc.showDate(dateBuy),
             Calc.retentionTime(dateBuy),
-            Calc.LC(item.pcs, " шт."),
-            Calc.LC(item.price, ` ${item.currency}`),
-            Calc.LC(item.pcs * item.price, ` ${item.currency}`),
+            Calc.LC(pcs, " шт."),
+            Calc.LC(price, ` ${currency}`),
+            Calc.LC(pcs * price, ` ${currency}`),
             Calc.roi(item)
         ]
     })

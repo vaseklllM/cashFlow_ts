@@ -5,7 +5,6 @@ import { IBodyText } from "../interface"
 import RowList from "./Row_list"
 
 interface IBodyProps {
-    rows: string[][] | "Loading..."
     text: IBodyText
     checked: number | null
     setCheckBox(id: number): void
@@ -14,8 +13,7 @@ interface IBodyProps {
 
 const Body = (props: IBodyProps) => {
     const {
-        rows,
-        text: { emptyArray, collumn },
+        text: { emptyArray, collumn, rows },
         checked,
         setCheckBox,
         minWidth

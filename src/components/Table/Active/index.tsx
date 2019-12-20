@@ -22,34 +22,28 @@ interface IProps {
 function ActiveTable({ cashFlow, searchCashFlow, setCheckBox }: IProps) {
     let mainArray: TCashFlow = "Loading..."
 
-    if (searchCashFlow !== "None" && Array.isArray(searchCashFlow)) {
-        mainArray = searchCashFlow
-    } else {
-        mainArray = cashFlow
-    }
+    searchCashFlow !== "None" && Array.isArray(searchCashFlow)
+        ? (mainArray = searchCashFlow)
+        : (mainArray = cashFlow)
 
     let obj: ICashFlow[] = []
     let checked: number | null = null
-    if (mainArray !== "Loading..." && mainArray !== "Error") {
+    if (Array.isArray(mainArray)) {
+        // filter повертає активи
         obj = mainArray.filter(item => item.income > 0)
         obj.forEach((item, index) => {
-            if (item.checked) {
-                checked = index
-            }
+            if (item.checked) checked = index
         })
-    }
-
-    const setId = (id: number): void => {
-        obj.forEach((item, index) => {
-            if (index === id) {
-                setCheckBox(item.id)
-            }
-        })
-    }
-
-    if (mainArray !== "Loading..." && mainArray !== "Error") {
         bodyText.rows = createTableContent(obj)
     }
+
+    // повертає id строки по якій нажали
+    const setId = (id: number): void => {
+        obj.forEach((item, index) => {
+            if (index === id) setCheckBox(item.id)
+        })
+    }
+
     let fullPrice: IValut[] = Calc.mathFullPrice(obj, ["price", "pcs"])
     return (
         <CreateTable
@@ -93,11 +87,11 @@ function createTableContent(obj: ICashFlow[]): string[][] {
     return newObj || null
 }
 
-interface IState {
+interface IMapState {
     serverMoney: IServerMoney
 }
 
-const mapStateToProps = ({ serverMoney }: IState) => {
+const mapStateToProps = ({ serverMoney }: IMapState) => {
     return {
         cashFlow: serverMoney.cashFlow,
         searchCashFlow: serverMoney.searchCashFlow

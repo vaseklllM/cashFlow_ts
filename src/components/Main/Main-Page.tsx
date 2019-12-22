@@ -1,6 +1,13 @@
 import React from "react"
 import { Grid, Container, Box } from "@material-ui/core"
-import ActiveTable from "../Table/Active"
+import {
+    ActiveTable,
+    IncomeTable,
+    CostsTable,
+    CapitalTable,
+    PasiveTable,
+    FullTable
+} from "../Table"
 import ProgressBarCapital from "../ProgressBar_Capital"
 import ProgressBarincomeToCosts from "../ProgressBar_IncomeToCosts"
 import "./style.scss"
@@ -23,22 +30,22 @@ const MainContainer = () => {
                 <Grid container justify='space-between'>
                     <Grid item container spacing={3}>
                         <Grid item xs={12} lg={6} xl={4}>
-                            {/* <IncomeTable /> */}
+                            <IncomeTable />
                         </Grid>
                         <Grid item xs={12} lg={6} xl={4}>
-                            {/* <CostsTable /> */}
+                            <CostsTable />
                         </Grid>
                         <Grid item xs={12} lg={12} xl={4}>
-                            {/* <Capital /> */}
+                            <CapitalTable />
                         </Grid>
                         <Grid item xs={12} lg={12} xl={6}>
                             <ActiveTable />
                         </Grid>
                         <Grid item xs={12} lg={12} xl={6}>
-                            {/* <PasiveTable /> */}
+                            <PasiveTable />
                         </Grid>
                         <Grid item xs={12} lg={12} xl={12}>
-                            {/* <FullTable /> */}
+                            <FullTable />
                         </Grid>
                     </Grid>
                 </Grid>

@@ -9,9 +9,7 @@ interface Calc {
     showDate(dateStr: string | Date, symbul?: string, type?: boolean): any
     roi(item: ICashFlow): string | number
     lastIdFromCashFlow(item: ICashFlow[] | null): number
-    showIncome(item: ICashFlow): string
     deepEqual(obj1: object, obj2: object): boolean
-    showNawBarPrice(value: number | null): string | number
     randomColor(): string
     mathFullPrice(obj: ICashFlow[], collArr: Array<Tcollbar>): any
     convertToNumber(num: number): number
@@ -70,32 +68,9 @@ const Calc: Calc = {
         } else return 1
     },
 
-    // повертає витрати/доходи
-    showIncome: item => {
-        const { income, currency } = item
-        if (!income) return "-"
-        if (income < 1 && income > -1) {
-            return `${parseFloat(income.toFixed(5))} ${currency}`
-        } else {
-            return `${income.toLocaleString("ru-RU")} ${currency}`
-        }
-    },
-
     // Зрівнює два об'єкта повертає true якщо рівні
     deepEqual(obj1, obj2) {
         return JSON.stringify(obj1) === JSON.stringify(obj2)
-    },
-
-    //приймає любе число, повертає - або число з пробелом між сотнями і тисячами
-    showNawBarPrice(value) {
-        if (!value) return "-"
-        if (value < 1 && value > -1) {
-            return parseFloat(value.toFixed(5))
-        } else if (value < 0) {
-            return Math.abs(value).toLocaleString("ru-RU")
-        } else {
-            return value.toLocaleString("ru-RU")
-        }
     },
 
     // повертає рандомний колір rgb

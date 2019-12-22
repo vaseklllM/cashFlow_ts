@@ -28,22 +28,22 @@ export const setCheckBox = (index: number): action => ({
     type: SET_CASH_FLOW_CHACKBOX,
     payload: index
 })
-export const searchCashFlowAction = (newCashFlow: string) => ({
+export const searchCashFlowAction = (newCashFlow: string): action => ({
     type: SEARCH_CASH_FLOW,
     payload: newCashFlow
 })
-// export const setNewCashFlowItem = value => ({
-//     type: SET_NEW_CASH_FLOW_ITEM,
-//     payload: value
-// })
-// export const changeParametersCashFlow = itemId => ({
-//     type: CHANGE_PARAMETRS_CASH_FLOW,
-//     payload: itemId
-// })
-// export const onDeleteCashFlowItem = itemId => ({
-//     type: ON_DELETE_CASH_FLOW_ITEM,
-//     payload: itemId
-// })
-// export const createNewCashFlowItem = () => ({
-//     type: CREATE_NEW_CASH_FLOW_ITEM
-// })
+export const setNewCashFlowItem = (value: object): action => ({
+    type: SET_NEW_CASH_FLOW_ITEM,
+    payload: value
+})
+export const changeParametersCashFlow = (itemId: any) => ({
+    type: CHANGE_PARAMETRS_CASH_FLOW,
+    payload: itemId
+})
+export const onDeleteCashFlowItem = (itemId: any): action => ({
+    type: ON_DELETE_CASH_FLOW_ITEM,
+    payload: itemId
+})
+export const createNewCashFlowItem = (): action  => ({
+    type: CREATE_NEW_CASH_FLOW_ITEM
+})

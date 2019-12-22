@@ -13,8 +13,8 @@ import {
 const cashFlowState: IServerMoney = {
     searchCashFlow: "None",
     cashFlow: "Loading...",
-    vallets: 'Loading...'
-    // newCashFlowItem: {}
+    vallets: 'Loading...',
+    newCashFlowItem: {}
 }
 
 const serverMoneyReducer = (

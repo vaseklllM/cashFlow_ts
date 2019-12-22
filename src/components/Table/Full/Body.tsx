@@ -2,11 +2,13 @@ import React from "react"
 import { StyledTableRow, StyledTableCell } from "../utils"
 import LineName from "./Line_Name"
 import { Calc } from "../../../utils"
-import { LinearProgress } from "@material-ui/core"
+import { LinearProgress, TableBody } from "@material-ui/core"
 import { connect } from "react-redux"
 import { IFullTable } from "../../../store/FullTable/interface"
 import { IFullBodyText } from "."
 import { TCashFlow, IServerMoney, TSearchCashFlow } from "../../../interfaces"
+import LineDate from "./Line_Date"
+import LinePriceToPcs from './Line_PriceToPcs';
 
 interface IProps {
     bodyText: IFullBodyText
@@ -15,16 +17,39 @@ interface IProps {
     editElementId: null | number
 }
 
-const Body = ({
-    bodyText,
-    searchCashFlow,
-    cashFlow,
-    editElementId
-}: IProps) => {
+const Body = (props: IProps) => {
+    const { bodyText, searchCashFlow, cashFlow, editElementId } = props
+
     let mainArray: TCashFlow = "Loading..."
     searchCashFlow !== "None" && Array.isArray(searchCashFlow)
         ? (mainArray = searchCashFlow)
         : (mainArray = cashFlow)
+
+    if (Array.isArray(mainArray) && mainArray.length === 0) {
+        // Пуста Таблиця
+        return (
+            <TableBody>
+                <StyledTableRow>
+                    <StyledTableCell colSpan={bodyText.collumn.length}>
+                        Таблиця пуста
+                    </StyledTableCell>
+                </StyledTableRow>
+            </TableBody>
+        )
+    } else if (mainArray === "Loading...") {
+        // Загрузка
+        return (
+            <TableBody>
+                <StyledTableRow>
+                    <StyledTableCell colSpan={bodyText.collumn.length}>
+                        <div style={{ flexGrow: 1 }}>
+                            <LinearProgress />
+                        </div>
+                    </StyledTableCell>
+                </StyledTableRow>
+            </TableBody>
+        )
+    }
 
     let bodyTable: JSX.Element[] | JSX.Element = <div></div>
     if (Array.isArray(mainArray) && mainArray.length !== 0) {
@@ -51,11 +76,11 @@ const Body = ({
                         </div>
                     </StyledTableCell>
                     <LineName item={item} onShow={onShow} />
-                    {/* <DateLine item={item} onShow={onShow} /> */}
+                    <LineDate item={item} onShow={onShow} />
                     <StyledTableCell align='right'>
-                        {/* {retentionTime(dateBuy)} */}
+                        {Calc.retentionTime(dateBuy)}
                     </StyledTableCell>
-                    {/* <PriceToPcsLine item={item} onShow={onShow} /> */}
+                    <LinePriceToPcs item={item} onShow={onShow} />
                     {/* <PcsLine item={item} onShow={onShow} /> */}
                     {/* <IncomeLine item={item} onShow={onShow} /> */}
                     {/* <ValuteLine item={item} onShow={onShow} /> */}
@@ -68,26 +93,8 @@ const Body = ({
                 </StyledTableRow>
             )
         })
-    } else if (Array.isArray(mainArray) && mainArray.length === 0) {
-        bodyTable = (
-            <StyledTableRow>
-                <StyledTableCell colSpan={bodyText.collumn.length}>
-                    Таблиця пуста
-                </StyledTableCell>
-            </StyledTableRow>
-        )
-    } else if (mainArray === "Loading...") {
-        bodyTable = (
-            <StyledTableRow>
-                <StyledTableCell colSpan={bodyText.collumn.length}>
-                    <div style={{ flexGrow: 1 }}>
-                        <LinearProgress />
-                    </div>
-                </StyledTableCell>
-            </StyledTableRow>
-        )
     }
-    return <>{bodyTable}</>
+    return <TableBody>{bodyTable}</TableBody>
 }
 
 interface IMapState {

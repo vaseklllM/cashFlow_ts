@@ -1,20 +1,11 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 // material
-import {
-    Box,
-    Typography,
-    Paper,
-    TableRow,
-    TableHead,
-    TableBody,
-    Table
-} from "@material-ui/core"
+import { Box, Typography, Paper, Table } from "@material-ui/core"
 import { IServerMoney } from "../../../interfaces"
 
 import { IFullTable } from "../../../store/FullTable/interface"
 
-import RowDelete from "./Row_Delete"
 import RowTitle from "./Row_Title"
 import Body from "./Body"
 
@@ -25,13 +16,12 @@ export interface IFullBodyText {
 }
 
 interface IFullProps {
-    onCheck: number[]
     bodyText: IFullBodyText
 }
 
 export class FullTable extends Component<IFullProps> {
     render() {
-        const { onCheck, bodyText } = this.props
+        const { bodyText } = this.props
 
         return (
             <>
@@ -51,18 +41,8 @@ export class FullTable extends Component<IFullProps> {
                         aria-label='a dense table'
                         style={{ minWidth: "1500px" }}
                     >
-                        <TableHead>
-                            <TableRow>
-                                {onCheck.length === 0 ? (
-                                    <RowTitle />
-                                ) : (
-                                    <RowDelete />
-                                )}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            <Body />
-                        </TableBody>
+                        <RowTitle />
+                        <Body />
                     </Table>
                 </Paper>
             </>
@@ -76,7 +56,6 @@ interface IMapState {
 }
 
 const mapStateToProps = ({ fullTable }: IMapState) => ({
-    onCheck: fullTable.onCheck,
     bodyText: fullTable.bodyText
 })
 

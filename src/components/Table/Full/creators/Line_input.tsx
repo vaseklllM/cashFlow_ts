@@ -14,7 +14,7 @@ interface IProps {
     keyName: string
     place: string
     ClassNameInputStyle: string
-    value: string 
+    value: string | number
 }
 
 export class InputLine extends Component<IProps> {

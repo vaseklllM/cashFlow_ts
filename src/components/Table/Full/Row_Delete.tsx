@@ -12,7 +12,6 @@ interface IState {
 }
 
 const RowDelete = ({ onCheck, clearOnCheck }: IState) => {
-    // clearOnCheck()
     return (
         <StyledTableCell
             align='left'
@@ -33,7 +32,7 @@ const RowDelete = ({ onCheck, clearOnCheck }: IState) => {
                     style={{ padding: "5px" }}
                     onClick={() => {
                         // onDeleteCashFlowItem(onCheck)
-                        // this.setState({ onCheck: [] })
+                        clearOnCheck()
                     }}
                 >
                     <DeleteIcon />

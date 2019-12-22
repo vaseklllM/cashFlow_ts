@@ -1,16 +1,20 @@
 import React from "react"
 import { connect } from "react-redux"
 import { StyledTableCell } from "../utils"
-import { IconButton } from "@material-ui/core"
+import { IconButton, TableHead, TableRow } from "@material-ui/core"
 import AddBoxIcon from "@material-ui/icons/AddBox"
 import { IFullBodyText } from "."
 import { IFullTable } from "../../../store/FullTable/interface"
+import Row_Delete from "./Row_Delete"
 
 interface IProps {
     bodyText: IFullBodyText
+    onCheck: number[]
 }
 
-function Row_Title({ bodyText }: IProps) {
+function Row_Title(props: IProps) {
+    const { bodyText, onCheck } = props
+
     const row = bodyText.collumn.map((item, index) => {
         if (index === 0) {
             return (
@@ -33,7 +37,12 @@ function Row_Title({ bodyText }: IProps) {
             </StyledTableCell>
         )
     })
-    return <>{row}</>
+
+    return (
+        <TableHead>
+            <TableRow> {onCheck.length === 0 ? row : <Row_Delete />} </TableRow>
+        </TableHead>
+    )
 }
 
 interface IMapState {
@@ -41,7 +50,8 @@ interface IMapState {
 }
 
 const mapStateToProps = ({ fullTable }: IMapState) => ({
-    bodyText: fullTable.bodyText
+    bodyText: fullTable.bodyText,
+    onCheck: fullTable.onCheck
 })
 
 export default connect(mapStateToProps)(Row_Title)

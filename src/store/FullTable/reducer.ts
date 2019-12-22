@@ -26,7 +26,6 @@ const fullTableState: IFullTable = {
 function fullTableReducer(state = fullTableState, action: IAction) {
     switch (action.type) {
         case CLEAR_ON_CHECK_ARRAY:
-            console.log("testReducer")
             return {
                 ...state,
                 onCheck: []

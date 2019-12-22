@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, Dispatch } from "react"
 import { connect } from "react-redux"
 import { serverMoney } from "../../server"
 import { ICashFlow, IValut, TValut, TCashFlow } from "../../interfaces"
@@ -52,7 +52,7 @@ export class App extends Component<props> {
     }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
         getCashFlow: (cashFlow: ICashFlow[]) => dispatch(getCashFlow(cashFlow)),
         getVallet: (valletCourse: IValut[]) => dispatch(getVallet(valletCourse))

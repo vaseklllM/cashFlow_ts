@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-import { StyledTableCell } from "../utils"
+import { StyledTableCell, StyledTableRow } from "../utils"
 import { IconButton, TableHead, TableRow } from "@material-ui/core"
 import AddBoxIcon from "@material-ui/icons/AddBox"
 import { IFullBodyText } from "."
@@ -40,7 +40,7 @@ function Row_Title(props: IProps) {
 
     return (
         <TableHead>
-            <TableRow> {onCheck.length === 0 ? row : <Row_Delete />} </TableRow>
+            <TableRow>{onCheck.length === 0 ? row : <Row_Delete />}</TableRow>
         </TableHead>
     )
 }

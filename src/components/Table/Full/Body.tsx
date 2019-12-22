@@ -8,7 +8,10 @@ import { IFullTable } from "../../../store/FullTable/interface"
 import { IFullBodyText } from "."
 import { TCashFlow, IServerMoney, TSearchCashFlow } from "../../../interfaces"
 import LineDate from "./Line_Date"
-import LinePriceToPcs from './Line_PriceToPcs';
+import LinePriceToPcs from "./Line_PriceToPcs"
+import LinePcs from "./Line_Pcs"
+import LineIncome from "./Line_Income"
+import LineValute from './Line_Valute';
 
 interface IProps {
     bodyText: IFullBodyText
@@ -19,6 +22,7 @@ interface IProps {
 
 const Body = (props: IProps) => {
     const { bodyText, searchCashFlow, cashFlow, editElementId } = props
+    // console.log(editElementId);
 
     let mainArray: TCashFlow = "Loading..."
     searchCashFlow !== "None" && Array.isArray(searchCashFlow)
@@ -56,7 +60,7 @@ const Body = (props: IProps) => {
         bodyTable = mainArray.map(item => {
             const { dateBuy, checked, id } = item
 
-            const onShow = id === editElementId
+            const onShow = id === 1
             return (
                 <StyledTableRow
                     hover
@@ -81,9 +85,9 @@ const Body = (props: IProps) => {
                         {Calc.retentionTime(dateBuy)}
                     </StyledTableCell>
                     <LinePriceToPcs item={item} onShow={onShow} />
-                    {/* <PcsLine item={item} onShow={onShow} /> */}
-                    {/* <IncomeLine item={item} onShow={onShow} /> */}
-                    {/* <ValuteLine item={item} onShow={onShow} /> */}
+                    <LinePcs item={item} onShow={onShow} />
+                    <LineIncome item={item} onShow={onShow} />
+                    <LineValute item={item} onShow={onShow} />
                     <StyledTableCell align='right'>
                         {Calc.LC(item.pcs * item.price, " " + item.currency)}
                     </StyledTableCell>

@@ -4,30 +4,29 @@ import { Calc } from "../../../utils"
 import { StyledTableCell } from "../utils"
 import { ICashFlow } from "../../../interfaces"
 
-interface IProps{
+interface IProps {
     item: ICashFlow
     onShow: boolean
 }
-
-// комірка "Ціна загалом"
-const LinePriceToPcs = React.memo((props: IProps) => {
+// комірка з кількістю шт.
+const PcsLine = React.memo((props: IProps) => {
     const { item, onShow } = props
     if (onShow) {
         return (
             <InputLine
-                value={item.price}
-                keyName='price'
+                value={item.pcs}
+                keyName='pcs'
                 width='11%'
-                place='Ціна за шт.'
+                place='Кількість'
                 ClassNameInputStyle='FullTableInput'
             />
         )
     } else
         return (
             <StyledTableCell className={onShow ? "activeTd" : ""} align='right'>
-                {Calc.LC(item.price, ' ' + item.currency)}
+                {Calc.LC(item.pcs, ' шт.')}
             </StyledTableCell>
         )
 })
 
-export default LinePriceToPcs
+export default PcsLine

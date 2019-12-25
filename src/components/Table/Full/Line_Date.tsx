@@ -1,4 +1,4 @@
-import React, { Dispatch } from "react"
+import React, { Dispatch, Component } from "react"
 import { connect } from "react-redux"
 import "date-fns"
 import { Calc } from "../../../utils"
@@ -9,73 +9,100 @@ import {
 import DateFnsUtils from "@date-io/date-fns"
 import { setNewCashFlowItem } from "../../../store/serverMoney/action"
 import { StyledTableCell } from "../utils"
-import { ICashFlow } from "../../../interfaces"
-// import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date"
-// import { IFullTable } from "../../../store/FullTable/interface"
+import { ICashFlow, IServerMoney, TRate, TCurrency } from "../../../interfaces"
+
+interface ITempCashFlow {
+    name?: string
+    id?: number
+    pcs?: number
+    price?: number
+    income?: number
+    currency?: TCurrency
+    rate?: TRate
+    dateBuy?: string | Date
+    checked?: boolean
+}
+
+interface IsetNewCashFlowItem {
+    key: string
+    value: string | number | Date
+}
 
 interface IProps {
     item: ICashFlow
     onShow: boolean
-    setNewCashFlowItem(value: any): void
+    setNewCashFlowItem(value: IsetNewCashFlowItem): void
+    newCashFlowItem: ITempCashFlow
 }
 
 // комірка з датою
-const DateLine = (props: IProps) => {
-    const { item, onShow, setNewCashFlowItem } = props
-
-    const { dateBuy } = item
-    const [selectedDate, setSelectedDate] = React.useState(new Date(dateBuy))
-
-    setNewCashFlowItem({
-        dateBuy: Calc.showDate(selectedDate, "-", true) || dateBuy
-    })
-    const handleDateChange = (date: any): void => {
-        setSelectedDate(date)
+class LineDate extends Component<IProps> {
+    componentDidMount() {
+        const { item, setNewCashFlowItem, onShow } = this.props
+        this.setState({ selectedDate: new Date(this.props.item.dateBuy) })
+        if (onShow) {
+            setNewCashFlowItem({
+                key: "dateBuy",
+                value: item.dateBuy
+            })
+        }
     }
 
-    if (!onShow) {
-        return (
-            <StyledTableCell align='right'>
-                {Calc.showDate(dateBuy)}
-            </StyledTableCell>
-        )
-    } else {
-        return (
-            <StyledTableCell align='right' style={{ width: "10px" }}>
-                <div
-                    onMouseDown={event => {
-                        event.stopPropagation()
-                    }}
-                    style={{ width: "150px" }}
-                >
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <KeyboardDatePicker
-                            margin='none'
-                            id='date-picker-dialog'
-                            format='dd/MM/yyyy'
-                            value={selectedDate}
-                            onChange={handleDateChange}
-                            KeyboardButtonProps={{
-                                "aria-label": "change date"
-                            }}
-                        />
-                    </MuiPickersUtilsProvider>
-                </div>
-            </StyledTableCell>
-        )
+    render() {
+        const { item, onShow, setNewCashFlowItem, newCashFlowItem } = this.props
+        const handleDateChange = (date: any): void => {
+            setNewCashFlowItem({
+                key: "dateBuy",
+                value: date
+            })
+        }
+
+        if (onShow) {
+            return (
+                <StyledTableCell align='right' style={{ width: "10px" }}>
+                    <div
+                        onMouseDown={event => {
+                            event.stopPropagation()
+                        }}
+                        style={{ width: "150px" }}
+                    >
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <KeyboardDatePicker
+                                margin='none'
+                                id='date-picker-dialog'
+                                format='dd/MM/yyyy'
+                                value={newCashFlowItem.dateBuy}
+                                onChange={handleDateChange}
+                                KeyboardButtonProps={{
+                                    "aria-label": "change date"
+                                }}
+                            />
+                        </MuiPickersUtilsProvider>
+                    </div>
+                </StyledTableCell>
+            )
+        } else {
+            return (
+                <StyledTableCell align='right'>
+                    {Calc.showDate(item.dateBuy)}
+                </StyledTableCell>
+            )
+        }
     }
 }
 
-// interface IMapState{
-//     fullTable: IFullTable
-// }
+interface IMapState {
+    serverMoney: IServerMoney
+}
 
-// const mapStateToProps = ({fullTable}: IMapState)=>({
-//     onShow: fullTable.onCheck
-// })
+const mapStateToProps = ({ serverMoney }: IMapState) => {
+    return {
+        newCashFlowItem: serverMoney.newCashFlowItem
+    }
+}
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     setNewCashFlowItem: (value: any) => dispatch(setNewCashFlowItem(value))
 })
 
-export default connect(undefined, mapDispatchToProps)(DateLine)
+export default connect(mapStateToProps, mapDispatchToProps)(LineDate)

@@ -6,7 +6,6 @@ import { Input } from "@material-ui/core"
 import { setNewCashFlowItem } from "../../../store/serverMoney/action"
 import { connect } from "react-redux"
 
-
 interface ITempCashFlow {
     name?: string
     id?: number
@@ -33,7 +32,6 @@ interface IProps {
 
 // комірка з Доходом
 class IncomeLine extends Component<IProps> {
-
     shouldComponentUpdate() {
         const { onShow } = this.props
         if (!onShow) return false
@@ -77,7 +75,7 @@ class IncomeLine extends Component<IProps> {
                     />
                 </StyledTableCell>
             )
-        } else
+        } else {
             return (
                 <StyledTableCell
                     className={onShow ? "activeTd" : ""}
@@ -86,6 +84,7 @@ class IncomeLine extends Component<IProps> {
                     {Calc.LC(item.income, " " + item.currency)}
                 </StyledTableCell>
             )
+        }
     }
 }
 
@@ -103,6 +102,5 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
         setNewCashFlowItem: (value: any) => dispatch(setNewCashFlowItem(value))
     }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(IncomeLine)

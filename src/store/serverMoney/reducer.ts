@@ -47,6 +47,7 @@ const serverMoneyReducer = (
         // Редактор cashFlow
         case SET_NEW_CASH_FLOW_ITEM:
             if (action.payload.key) {
+                // console.log(state.newCashFlowItem);
                 if (
                     action.payload.key === "pcs" ||
                     action.payload.key === "price" ||

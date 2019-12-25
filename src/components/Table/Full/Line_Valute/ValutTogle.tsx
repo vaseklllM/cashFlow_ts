@@ -62,8 +62,8 @@ class Line extends React.Component<IProps, IState> {
     }
 
     componentDidUpdate() {
-        const { rate } = this.state
-        const { setNewCashFlowItem, vallets } = this.props
+        // const { rate } = this.state
+        // const { setNewCashFlowItem, vallets } = this.props
 
         // if (rate !== "") {
         //     const valut = vallets.filter(item => item.cc === rate)

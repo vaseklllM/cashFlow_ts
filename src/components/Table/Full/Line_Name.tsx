@@ -1,34 +1,104 @@
-import React from "react"
-// import InputLine from "./creators/InputLine"
-// import { StyledTableCell } from "../../../Creators/Table/utils"
-import { ICashFlow } from "../../../interfaces"
-import InputLine from "./creators/Line_input"
+import React, { Component, Dispatch } from "react"
+import { ICashFlow, IServerMoney, TCurrency, TRate } from "../../../interfaces"
 import { StyledTableCell } from "../utils"
+import { Input } from "@material-ui/core"
+import { connect } from "react-redux"
+import { setNewCashFlowItem } from "../../../store/serverMoney/action"
+
+interface ITempCashFlow {
+    name?: string
+    id?: number
+    pcs?: number
+    price?: number
+    income?: number
+    currency?: TCurrency
+    rate?: TRate
+    dateBuy?: string | Date
+    checked?: boolean
+}
+
+interface IsetNewCashFlowItem {
+    key: string
+    value: string | number
+}
 
 interface IProps {
     item: ICashFlow
-    onShow: any
+    onShow: boolean
+    newCashFlowItem: ITempCashFlow
+    setNewCashFlowItem(value: IsetNewCashFlowItem): void
 }
 
 // комірка з назвою елемента
-const LineName = React.memo(({ item, onShow }: IProps) => {
-    const { name } = item
-    if (onShow) {
-        return (
-            <InputLine
-                value={name}
-                keyName='name'
-                width='13%'
-                place='Назва'
-                ClassNameInputStyle='FullTableNameInput'
-            />
-        )
-    } else
-        return (
-            <StyledTableCell className={onShow ? "activeTd" : ""} align='left'>
-                {name}
-            </StyledTableCell>
-        )
-})
+class LineName extends Component<IProps> {
+    shouldComponentUpdate() {
+        const { onShow } = this.props
+        if (!onShow) return false
+        return true
+    }
 
-export default LineName
+    componentDidMount() {
+        const { item, onShow, setNewCashFlowItem } = this.props
+        if (onShow) {
+            setNewCashFlowItem({
+                key: "name",
+                value: item.name
+            })
+        }
+    }
+
+    render() {
+        const { item, onShow, newCashFlowItem, setNewCashFlowItem } = this.props
+        if (onShow) {
+            return (
+                <StyledTableCell
+                    className='activeTd'
+                    align='right'
+                    style={{ width: "13%" }}
+                >
+                    <Input
+                        style={{ textAlign: "left" }}
+                        className='FullTableNameInput'
+                        placeholder='Назва'
+                        onMouseDown={event => event.stopPropagation()}
+                        onChange={e => {
+                            setNewCashFlowItem({
+                                key: "name",
+                                value: e.target.value
+                            })
+                        }}
+                        value={newCashFlowItem.name || ""}
+                        inputProps={{
+                            "aria-label": "description"
+                        }}
+                    />
+                </StyledTableCell>
+            )
+        } else
+            return (
+                <StyledTableCell
+                    className={onShow ? "activeTd" : ""}
+                    align='left'
+                >
+                    {item.name}
+                </StyledTableCell>
+            )
+    }
+}
+
+interface IMapState {
+    serverMoney: IServerMoney
+}
+
+const mapStateToProps = ({ serverMoney }: IMapState) => {
+    return {
+        newCashFlowItem: serverMoney.newCashFlowItem
+    }
+}
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+    return {
+        setNewCashFlowItem: (value: any) => dispatch(setNewCashFlowItem(value))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LineName)

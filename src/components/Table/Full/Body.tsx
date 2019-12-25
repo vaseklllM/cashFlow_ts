@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Dispatch } from "react"
 import { StyledTableRow, StyledTableCell } from "../utils"
 import LineName from "./Line_Name"
 import { Calc } from "../../../utils"
@@ -11,18 +11,24 @@ import LineDate from "./Line_Date"
 import LinePriceToPcs from "./Line_PriceToPcs"
 import LinePcs from "./Line_Pcs"
 import LineIncome from "./Line_Income"
-import LineValute from './Line_Valute';
+import LineValute from "./Line_Valute"
+import { setCheckBox } from "../../../store/serverMoney/action"
 
 interface IProps {
     bodyText: IFullBodyText
     searchCashFlow: TSearchCashFlow
     cashFlow: TCashFlow
     editElementId: null | number
+    setCheckBox(index: number): void
 }
 
 const Body = (props: IProps) => {
-    const { bodyText, searchCashFlow, cashFlow, editElementId } = props
-    // console.log(editElementId);
+    const {
+        bodyText,
+        searchCashFlow,
+        cashFlow,
+        setCheckBox
+    } = props
 
     let mainArray: TCashFlow = "Loading..."
     searchCashFlow !== "None" && Array.isArray(searchCashFlow)
@@ -65,9 +71,9 @@ const Body = (props: IProps) => {
                 <StyledTableRow
                     hover
                     key={id}
-                    // onMouseDown={() => {
-                    //     setCheckBox(id)
-                    // }}
+                    onMouseDown={() => {
+                        setCheckBox(id)
+                    }}
                     style={
                         checked
                             ? { backgroundColor: "rgba(0, 0, 0, 0.15)" }
@@ -113,4 +119,10 @@ const mapStateToProps = ({ fullTable, serverMoney }: IMapState) => ({
     editElementId: fullTable.editElementId
 })
 
-export default connect(mapStateToProps)(Body)
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+    return {
+        setCheckBox: (index: number) => dispatch(setCheckBox(index))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Body)

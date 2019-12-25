@@ -2,7 +2,7 @@ export interface IServerMoney {
     searchCashFlow: TSearchCashFlow
     cashFlow: TCashFlow
     vallets: TValut
-    newCashFlowItem: ICashFlow | object
+    newCashFlowItem: object
 }
 
 export interface INewCashFlowItem {}

@@ -10,7 +10,7 @@ import DateFnsUtils from "@date-io/date-fns"
 import { setNewCashFlowItem } from "../../../store/serverMoney/action"
 import { StyledTableCell } from "../utils"
 import { ICashFlow } from "../../../interfaces"
-import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date"
+// import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date"
 // import { IFullTable } from "../../../store/FullTable/interface"
 
 interface IProps {

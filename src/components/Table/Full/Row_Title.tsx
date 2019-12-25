@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-import { StyledTableCell, StyledTableRow } from "../utils"
+import { StyledTableCell } from "../utils"
 import { IconButton, TableHead, TableRow } from "@material-ui/core"
 import AddBoxIcon from "@material-ui/icons/AddBox"
 import { IFullBodyText } from "."
@@ -37,6 +37,7 @@ function Row_Title(props: IProps) {
             </StyledTableCell>
         )
     })
+    // const Table_Row: JSX.Element[] | JSX.Element = 
 
     return (
         <TableHead>

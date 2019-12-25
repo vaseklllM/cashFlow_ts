@@ -13,7 +13,7 @@ import {
 const cashFlowState: IServerMoney = {
     searchCashFlow: "None",
     cashFlow: "Loading...",
-    vallets: 'Loading...',
+    vallets: "Loading...",
     newCashFlowItem: {}
 }
 
@@ -32,7 +32,7 @@ const serverMoneyReducer = (
 
         // Змінює item.checked по id переданому в action.payload
         case SET_CASH_FLOW_CHACKBOX:
-            if (state.cashFlow !== 'Loading...' && state.cashFlow !== 'Error') {
+            if (state.cashFlow !== "Loading..." && state.cashFlow !== "Error") {
                 const newCashFlow = state.cashFlow.map(item => {
                     if (item.id === action.payload) {
                         item.checked = !item.checked
@@ -46,17 +46,43 @@ const serverMoneyReducer = (
 
         // Редактор cashFlow
         case SET_NEW_CASH_FLOW_ITEM:
+            if (action.payload.key) {
+                if (
+                    action.payload.key === "pcs" ||
+                    action.payload.key === "price" ||
+                    action.payload.key === "income"
+                ) {
+                    return {
+                        ...state,
+                        newCashFlowItem: {
+                            ...state.newCashFlowItem,
+                            ...{
+                                [action.payload.key]: parseFloat(
+                                    action.payload.value
+                                )
+                            }
+                        }
+                    }
+                } else {
+                    return {
+                        ...state,
+                        newCashFlowItem: {
+                            ...state.newCashFlowItem,
+                            ...{ [action.payload.key]: action.payload.value }
+                        }
+                    }
+                }
+            }
             return {
-                ...state,
-                newCashFlowItem: { ...state.newCashFlowItem, ...action.payload }
+                ...state
             }
 
         // пошук по всіх таблицях
         case SEARCH_CASH_FLOW:
-            if (action.payload === '') {
+            if (action.payload === "") {
                 return {
                     ...state,
-                    searchCashFlow: 'None'
+                    searchCashFlow: "None"
                 }
             }
             let arr: ICashFlow[] = []

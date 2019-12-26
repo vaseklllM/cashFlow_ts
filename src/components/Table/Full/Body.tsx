@@ -13,12 +13,13 @@ import LinePcs from "./Line_Pcs"
 import LineIncome from "./Line_Income"
 import LineValute from "./Line_Valute"
 import { setCheckBox } from "../../../store/serverMoney/action"
+import LineControlBtn from "./Line_ControlBtn"
 
 interface IProps {
     bodyText: IFullBodyText
     searchCashFlow: TSearchCashFlow
     cashFlow: TCashFlow
-    editElementId: null | number
+    editElementId: undefined | number
     setCheckBox(index: number): void
 }
 
@@ -30,7 +31,6 @@ const Body = (props: IProps) => {
         setCheckBox,
         editElementId
     } = props
-
 
     let mainArray: TCashFlow = "Loading..."
     searchCashFlow !== "None" && Array.isArray(searchCashFlow)
@@ -84,6 +84,7 @@ const Body = (props: IProps) => {
                 >
                     <StyledTableCell className='fullTable' padding='checkbox'>
                         <div className='fullTable-Buttons'>
+                            <LineControlBtn item={item} />
                             {/* {leftControlBtn(item)} */}
                         </div>
                     </StyledTableCell>

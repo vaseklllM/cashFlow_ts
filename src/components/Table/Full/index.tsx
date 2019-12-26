@@ -1,11 +1,8 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-// material
 import { Box, Typography, Paper, Table } from "@material-ui/core"
 import { IServerMoney } from "../../../interfaces"
-
 import { IFullTable } from "../../../store/FullTable/interface"
-
 import RowTitle from "./Row_Title"
 import Body from "./Body"
 

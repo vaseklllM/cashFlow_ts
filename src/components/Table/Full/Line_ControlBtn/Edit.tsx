@@ -4,19 +4,17 @@ import CheckIcon from "@material-ui/icons/Check"
 import CloseIcon from "@material-ui/icons/Close"
 import { connect } from "react-redux"
 import { changeParametersCashFlow } from "../../../../store/serverMoney/action"
-import { ICashFlow } from "../../../../interfaces"
+import { setEditElementId } from "../../../../store/FullTable/action"
+import { IFullTable } from "../../../../store/FullTable/interface"
 
 interface IState {
-    item: ICashFlow
-    changeParametersCashFlow: Function
-    onClickEditelementId: any
+    setEditElementId(id: number | undefined): void
+    changeParametersCashFlow(id: number): void
+    editElementId: number | undefined
 }
 
-const Edit = ({
-    item,
-    changeParametersCashFlow,
-    onClickEditelementId
-}: IState) => {
+const Edit = (props: IState) => {
+    const { setEditElementId, editElementId, changeParametersCashFlow } = props
     return (
         <>
             <IconButton
@@ -25,8 +23,10 @@ const Edit = ({
                     event.stopPropagation()
                 }}
                 onClick={() => {
-                    changeParametersCashFlow(item.id)
-                    onClickEditelementId(item.id)
+                    if (editElementId) {
+                        changeParametersCashFlow(editElementId)
+                        setEditElementId(undefined)
+                    }
                 }}
             >
                 <CheckIcon fontSize='small' />
@@ -37,7 +37,7 @@ const Edit = ({
                     event.stopPropagation()
                 }}
                 onClick={() => {
-                    onClickEditelementId(item.id)
+                    setEditElementId(undefined)
                 }}
             >
                 <CloseIcon fontSize='small' />
@@ -45,11 +45,22 @@ const Edit = ({
         </>
     )
 }
+
+interface IMapState {
+    fullTable: IFullTable
+}
+
+const mapStateToProps = ({ fullTable }: IMapState) => ({
+    editElementId: fullTable.editElementId
+})
+
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
-        changeParametersCashFlow: (itemId: any) =>
-            dispatch(changeParametersCashFlow(itemId))
+        changeParametersCashFlow: (id: number) =>
+            dispatch(changeParametersCashFlow(id)),
+        setEditElementId: (id: number | undefined) =>
+            dispatch(setEditElementId(id))
     }
 }
 
-export default connect(null, mapDispatchToProps)(Edit)
+export default connect(mapStateToProps, mapDispatchToProps)(Edit)

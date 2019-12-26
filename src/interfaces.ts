@@ -1,11 +1,12 @@
+import { INewCashFlowItem } from "./components/Table/interface"
+
 export interface IServerMoney {
     searchCashFlow: TSearchCashFlow
     cashFlow: TCashFlow
     vallets: TValut
-    newCashFlowItem: object
+    newCashFlowItem: INewCashFlowItem
 }
 
-export interface INewCashFlowItem {}
 
 export interface IAction {
     type: string

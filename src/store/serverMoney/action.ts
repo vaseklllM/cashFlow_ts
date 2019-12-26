@@ -36,14 +36,14 @@ export const setNewCashFlowItem = (value: object): action => ({
     type: SET_NEW_CASH_FLOW_ITEM,
     payload: value
 })
-export const changeParametersCashFlow = (itemId: any) => ({
+export const changeParametersCashFlow = (id: number): action => ({
     type: CHANGE_PARAMETRS_CASH_FLOW,
-    payload: itemId
+    payload: id
 })
 export const onDeleteCashFlowItem = (itemId: any): action => ({
     type: ON_DELETE_CASH_FLOW_ITEM,
     payload: itemId
 })
-export const createNewCashFlowItem = (): action  => ({
+export const createNewCashFlowItem = (): action => ({
     type: CREATE_NEW_CASH_FLOW_ITEM
 })

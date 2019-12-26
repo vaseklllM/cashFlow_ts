@@ -1,4 +1,4 @@
-import { IServerMoney, IAction, ICashFlow } from "../../interfaces"
+import { IServerMoney, IAction, ICashFlow, TCurrency } from "../../interfaces"
 import {
     SET_CASH_FLOW,
     SET_VALLET_COURSE,
@@ -6,7 +6,8 @@ import {
     // ON_DELETE_CASH_FLOW_ITEM,
     // CREATE_NEW_CASH_FLOW_ITEM,
     SET_NEW_CASH_FLOW_ITEM,
-    SET_CASH_FLOW_CHACKBOX
+    SET_CASH_FLOW_CHACKBOX,
+    CHANGE_PARAMETRS_CASH_FLOW
 } from "./action"
 // import { Calc } from "../../utils"
 
@@ -95,6 +96,51 @@ const serverMoneyReducer = (
             return {
                 ...state,
                 searchCashFlow: arr
+            }
+
+        case CHANGE_PARAMETRS_CASH_FLOW:
+            if (
+                Array.isArray(state.cashFlow) &&
+                action.payload &&
+                Array.isArray(state.vallets)
+            ) {
+                // визачення символу валюти
+                let newCurrency: TCurrency = "₴"
+                state.vallets.forEach(el => {
+                    if (el.cc === state.newCashFlowItem.rate) {
+                        newCurrency = el.sumbol
+                    }
+                })
+
+                // створення нового елемента CashFlow
+                let tempItem: ICashFlow = state.cashFlow[0]
+                state.cashFlow.forEach(i => {
+                    if (i.id === action.payload) {
+                        tempItem = i
+                    }
+                })
+                tempItem = { ...tempItem, ...state.newCashFlowItem }
+
+                // створення нового массиву CashFlow
+                const tempCashFlow: ICashFlow[] = state.cashFlow.map(
+                    element => {
+                        if (element.id === action.payload) {
+                            element = {
+                                ...tempItem,
+                                currency: newCurrency
+                            }
+                            return element
+                        }
+                        return element
+                    }
+                )
+                return {
+                    ...state,
+                    cashFlow: tempCashFlow
+                }
+            }
+            return {
+                ...state
             }
 
         // видалення з cashFlow приймає массив з id елементами які треба видалити

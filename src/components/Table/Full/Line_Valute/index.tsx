@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const ValuteLine = React.memo((props: IProps) => {
-    const { item, onShow } = props    
+    const { item, onShow } = props
     if (onShow) {
         return (
             <StyledTableCell className={onShow ? "activeTd" : ""} align='right'>

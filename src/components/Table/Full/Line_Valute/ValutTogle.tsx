@@ -10,7 +10,9 @@ import { withStyles } from "@material-ui/core/styles"
 import { connect } from "react-redux"
 import { setNewCashFlowItem } from "../../../../store/serverMoney/action"
 import { TValut, ICashFlow, IServerMoney } from "../../../../interfaces"
+import { INewCashFlowItem, IsetNewCashFlowItem } from "../../interface"
 
+// Styles --------------------
 const BootstrapInput = withStyles((theme: Theme) => ({
     input: {
         borderRadius: 4,
@@ -43,43 +45,20 @@ const BootstrapInput = withStyles((theme: Theme) => ({
 interface IProps {
     item: ICashFlow
     vallets: TValut
-    setNewCashFlowItem(value: any): void
+    newCashFlowItem: INewCashFlowItem
+    setNewCashFlowItem(value: IsetNewCashFlowItem): void
 }
 
-interface IState {
-    rate: string
-    currency: string
-}
-
-class Line extends React.Component<IProps, IState> {
-    state = {
-        rate: "",
-        currency: ""
-    }
+class Line extends React.Component<IProps> {
     componentDidMount() {
-        const { item } = this.props
-        this.setState({ rate: item.rate, currency: item.currency })
-    }
-
-    componentDidUpdate() {
-        // const { rate } = this.state
-        // const { setNewCashFlowItem, vallets } = this.props
-
-        // if (rate !== "") {
-        //     const valut = vallets.filter(item => item.cc === rate)
-        //     setNewCashFlowItem({
-        //         currency: valut[0].sumbol,
-        //         rate: valut[0].cc
-        //     })
-        // }
+        const { setNewCashFlowItem, item } = this.props
+        setNewCashFlowItem({ key: "rate", value: item.rate })
     }
 
     render() {
-        const { rate } = this.state
-        const { vallets } = this.props
-
+        const { vallets, newCashFlowItem, setNewCashFlowItem } = this.props
         const handleChange = (event: any): void => {
-            this.setState({ rate: event.target.value })
+            setNewCashFlowItem({ key: "rate", value: event.target.value })
         }
         if (Array.isArray(vallets)) {
             return (
@@ -88,9 +67,8 @@ class Line extends React.Component<IProps, IState> {
                         onMouseDown={event => {
                             event.stopPropagation()
                         }}
-                        // labelid='demo-customized-select-label'
                         id='demo-customized-select'
-                        value={rate}
+                        value={newCashFlowItem.rate}
                         onChange={handleChange}
                         input={<BootstrapInput />}
                     >
@@ -117,7 +95,8 @@ interface IMapState {
 }
 
 const MapStateToProps = ({ serverMoney }: IMapState) => ({
-    vallets: serverMoney.vallets
+    vallets: serverMoney.vallets,
+    newCashFlowItem: serverMoney.newCashFlowItem
 })
 
 const MapDospatchToProps = (dispatch: Dispatch<any>) => ({

@@ -1,32 +1,16 @@
 import React, { Component, Dispatch } from "react"
 import { Calc } from "../../../utils"
 import { StyledTableCell } from "../utils"
-import { ICashFlow, TCurrency, TRate, IServerMoney } from "../../../interfaces"
+import { ICashFlow, IServerMoney } from "../../../interfaces"
 import { Input } from "@material-ui/core"
 import { setNewCashFlowItem } from "../../../store/serverMoney/action"
 import { connect } from "react-redux"
-
-interface ITempCashFlow {
-    name?: string
-    id?: number
-    pcs?: number
-    price?: number
-    income?: number
-    currency?: TCurrency
-    rate?: TRate
-    dateBuy?: string | Date
-    checked?: boolean
-}
-
-interface IsetNewCashFlowItem {
-    key: string
-    value: string | number
-}
+import { INewCashFlowItem, IsetNewCashFlowItem } from "../interface"
 
 interface IProps {
     item: ICashFlow
     onShow: boolean
-    newCashFlowItem: ITempCashFlow
+    newCashFlowItem: INewCashFlowItem
     setNewCashFlowItem(value: IsetNewCashFlowItem): void
 }
 

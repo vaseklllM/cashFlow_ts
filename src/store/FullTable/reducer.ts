@@ -4,7 +4,7 @@ import { IFullTable } from "./interface"
 
 const fullTableState: IFullTable = {
     onCheck: [],
-    editElementId: null,
+    editElementId: 1,
     bodyText: {
         title: "Вся таблиця",
         emptyArray: "Таблиця пуста",

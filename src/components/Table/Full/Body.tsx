@@ -27,8 +27,10 @@ const Body = (props: IProps) => {
         bodyText,
         searchCashFlow,
         cashFlow,
-        setCheckBox
+        setCheckBox,
+        editElementId
     } = props
+
 
     let mainArray: TCashFlow = "Loading..."
     searchCashFlow !== "None" && Array.isArray(searchCashFlow)
@@ -66,7 +68,7 @@ const Body = (props: IProps) => {
         bodyTable = mainArray.map(item => {
             const { dateBuy, checked, id } = item
 
-            const onShow = id === 1
+            const onShow = id === editElementId
             return (
                 <StyledTableRow
                     hover

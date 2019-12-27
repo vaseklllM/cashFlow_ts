@@ -3,14 +3,19 @@ import { Checkbox, IconButton } from "@material-ui/core"
 import EditIcon from "@material-ui/icons/Edit"
 import { connect } from "react-redux"
 import { IFullTable } from "../../../../store/FullTable/interface"
-import { setItemSelectedId, setEditElementId } from "../../../../store/FullTable/action"
+import {
+    setItemSelectedId,
+    setEditElementId
+} from "../../../../store/FullTable/action"
 import { ICashFlow } from "../../../../interfaces"
+import { clearNewCashFlowItem } from "../../../../store/serverMoney/action"
 
 interface IProps {
     item: ICashFlow
     itemSelectedId: number[]
     setItemSelectedId(id: number): void
-    setEditElementId(id: number | undefined) : void
+    setEditElementId(id: number | undefined): void
+    clearNewCashFlowItem(): void
 }
 
 class View extends Component<IProps> {
@@ -28,7 +33,13 @@ class View extends Component<IProps> {
     }
 
     render() {
-        const { itemSelectedId, setItemSelectedId, item, setEditElementId } = this.props
+        const {
+            itemSelectedId,
+            setItemSelectedId,
+            item,
+            setEditElementId,
+            clearNewCashFlowItem
+        } = this.props
         return (
             <>
                 <Checkbox
@@ -47,7 +58,7 @@ class View extends Component<IProps> {
                     }}
                     onClick={() => {
                         setEditElementId(item.id)
-                        // onClickEditelementId(item.id)
+                        clearNewCashFlowItem()
                     }}
                 >
                     <EditIcon fontSize='small' />
@@ -67,7 +78,9 @@ const mapStateToProps = ({ fullTable }: IMapState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     setItemSelectedId: (id: number) => dispatch(setItemSelectedId(id)),
-    setEditElementId: (id: number | undefined) => dispatch(setEditElementId(id))
+    setEditElementId: (id: number | undefined) =>
+        dispatch(setEditElementId(id)),
+    clearNewCashFlowItem: () => dispatch(clearNewCashFlowItem())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(View)

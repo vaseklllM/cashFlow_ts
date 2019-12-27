@@ -56,10 +56,16 @@ class Line extends React.Component<IProps> {
     }
 
     render() {
-        const { vallets, newCashFlowItem, setNewCashFlowItem } = this.props
+        const {
+            vallets,
+            newCashFlowItem,
+            setNewCashFlowItem,
+            item
+        } = this.props
         const handleChange = (event: any): void => {
             setNewCashFlowItem({ key: "rate", value: event.target.value })
         }
+
         if (Array.isArray(vallets)) {
             return (
                 <FormControl>
@@ -68,7 +74,7 @@ class Line extends React.Component<IProps> {
                             event.stopPropagation()
                         }}
                         id='demo-customized-select'
-                        value={newCashFlowItem.rate}
+                        value={newCashFlowItem.rate || item.rate}
                         onChange={handleChange}
                         input={<BootstrapInput />}
                     >

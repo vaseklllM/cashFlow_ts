@@ -7,7 +7,8 @@ import {
     // CREATE_NEW_CASH_FLOW_ITEM,
     SET_NEW_CASH_FLOW_ITEM,
     SET_CASH_FLOW_CHACKBOX,
-    CHANGE_PARAMETRS_CASH_FLOW
+    CHANGE_PARAMETRS_CASH_FLOW,
+    CLEAR_NEW_CASH_FLOW_ITEM
 } from "./action"
 // import { Calc } from "../../utils"
 
@@ -23,6 +24,12 @@ const serverMoneyReducer = (
     action: IAction
 ): IServerMoney => {
     switch (action.type) {
+        case CLEAR_NEW_CASH_FLOW_ITEM:
+            return {
+                ...state,
+                newCashFlowItem: {}
+            }
+
         // получає cashFlow з сервера
         case SET_CASH_FLOW:
             return { ...state, cashFlow: action.payload }

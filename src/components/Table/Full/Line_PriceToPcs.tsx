@@ -52,7 +52,7 @@ class LinePriceToPcs extends Component<IProps> {
                                 value: e.target.value
                             })
                         }}
-                        value={newCashFlowItem.price || ""}
+                        value={newCashFlowItem.price || item.price}
                         inputProps={{
                             "aria-label": "description"
                         }}

@@ -8,12 +8,16 @@ export const CHANGE_PARAMETRS_CASH_FLOW: string = "CHANGE_PARAMETRS_CASH_FLOW"
 export const SEARCH_CASH_FLOW: string = "SEARCH_CASH_FLOW"
 export const ON_DELETE_CASH_FLOW_ITEM: string = "ON_DELETE_CASH_FLOW_ITEM"
 export const CREATE_NEW_CASH_FLOW_ITEM: string = "CREATE_NEW_CASH_FLOW_ITEM"
+export const CLEAR_NEW_CASH_FLOW_ITEM: string = "CLEAR_NEW_CASH_FLOW_ITEM"
 
 interface action {
     type: string
     payload?: any
 }
 
+export const clearNewCashFlowItem = (): action => ({
+    type: CLEAR_NEW_CASH_FLOW_ITEM
+})
 export const getCashFlow = (cashFlow: ICashFlow[]): action => ({
     type: SET_CASH_FLOW,
     payload: cashFlow

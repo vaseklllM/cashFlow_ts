@@ -52,7 +52,7 @@ class PcsLine extends Component<IProps> {
                                 value: e.target.value
                             })
                         }}
-                        value={newCashFlowItem.pcs || ""}
+                        value={newCashFlowItem.pcs || item.pcs}
                         inputProps={{
                             "aria-label": "description"
                         }}

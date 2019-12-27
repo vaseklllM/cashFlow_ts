@@ -52,7 +52,7 @@ class IncomeLine extends Component<IProps> {
                                 value: e.target.value
                             })
                         }}
-                        value={newCashFlowItem.income || ""}
+                        value={newCashFlowItem.income || item.income}
                         inputProps={{
                             "aria-label": "description"
                         }}

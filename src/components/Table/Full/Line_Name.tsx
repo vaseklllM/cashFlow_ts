@@ -51,7 +51,7 @@ class LineName extends Component<IProps> {
                                 value: e.target.value
                             })
                         }}
-                        value={newCashFlowItem.name || ""}
+                        value={newCashFlowItem.name || item.name }
                         inputProps={{
                             "aria-label": "description"
                         }}

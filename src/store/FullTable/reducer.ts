@@ -1,10 +1,14 @@
 import { IAction } from "../../interfaces"
-import { CLEAR_ON_CHECK_ARRAY, SET_EDIT_ELEMENT_ID } from "./action"
+import {
+    CLEAR_ON_CHECK_ARRAY,
+    SET_EDIT_ELEMENT_ID,
+    SET_ITEM_SELECTED_ID
+} from "./action"
 import { IFullTable } from "./interface"
 
 const fullTableState: IFullTable = {
     onCheck: [],
-    editElementId: 1,
+    editElementId: undefined,
     bodyText: {
         title: "Вся таблиця",
         emptyArray: "Таблиця пуста",
@@ -20,7 +24,8 @@ const fullTableState: IFullTable = {
             "Ціна загалом",
             "ROI/р."
         ]
-    }
+    },
+    itemSelectedId: []
 }
 
 function fullTableReducer(state = fullTableState, action: IAction) {
@@ -35,6 +40,21 @@ function fullTableReducer(state = fullTableState, action: IAction) {
             return {
                 ...state,
                 editElementId: action.payload
+            }
+
+        case SET_ITEM_SELECTED_ID:
+            if (state.itemSelectedId.indexOf(action.payload) !== -1) {
+                let tempArr = [...state.itemSelectedId]
+                tempArr.splice(tempArr.indexOf(action.payload), 1)
+                return {
+                    ...state,
+                    itemSelectedId: tempArr
+                }
+            } else {
+                return {
+                    ...state,
+                    itemSelectedId: [...state.itemSelectedId, action.payload]
+                }
             }
 
         default:

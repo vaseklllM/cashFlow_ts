@@ -15,7 +15,7 @@ const LineControlBtn = (props: IProps) => {
     if (item.id === editElementId) {
         return <Edit/>
     } 
-    return <View/>
+    return <View item={item}/>
 }
 
 interface IMapState {

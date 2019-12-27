@@ -5,17 +5,20 @@ import DeleteIcon from "@material-ui/icons/Delete"
 import { connect } from "react-redux"
 import { IFullTable } from "../../../store/FullTable/interface"
 import { clearOnCheck } from "../../../store/FullTable/action"
+import { IFullBodyText } from "."
 
 interface IState {
-    onCheck: number[]
+    bodyText: IFullBodyText
+    itemSelectedId: number[]
     clearOnCheck(): void
 }
 
-const RowDelete = ({ onCheck, clearOnCheck }: IState) => {
+const RowDelete = (props: IState) => {
+    const { clearOnCheck, itemSelectedId, bodyText } = props
     return (
         <StyledTableCell
             align='left'
-            // colSpan={bodyText.collumn.length}
+            colSpan={bodyText.collumn.length}
             style={{
                 backgroundColor: "rgb(250, 224, 233)",
                 color: "rgb(220, 0, 78)"
@@ -27,12 +30,11 @@ const RowDelete = ({ onCheck, clearOnCheck }: IState) => {
                 justify='space-between'
                 alignItems='center'
             >
-                <span>Вибрано: {onCheck.length}</span>
+                <span>Вибрано: {itemSelectedId.length}</span>
                 <IconButton
                     style={{ padding: "5px" }}
                     onClick={() => {
-                        // onDeleteCashFlowItem(onCheck)
-                        clearOnCheck()
+                        // clearOnCheck()
                     }}
                 >
                     <DeleteIcon />
@@ -47,7 +49,8 @@ interface IMapState {
 }
 
 const mapStateToProps = ({ fullTable }: IMapState) => ({
-    onCheck: fullTable.onCheck
+    itemSelectedId: fullTable.itemSelectedId,
+    bodyText: fullTable.bodyText
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({

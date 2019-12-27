@@ -9,11 +9,11 @@ import Row_Delete from "./Row_Delete"
 
 interface IProps {
     bodyText: IFullBodyText
-    onCheck: number[]
+    itemSelectedId: number[]
 }
 
 function Row_Title(props: IProps) {
-    const { bodyText, onCheck } = props
+    const { bodyText, itemSelectedId } = props
 
     const row = bodyText.collumn.map((item, index) => {
         if (index === 0) {
@@ -37,11 +37,12 @@ function Row_Title(props: IProps) {
             </StyledTableCell>
         )
     })
-    // const Table_Row: JSX.Element[] | JSX.Element = 
 
     return (
         <TableHead>
-            <TableRow>{onCheck.length === 0 ? row : <Row_Delete />}</TableRow>
+            <TableRow>
+                {itemSelectedId.length === 0 ? row : <Row_Delete />}
+            </TableRow>
         </TableHead>
     )
 }
@@ -52,7 +53,7 @@ interface IMapState {
 
 const mapStateToProps = ({ fullTable }: IMapState) => ({
     bodyText: fullTable.bodyText,
-    onCheck: fullTable.onCheck
+    itemSelectedId: fullTable.itemSelectedId
 })
 
 export default connect(mapStateToProps)(Row_Title)

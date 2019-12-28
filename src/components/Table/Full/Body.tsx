@@ -68,6 +68,7 @@ const Body = (props: IProps) => {
         bodyTable = mainArray.map(item => {
             const { dateBuy, checked, id } = item
 
+
             const onShow = id === editElementId
             return (
                 <StyledTableRow

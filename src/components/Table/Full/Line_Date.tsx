@@ -37,27 +37,45 @@ interface IProps {
 
 // комірка з датою
 class LineDate extends Component<IProps> {
-    componentDidMount() {
-        const { item, setNewCashFlowItem, onShow } = this.props
-        this.setState({ selectedDate: new Date(this.props.item.dateBuy) })
-        if (onShow) {
-            setNewCashFlowItem({
-                key: "dateBuy",
-                value: item.dateBuy
-            })
+    shouldComponentUpdate(nextProps: IProps) {
+        const { item, onShow, newCashFlowItem } = this.props
+        if (
+            newCashFlowItem.dateBuy !== nextProps.newCashFlowItem.dateBuy &&
+            nextProps.newCashFlowItem.dateBuy &&
+            onShow
+        ) {
+            return true
+        } else if (
+            onShow !== nextProps.onShow ||
+            item.dateBuy !== nextProps.item.dateBuy
+        ) {
+            return true
         }
+        return false
     }
 
     render() {
         const { item, onShow, setNewCashFlowItem, newCashFlowItem } = this.props
+
         const handleDateChange = (date: any): void => {
-            setNewCashFlowItem({
-                key: "dateBuy",
-                value: date
-            })
+            if (date.toString() !== "Invalid Date") {
+                setNewCashFlowItem({
+                    key: "dateBuy",
+                    value: date
+                })
+            }
         }
 
         if (onShow) {
+            if (
+                !newCashFlowItem.dateBuy ||
+                newCashFlowItem.dateBuy.toString() === "Invalid Date"
+            ) {
+                setNewCashFlowItem({
+                    key: "dateBuy",
+                    value: item.dateBuy
+                })
+            }
             return (
                 <StyledTableCell align='right' style={{ width: "10px" }}>
                     <div

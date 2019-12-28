@@ -1,8 +1,8 @@
 import { IAction } from "../../interfaces"
 import {
-    CLEAR_ON_CHECK_ARRAY,
     SET_EDIT_ELEMENT_ID,
-    SET_ITEM_SELECTED_ID
+    SET_ITEM_SELECTED_ID,
+    CLEAR_ITEM_SELECTED_ID
 } from "./action"
 import { IFullTable } from "./interface"
 
@@ -30,12 +30,6 @@ const fullTableState: IFullTable = {
 
 function fullTableReducer(state = fullTableState, action: IAction) {
     switch (action.type) {
-        case CLEAR_ON_CHECK_ARRAY:
-            return {
-                ...state,
-                onCheck: []
-            }
-
         case SET_EDIT_ELEMENT_ID:
             return {
                 ...state,
@@ -55,6 +49,12 @@ function fullTableReducer(state = fullTableState, action: IAction) {
                     ...state,
                     itemSelectedId: [...state.itemSelectedId, action.payload]
                 }
+            }
+
+        case CLEAR_ITEM_SELECTED_ID:
+            return {
+                ...state,
+                itemSelectedId: []
             }
 
         default:

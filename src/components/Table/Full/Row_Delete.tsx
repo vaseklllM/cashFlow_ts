@@ -4,17 +4,24 @@ import { Grid, IconButton } from "@material-ui/core"
 import DeleteIcon from "@material-ui/icons/Delete"
 import { connect } from "react-redux"
 import { IFullTable } from "../../../store/FullTable/interface"
-import { clearOnCheck } from "../../../store/FullTable/action"
+import { clearItemSelectedId } from "../../../store/FullTable/action"
+import { deleteItemsFromCashFlow } from "../../../store/serverMoney/action"
 import { IFullBodyText } from "."
 
-interface IState {
+interface IProps {
     bodyText: IFullBodyText
     itemSelectedId: number[]
-    clearOnCheck(): void
+    deleteItemsFromCashFlow(ItemsId: number[]): void
+    clearItemSelectedId(): void
 }
 
-const RowDelete = (props: IState) => {
-    const { clearOnCheck, itemSelectedId, bodyText } = props
+const RowDelete = (props: IProps) => {
+    const {
+        clearItemSelectedId,
+        deleteItemsFromCashFlow,
+        itemSelectedId,
+        bodyText
+    } = props
     return (
         <StyledTableCell
             align='left'
@@ -34,7 +41,8 @@ const RowDelete = (props: IState) => {
                 <IconButton
                     style={{ padding: "5px" }}
                     onClick={() => {
-                        // clearOnCheck()
+                        deleteItemsFromCashFlow(itemSelectedId)
+                        clearItemSelectedId()
                     }}
                 >
                     <DeleteIcon />
@@ -54,7 +62,9 @@ const mapStateToProps = ({ fullTable }: IMapState) => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-    clearOnCheck: () => dispatch(clearOnCheck)
+    deleteItemsFromCashFlow: (ItemsId: number[]) =>
+        dispatch(deleteItemsFromCashFlow(ItemsId)),
+    clearItemSelectedId: () => dispatch(clearItemSelectedId())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RowDelete)

@@ -9,15 +9,22 @@ export const SEARCH_CASH_FLOW: string = "SEARCH_CASH_FLOW"
 export const ON_DELETE_CASH_FLOW_ITEM: string = "ON_DELETE_CASH_FLOW_ITEM"
 export const CREATE_NEW_CASH_FLOW_ITEM: string = "CREATE_NEW_CASH_FLOW_ITEM"
 export const CLEAR_NEW_CASH_FLOW_ITEM: string = "CLEAR_NEW_CASH_FLOW_ITEM"
+export const DELETE_ITEMS_FROM_CASH_FLOW: string = 'DELETE_ITEMS_FROM_CASH_FLOW'
 
 interface action {
     type: string
     payload?: any
 }
 
+export const deleteItemsFromCashFlow = (ItemsId: number[]): action => ({
+    type: DELETE_ITEMS_FROM_CASH_FLOW,
+    payload: ItemsId
+})
+
 export const clearNewCashFlowItem = (): action => ({
     type: CLEAR_NEW_CASH_FLOW_ITEM
 })
+
 export const getCashFlow = (cashFlow: ICashFlow[]): action => ({
     type: SET_CASH_FLOW,
     payload: cashFlow

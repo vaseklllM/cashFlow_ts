@@ -1,8 +1,8 @@
-import ActiveTable from "./Active"
-import CapitalTable from "./Capital"
-import CostsTable from "./Costs"
-import IncomeTable from "./Income"
-import PasiveTable from "./Pasive"
-import FullTable from './Full';
+import TableActive from "./Active"
+import TableCapital from "./Capital"
+import TableCostas from "./Costs"
+import TableIncome from "./Income"
+import TablePasive from "./Pasive"
+import TableFull from './Full';
 
-export { ActiveTable, CapitalTable, CostsTable, IncomeTable, PasiveTable, FullTable }
+export { TableActive, TableCapital, TableCostas, TableIncome, TablePasive, TableFull }

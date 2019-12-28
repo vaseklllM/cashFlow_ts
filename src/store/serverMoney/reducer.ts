@@ -8,7 +8,8 @@ import {
     SET_NEW_CASH_FLOW_ITEM,
     SET_CASH_FLOW_CHACKBOX,
     CHANGE_PARAMETRS_CASH_FLOW,
-    CLEAR_NEW_CASH_FLOW_ITEM
+    CLEAR_NEW_CASH_FLOW_ITEM,
+    DELETE_ITEMS_FROM_CASH_FLOW
 } from "./action"
 // import { Calc } from "../../utils"
 
@@ -24,6 +25,21 @@ const serverMoneyReducer = (
     action: IAction
 ): IServerMoney => {
     switch (action.type) {
+        case DELETE_ITEMS_FROM_CASH_FLOW:
+            if (Array.isArray(state.cashFlow)) {
+                let newCashFlow: ICashFlow[] = state.cashFlow
+                action.payload.forEach((el: number) => {
+                    newCashFlow = newCashFlow.filter(i => i.id !== el)
+                })
+                return {
+                    ...state,
+                    cashFlow: newCashFlow
+                }
+            }
+            return {
+                ...state
+            }
+
         case CLEAR_NEW_CASH_FLOW_ITEM:
             return {
                 ...state,

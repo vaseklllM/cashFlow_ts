@@ -85,7 +85,6 @@ const Body = (props: IProps) => {
                     <StyledTableCell className='fullTable' padding='checkbox'>
                         <div className='fullTable-Buttons'>
                             <LineControlBtn item={item} />
-                            {/* {leftControlBtn(item)} */}
                         </div>
                     </StyledTableCell>
                     <LineName item={item} onShow={onShow} />

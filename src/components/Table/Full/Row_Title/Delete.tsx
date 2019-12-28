@@ -1,12 +1,12 @@
 import React, { Dispatch } from "react"
-import { StyledTableCell } from "../utils"
+import { StyledTableCell } from "../../utils"
 import { Grid, IconButton } from "@material-ui/core"
 import DeleteIcon from "@material-ui/icons/Delete"
 import { connect } from "react-redux"
-import { IFullTable } from "../../../store/FullTable/interface"
-import { clearItemSelectedId } from "../../../store/FullTable/action"
-import { deleteItemsFromCashFlow } from "../../../store/serverMoney/action"
-import { IFullBodyText } from "."
+import { IFullTable } from "../../../../store/FullTable/interface"
+import { clearItemSelectedId } from "../../../../store/FullTable/action"
+import { deleteItemsFromCashFlow } from "../../../../store/serverMoney/action"
+import { IFullBodyText } from ".."
 
 interface IProps {
     bodyText: IFullBodyText

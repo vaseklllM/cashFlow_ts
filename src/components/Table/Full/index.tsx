@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import { Box, Typography, Paper, Table } from "@material-ui/core"
 import { IServerMoney } from "../../../interfaces"
 import { IFullTable } from "../../../store/FullTable/interface"
-import RowTitle from "./Row_Title"
+import LineTitle from "./Row_Title"
 import Body from "./Body"
 
 export interface IFullBodyText {
@@ -38,7 +38,7 @@ export class FullTable extends Component<IFullProps> {
                         aria-label='a dense table'
                         style={{ minWidth: "1500px" }}
                     >
-                        <RowTitle />
+                        <LineTitle />
                         <Body />
                     </Table>
                 </Paper>

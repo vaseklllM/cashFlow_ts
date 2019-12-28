@@ -35,6 +35,15 @@ class LinePriceToPcs extends Component<IProps> {
     render() {
         const { item, onShow, newCashFlowItem, setNewCashFlowItem } = this.props
         if (onShow) {
+            const inputValue: string | number = (() => {
+                if (typeof newCashFlowItem.price === "number") {
+                    return newCashFlowItem.price
+                } else if (newCashFlowItem.price === "") {
+                    return ""
+                } else {
+                    return item.price
+                }
+            })()
             return (
                 <StyledTableCell
                     className='activeTd'
@@ -52,7 +61,7 @@ class LinePriceToPcs extends Component<IProps> {
                                 value: e.target.value
                             })
                         }}
-                        value={newCashFlowItem.price || item.price}
+                        value={inputValue}
                         inputProps={{
                             "aria-label": "description"
                         }}

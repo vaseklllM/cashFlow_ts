@@ -33,8 +33,17 @@ class IncomeLine extends Component<IProps> {
     }
     render() {
         const { item, onShow, newCashFlowItem, setNewCashFlowItem } = this.props
-
         if (onShow) {
+            const inputValue: string | number = (() => {
+                if (typeof newCashFlowItem.income === "number") {
+                    return newCashFlowItem.income
+                } else if (newCashFlowItem.income === "") {
+                    return ""
+                } else {
+                    return item.income
+                }
+            })()
+
             return (
                 <StyledTableCell
                     className='activeTd'
@@ -52,7 +61,7 @@ class IncomeLine extends Component<IProps> {
                                 value: e.target.value
                             })
                         }}
-                        value={newCashFlowItem.income || item.income}
+                        value={inputValue}
                         inputProps={{
                             "aria-label": "description"
                         }}

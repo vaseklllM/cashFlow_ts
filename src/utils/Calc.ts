@@ -109,6 +109,7 @@ const Calc: Calc = {
 
     // Конвертер забирає лишні нулі після коми 5.0000001 => 5
     convertToNumber: num => {
+        if (num === 0) return 0
         if (num > -9 && num < 9) {
             return parseFloat(num.toFixed(4))
         } else if (num > -999 && num < 999) {

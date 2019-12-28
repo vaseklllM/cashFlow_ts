@@ -35,6 +35,15 @@ class PcsLine extends Component<IProps> {
     render() {
         const { item, onShow, newCashFlowItem, setNewCashFlowItem } = this.props
         if (onShow) {
+            const inputValue: string | number = (() => {
+                if (typeof newCashFlowItem.pcs === "number") {
+                    return newCashFlowItem.pcs
+                } else if (newCashFlowItem.pcs === "") {
+                    return ""
+                } else {
+                    return item.pcs
+                }
+            })()
             return (
                 <StyledTableCell
                     className='activeTd'
@@ -52,7 +61,7 @@ class PcsLine extends Component<IProps> {
                                 value: e.target.value
                             })
                         }}
-                        value={newCashFlowItem.pcs || item.pcs}
+                        value={inputValue}
                         inputProps={{
                             "aria-label": "description"
                         }}

@@ -3,7 +3,7 @@ import { ICashFlow, IValut } from "../../interfaces"
 export const SET_CASH_FLOW: string = "SET_CASH_FLOW"
 export const SET_VALLET_COURSE: string = "SET_VALLET_COURSE"
 export const SET_CASH_FLOW_CHACKBOX: string = "SET_CASH_FLOW_CHACKBOX"
-export const SET_NEW_CASH_FLOW_ITEM: string = "SET_NEW_CASH_FLOW_ITEM"
+export const EDIT_NEW_CASH_FLOW_ITEM: string = "EDIT_NEW_CASH_FLOW_ITEM"
 export const CHANGE_PARAMETRS_CASH_FLOW: string = "CHANGE_PARAMETRS_CASH_FLOW"
 export const SEARCH_CASH_FLOW: string = "SEARCH_CASH_FLOW"
 export const ON_DELETE_CASH_FLOW_ITEM: string = "ON_DELETE_CASH_FLOW_ITEM"
@@ -44,7 +44,7 @@ export const searchCashFlowAction = (newCashFlow: string): action => ({
     payload: newCashFlow
 })
 export const setNewCashFlowItem = (value: object): action => ({
-    type: SET_NEW_CASH_FLOW_ITEM,
+    type: EDIT_NEW_CASH_FLOW_ITEM,
     payload: value
 })
 export const changeParametersCashFlow = (id: number): action => ({

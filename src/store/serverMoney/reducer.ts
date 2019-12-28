@@ -3,15 +3,12 @@ import {
     SET_CASH_FLOW,
     SET_VALLET_COURSE,
     SEARCH_CASH_FLOW,
-    // ON_DELETE_CASH_FLOW_ITEM,
-    // CREATE_NEW_CASH_FLOW_ITEM,
-    SET_NEW_CASH_FLOW_ITEM,
+    EDIT_NEW_CASH_FLOW_ITEM,
     SET_CASH_FLOW_CHACKBOX,
     CHANGE_PARAMETRS_CASH_FLOW,
     CLEAR_NEW_CASH_FLOW_ITEM,
     DELETE_ITEMS_FROM_CASH_FLOW
 } from "./action"
-// import { Calc } from "../../utils"
 
 const cashFlowState: IServerMoney = {
     searchCashFlow: "None",
@@ -68,31 +65,56 @@ const serverMoneyReducer = (
                 return { ...state, cashFlow: newCashFlow }
             } else return { ...state }
 
-        // Редактор cashFlow
-        case SET_NEW_CASH_FLOW_ITEM:
+        // Редактор newCashFlowItem
+        case EDIT_NEW_CASH_FLOW_ITEM:
             if (action.payload.key) {
                 if (
+                    action.payload.key === "income" ||
                     action.payload.key === "pcs" ||
-                    action.payload.key === "price" ||
-                    action.payload.key === "income"
+                    action.payload.key === "price"
                 ) {
+                    if (action.payload.value === "") {
+                        return {
+                            ...state,
+                            newCashFlowItem: {
+                                ...state.newCashFlowItem,
+                                [action.payload.key]: ""
+                            }
+                        }
+                    }
                     return {
                         ...state,
                         newCashFlowItem: {
                             ...state.newCashFlowItem,
-                            ...{
-                                [action.payload.key]: parseFloat(
-                                    action.payload.value
-                                )
-                            }
+                            [action.payload.key]: parseFloat(
+                                action.payload.value
+                            )
                         }
                     }
+                // } else if (action.payload.key === "name") {
+                //     if (action.payload.value && action.payload.value !== "") {
+                //         return {
+                //             ...state,
+                //             newCashFlowItem: {
+                //                 ...state.newCashFlowItem,
+                //                 name: action.payload.value
+                //             }
+                //         }
+                //     } else {
+                //         return {
+                //             ...state,
+                //             newCashFlowItem: {
+                //                 ...state.newCashFlowItem,
+                //                 name: action.payload.value
+                //             }
+                //         }
+                //     }
                 } else {
                     return {
                         ...state,
                         newCashFlowItem: {
                             ...state.newCashFlowItem,
-                            ...{ [action.payload.key]: action.payload.value }
+                            [action.payload.key]: action.payload.value
                         }
                     }
                 }
@@ -121,6 +143,7 @@ const serverMoneyReducer = (
                 searchCashFlow: arr
             }
 
+        // save new cashFlow paramets
         case CHANGE_PARAMETRS_CASH_FLOW:
             if (
                 Array.isArray(state.cashFlow) &&
@@ -143,7 +166,7 @@ const serverMoneyReducer = (
                     }
                 })
                 tempItem = { ...tempItem, ...state.newCashFlowItem }
-
+                // console.log(tempItem);
                 // створення нового массиву CashFlow
                 const tempCashFlow: ICashFlow[] = state.cashFlow.map(
                     element => {
@@ -166,107 +189,9 @@ const serverMoneyReducer = (
                 ...state
             }
 
-        // видалення з cashFlow приймає массив з id елементами які треба видалити
-        // case ON_DELETE_CASH_FLOW_ITEM:
-        //     return {
-        //         ...state,
-        //         cashFlow: deleteId(action.payload, state.cashFlow),
-        //         searchCashFlow: state.searchCashFlow
-        //             ? deleteId(action.payload, state.searchCashFlow)
-        //             : null
-        //     }
-
-        // Створює новий обєкт в cashFlow
-        // case CREATE_NEW_CASH_FLOW_ITEM:
-        //     return {
-        //         ...state,
-        //         cashFlow: CreateNewItem(state.cashFlow)
-        //     }
-
-        // змінює cashFlow обєкти
-        // case CHANGE_PARAMETRS_CASH_FLOW:
-        //     const checkType = (x: number): number => Math.floor(x)
-
-        //     const CreateObject = (
-        //         newCashFlowItem: ICashFlow,
-        //         item: ICashFlow
-        //     ): ICashFlow => {
-        //         const {
-        //             income,
-        //             pcs,
-        //             price,
-        //             name,
-        //             currency,
-        //             rate,
-        //             dateBuy
-        //         } = newCashFlowItem
-
-        //         return {
-        //             ...item,
-        //             name: name !== "" ? name : item.name,
-        //             pcs: checkType(pcs),
-        //             price: checkType(price),
-        //             income: checkType(income),
-        //             currency,
-        //             rate,
-        //             dateBuy
-        //         }
-        //     }
-        //     let newCeshflow: JSX.Element[] | null = null
-        //     if (state.cashFlow !== null) {
-        //         newCeshflow = state.cashFlow.map(item => {
-        //             if (item.id === action.payload) {
-        //                 return CreateObject(state.newCashFlowItem, item)
-        //             } else return item
-        //         })
-        //     }
-        //     let newSearchCashFlow: null | JSX.Element[] = null
-        //     if (state.searchCashFlow !== null) {
-        //         newSearchCashFlow = state.searchCashFlow.map(item => {
-        //             if (item.id === action.payload) {
-        //                 return CreateObject(state.newCashFlowItem, item)
-        //             } else return item
-        //         })
-        //     }
-
-        //     return {
-        //         ...state,
-        //         cashFlow: newCeshflow,
-        //         searchCashFlow: newSearchCashFlow
-        //     }
-
         default:
             return state
     }
 }
-
-// function CreateNewItem(cashFlow: ICashFlow[] | null) {
-//     if (cashFlow !== null) {
-//         const newItem: ICashFlow = {
-//             checked: false,
-//             dateBuy: new Date(),
-//             id: Calc.lastIdFromCashFlow(cashFlow),
-//             currency: "₴",
-//             income: 0,
-//             name: "Назва",
-//             pcs: 1,
-//             price: 0,
-//             rate: "UAH"
-//         }
-//         return [newItem, ...cashFlow]
-//     } else return cashFlow
-// }
-
-// function deleteId(arr: Array<number>, cashFlow: ICashFlow[] | null) {
-//     if (cashFlow !== null) {
-//         let delCashFlow = [...cashFlow]
-//         arr.forEach((item: number) => {
-//             delCashFlow = delCashFlow.filter((i: ICashFlow) => i.id !== item)
-//         })
-//         return delCashFlow
-//     } else {
-//         return cashFlow
-//     }
-// }
 
 export default serverMoneyReducer

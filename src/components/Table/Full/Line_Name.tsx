@@ -1,4 +1,4 @@
-import React, { Component, Dispatch } from "react"
+import React, { Component, Dispatch, ReactText } from "react"
 import { ICashFlow, IServerMoney } from "../../../interfaces"
 import { StyledTableCell } from "../utils"
 import { Input } from "@material-ui/core"
@@ -34,6 +34,16 @@ class LineName extends Component<IProps> {
     render() {
         const { item, onShow, newCashFlowItem, setNewCashFlowItem } = this.props
         if (onShow) {
+            const inputValue: ReactText = (() => {
+                if (
+                    newCashFlowItem.name !== "" &&
+                    newCashFlowItem.name !== undefined
+                ) {
+                    return newCashFlowItem.name
+                } else {
+                    return item.name
+                }
+            })()
             return (
                 <StyledTableCell
                     className='activeTd'
@@ -48,10 +58,13 @@ class LineName extends Component<IProps> {
                         onChange={e => {
                             setNewCashFlowItem({
                                 key: "name",
-                                value: e.target.value
+                                value:
+                                    e.target.value !== ""
+                                        ? e.target.value
+                                        : item.name
                             })
                         }}
-                        value={newCashFlowItem.name || item.name }
+                        value={inputValue}
                         inputProps={{
                             "aria-label": "description"
                         }}

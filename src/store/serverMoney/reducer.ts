@@ -7,7 +7,8 @@ import {
     SET_CASH_FLOW_CHACKBOX,
     CHANGE_PARAMETRS_CASH_FLOW,
     CLEAR_NEW_CASH_FLOW_ITEM,
-    DELETE_ITEMS_FROM_CASH_FLOW
+    DELETE_ITEMS_FROM_CASH_FLOW,
+    CREATE_NEW_CASH_FLOW_ITEM
 } from "./action"
 
 const cashFlowState: IServerMoney = {
@@ -22,6 +23,24 @@ const serverMoneyReducer = (
     action: IAction
 ): IServerMoney => {
     switch (action.type) {
+        case CREATE_NEW_CASH_FLOW_ITEM:
+            if (Array.isArray(state.cashFlow)) {
+                const newItem: ICashFlow = {
+                    id: action.payload,
+                    checked: false,
+                    currency: "₴",
+                    dateBuy: new Date(),
+                    income: 0,
+                    name: "Назва",
+                    pcs: 1,
+                    price: 0,
+                    rate: "UAH"
+                }
+                return { ...state, cashFlow: [newItem, ...state.cashFlow] }
+            } else {
+                return { ...state }
+            }
+
         case DELETE_ITEMS_FROM_CASH_FLOW:
             if (Array.isArray(state.cashFlow)) {
                 let newCashFlow: ICashFlow[] = state.cashFlow
@@ -91,24 +110,6 @@ const serverMoneyReducer = (
                             )
                         }
                     }
-                // } else if (action.payload.key === "name") {
-                //     if (action.payload.value && action.payload.value !== "") {
-                //         return {
-                //             ...state,
-                //             newCashFlowItem: {
-                //                 ...state.newCashFlowItem,
-                //                 name: action.payload.value
-                //             }
-                //         }
-                //     } else {
-                //         return {
-                //             ...state,
-                //             newCashFlowItem: {
-                //                 ...state.newCashFlowItem,
-                //                 name: action.payload.value
-                //             }
-                //         }
-                //     }
                 } else {
                     return {
                         ...state,
@@ -185,9 +186,7 @@ const serverMoneyReducer = (
                     cashFlow: tempCashFlow
                 }
             }
-            return {
-                ...state
-            }
+            return { ...state }
 
         default:
             return state

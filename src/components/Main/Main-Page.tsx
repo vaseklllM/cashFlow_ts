@@ -1,11 +1,11 @@
 import React from "react"
 import { Grid, Container, Box } from "@material-ui/core"
 import {
-    // TableActive,
-    // TableCapital,
-    // TableCostas,
-    // TableIncome,
-    // TablePasive,
+    TableActive,
+    TableCapital,
+    TableCostas,
+    TableIncome,
+    TablePasive,
     TableFull
 } from "../Table"
 import ProgressBarCapital from "../ProgressBar_Capital"
@@ -29,7 +29,7 @@ const MainContainer = () => {
                 <div className='range-horizontal' />
                 <Grid container justify='space-between'>
                     <Grid item container spacing={3}>
-                        {/* <Grid item xs={12} lg={6} xl={4}>
+                        <Grid item xs={12} lg={6} xl={4}>
                             <TableIncome />
                         </Grid>
                         <Grid item xs={12} lg={6} xl={4}>
@@ -43,7 +43,7 @@ const MainContainer = () => {
                         </Grid>
                         <Grid item xs={12} lg={12} xl={6}>
                             <TablePasive />
-                        </Grid> */}
+                        </Grid>
                         <Grid item xs={12} lg={12} xl={12}>
                             <TableFull />
                         </Grid>

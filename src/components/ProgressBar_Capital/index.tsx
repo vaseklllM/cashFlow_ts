@@ -11,6 +11,14 @@ interface ICapitalProps {
 
 class ProgressBarCapital extends Component<ICapitalProps> {
     shouldComponentUpdate(nextProps: ICapitalProps) {
+        if (
+            Array.isArray(this.props.cashFlow) &&
+            Array.isArray(nextProps.cashFlow)
+        ) {
+            if(!Calc.deepEqual(this.props.cashFlow, nextProps.cashFlow)){
+                return true
+            }
+        }
         if (this.props.vallets !== nextProps.vallets) return true
         return false
     }
@@ -25,7 +33,7 @@ class ProgressBarCapital extends Component<ICapitalProps> {
             vallets !== "Error" &&
             vallets !== "Loading..."
         ) {
-            const capitalArr = cashFlow.filter(item => item.income === 0)
+            const capitalArr = cashFlow.filter(item => item.pcs > 0 && item.price !== 0)
             capitalArr.forEach(item => {
                 let valet: IValut[] = vallets.filter(i => i.cc === item.rate)
                 if (valet[0] && valet[0].value) {
@@ -45,7 +53,10 @@ class ProgressBarCapital extends Component<ICapitalProps> {
             100000,
             200000,
             500000,
-            1000000
+            1000000,
+            10000000,
+            25000000,
+            50000000,
         ]
 
         for (let i = 0; i < num2.length; i++) {

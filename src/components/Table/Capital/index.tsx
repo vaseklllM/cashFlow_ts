@@ -30,9 +30,7 @@ function CapitalTable({ cashFlow, searchCashFlow, setCheckBox }: IProps) {
     let checked: number | null = null
     if (Array.isArray(mainArray)) {
         // filter повертає активи
-        obj = mainArray.filter(
-            item => item.income === 0 && item.pcs > 0 && item.price !== 0
-        )
+        obj = mainArray.filter(item => item.pcs > 0 && item.price !== 0)
         obj.forEach((item, index) => {
             if (item.checked) checked = index
         })

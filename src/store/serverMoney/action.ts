@@ -9,7 +9,7 @@ export const SEARCH_CASH_FLOW: string = "SEARCH_CASH_FLOW"
 export const ON_DELETE_CASH_FLOW_ITEM: string = "ON_DELETE_CASH_FLOW_ITEM"
 export const CREATE_NEW_CASH_FLOW_ITEM: string = "CREATE_NEW_CASH_FLOW_ITEM"
 export const CLEAR_NEW_CASH_FLOW_ITEM: string = "CLEAR_NEW_CASH_FLOW_ITEM"
-export const DELETE_ITEMS_FROM_CASH_FLOW: string = 'DELETE_ITEMS_FROM_CASH_FLOW'
+export const DELETE_ITEMS_FROM_CASH_FLOW: string = "DELETE_ITEMS_FROM_CASH_FLOW"
 
 interface action {
     type: string
@@ -55,6 +55,7 @@ export const onDeleteCashFlowItem = (itemId: any): action => ({
     type: ON_DELETE_CASH_FLOW_ITEM,
     payload: itemId
 })
-export const createNewCashFlowItem = (): action => ({
-    type: CREATE_NEW_CASH_FLOW_ITEM
+export const createNewCashFlowItem = (id: number): action => ({
+    type: CREATE_NEW_CASH_FLOW_ITEM,
+    payload: id
 })

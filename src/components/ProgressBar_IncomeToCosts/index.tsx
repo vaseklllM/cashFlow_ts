@@ -10,6 +10,14 @@ interface IIncomeProps {
 }
 class ProgressBarIncomeToCosts extends Component<IIncomeProps> {
     shouldComponentUpdate(nextProps: IIncomeProps) {
+        if (
+            Array.isArray(this.props.cashFlow) &&
+            Array.isArray(nextProps.cashFlow)
+        ) {
+            if (!Calc.deepEqual(this.props.cashFlow, nextProps.cashFlow)) {
+                return true
+            }
+        }
         if (this.props.vallets !== nextProps.vallets) return true
         return false
     }

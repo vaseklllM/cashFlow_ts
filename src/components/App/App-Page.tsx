@@ -1,5 +1,6 @@
 import React from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import Graphs from "../Graphs"
 import NavBar from "../NavBar"
 import Main from "../Main"
 import "./App.scss"
@@ -10,7 +11,7 @@ const App = () => {
             <Switch>
                 <Route path='/graphs'>
                     <NavBar />
-                    {/* <Graphs /> */}
+                    <Graphs />
                 </Route>
                 <Route path='/'>
                     <NavBar />

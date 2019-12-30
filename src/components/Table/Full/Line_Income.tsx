@@ -11,7 +11,7 @@ interface IProps {
     item: ICashFlow
     onShow: boolean
     newCashFlowItem: INewCashFlowItem
-    setNewCashFlowItem(value: IsetNewCashFlowItem): void
+    setNewCashFlowItem: (value: IsetNewCashFlowItem) => void
 }
 
 // комірка з Доходом

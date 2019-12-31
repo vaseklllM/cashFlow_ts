@@ -5,13 +5,12 @@ type IProps = {
     names: string[]
     colors: string[]
     values: number[]
-    name: string
 }
 
 class Circule extends React.Component<IProps> {
     private refCanvas = createRef<HTMLCanvasElement>()
     componentDidMount() {
-        const { names, colors, name, values } = this.props
+        const { names, colors, values } = this.props
         const obj = this.refCanvas.current
         const data = {
             labels: names,

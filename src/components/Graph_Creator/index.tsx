@@ -1,5 +1,11 @@
 import React from "react"
-import { TCashFlow, IServerMoney, TValut, ICashFlow } from "../../interfaces"
+import {
+    TCashFlow,
+    IServerMoney,
+    TValut,
+    ICashFlow,
+    IValut
+} from "../../interfaces"
 import { LinearProgress } from "@material-ui/core"
 import Error from "../Error"
 import { Calc } from "../../utils"
@@ -9,18 +15,17 @@ import Circule from "./Circule"
 interface IProps {
     array: TCashFlow
     type: string
-    name: string
     vallets: TValut
 }
 
 const GraphCreator = (props: IProps) => {
-    const { array, type, name, vallets } = props
+    const { array, type, vallets } = props
 
     if (array === "Error") {
         return <Error />
     } else if (Array.isArray(array) && Array.isArray(vallets)) {
         const names = array.map((i: ICashFlow) => i.name)
-        const values = [50, 120, 15, 13, 4847, 5,48]
+        const values = greateArrValues(array, vallets, type)
         // const values = array.map((i: ICashFlow) => {
         //     for (let j = 0; j < vallets.length; j++) {
         //         if (vallets[j].sumbol === i.currency) {
@@ -34,18 +39,20 @@ const GraphCreator = (props: IProps) => {
         //     }
         // })
         const colors: string[] = array.map(i => Calc.randomColor())
-        return (
-            <Circule
-                name={name}
-                colors={colors}
-                names={names}
-                values={values}
-            />
-        )
+        return <Circule colors={colors} names={names} values={values} />
     } else {
         return <LinearProgress />
     }
 }
+
+function greateArrValues(
+    arr: ICashFlow[],
+    vallets: IValut[],
+    type: string
+): number[] {
+    return [50, 120, 15, 13, 73, 5, 48]
+}
+
 interface IMapState {
     serverMoney: IServerMoney
 }

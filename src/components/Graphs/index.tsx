@@ -27,12 +27,7 @@ const Graphs = (props: IProps) => {
                         >
                             Доходи
                         </Typography>
-
-                        <CreateGraph
-                            array={incomeData}
-                            type='income'
-                            name='incomeGraph'
-                        />
+                        <CreateGraph array={incomeData} type='income' />
                     </Grid>
                 </Grid>
             </Box>

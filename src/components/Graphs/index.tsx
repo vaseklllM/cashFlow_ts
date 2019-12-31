@@ -1,33 +1,31 @@
 import React from "react"
-import { Grid, Box, Container, Typography } from "@material-ui/core"
-import CreateGraph from "../Graph_Creator"
-import { TCashFlow, IServerMoney } from "../../interfaces"
-import { connect } from "react-redux"
+import { Grid, Box, Container } from "@material-ui/core"
+import GraphIncome from "./Graph_Income"
+import GraphCosts from "./Graph_Costs"
+import GraphActive from "./Graph_Active"
+import GraphCapital from "./Graph_Capital"
 
-interface IProps {
-    cashFlow: TCashFlow
-}
-
-const Graphs = (props: IProps) => {
-    const { cashFlow } = props
-    let incomeData: TCashFlow = "Loading..."
-    if (Array.isArray(cashFlow)) {
-        incomeData = cashFlow.filter(i => i.income > 0)
-    }
-
+const GraphsPage = () => {
     return (
         <Container maxWidth='xl'>
             <Box mt={10}>
                 <Grid container spacing={3}>
                     <Grid item xl={4} md={6} xs={12}>
-                        <Typography
-                            variant='h6'
-                            style={{ textAlign: "center" }}
-                            gutterBottom
-                        >
-                            Доходи
-                        </Typography>
-                        <CreateGraph array={incomeData} type='income' />
+                        <GraphIncome />
+                    </Grid>
+                    <Grid item xl={4} md={6} xs={12}>
+                        <GraphCosts />
+                    </Grid>
+                    <Grid item xl={4} md={6} xs={12}>
+                        <GraphActive />
+                    </Grid>
+                </Grid>
+            </Box>
+            <div className='separator-horizontal' />
+            <Box mt={1}>
+                <Grid container spacing={3}>
+                    <Grid item xl={4} md={6} xs={12}>
+                        <GraphCapital />
                     </Grid>
                 </Grid>
             </Box>
@@ -35,12 +33,6 @@ const Graphs = (props: IProps) => {
     )
 }
 
-interface IMapState {
-    serverMoney: IServerMoney
-}
+export default GraphsPage
 
-const mapStateToProps = ({ serverMoney }: IMapState) => ({
-    cashFlow: serverMoney.cashFlow
-})
-
-export default connect(mapStateToProps)(Graphs)
+export { GraphIncome, GraphCosts }

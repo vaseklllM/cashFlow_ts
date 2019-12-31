@@ -14,30 +14,17 @@ import Circule from "./Circule"
 
 interface IProps {
     array: TCashFlow
-    type: string
+    type: "fullPrice" | "income"
     vallets: TValut
 }
 
 const GraphCreator = (props: IProps) => {
     const { array, type, vallets } = props
-
     if (array === "Error") {
         return <Error />
     } else if (Array.isArray(array) && Array.isArray(vallets)) {
         const names = array.map((i: ICashFlow) => i.name)
         const values = greateArrValues(array, vallets, type)
-        // const values = array.map((i: ICashFlow) => {
-        //     for (let j = 0; j < vallets.length; j++) {
-        //         if (vallets[j].sumbol === i.currency) {
-        //             // let priceUah =
-        //             //     type === "price"
-        //             //         ? vallets[j].value * i[type] * i.pcs
-        //             //         : vallets[j].value * i[type]
-        //             // return Calc.convertToNumber(priceUah)
-        //             return 50
-        //         }
-        //     }
-        // })
         const colors: string[] = array.map(i => Calc.randomColor())
         return <Circule colors={colors} names={names} values={values} />
     } else {
@@ -48,9 +35,20 @@ const GraphCreator = (props: IProps) => {
 function greateArrValues(
     arr: ICashFlow[],
     vallets: IValut[],
-    type: string
+    type: "fullPrice" | "income"
 ): number[] {
-    return [50, 120, 15, 13, 73, 5, 48]
+    let lastArr: number[] = []
+    arr.forEach((el: ICashFlow) => {
+        let valut: IValut = vallets.filter(i => i.cc === el.rate)[0]
+        if (valut.value) {
+            if (type === "fullPrice") {
+                lastArr.push(valut.value * (el.price * el.pcs))
+            } else if (type === "income") {
+                lastArr.push(valut.value * el.income)
+            }
+        }
+    })
+    return lastArr
 }
 
 interface IMapState {

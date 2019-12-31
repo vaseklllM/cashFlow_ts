@@ -9,7 +9,7 @@ import {
 } from "../../../interfaces"
 import { IBodyText } from "../interface"
 import { setCheckBox } from "../../../store/serverMoney/action"
-import { Calc } from "../../../utils"
+import { Calc, getterCashFlow } from "../../../utils"
 import CreateTable from "../Creator"
 
 interface IProps {
@@ -22,15 +22,17 @@ interface IProps {
 function ActiveTable({ cashFlow, searchCashFlow, setCheckBox }: IProps) {
     let mainArray: TCashFlow = "Loading..."
 
-    searchCashFlow !== "None" && Array.isArray(searchCashFlow)
+    Array.isArray(searchCashFlow)
         ? (mainArray = searchCashFlow)
         : (mainArray = cashFlow)
+
+    mainArray = getterCashFlow.getActive(mainArray)
 
     let obj: ICashFlow[] = []
     let checked: number | null = null
     if (Array.isArray(mainArray)) {
         // filter повертає активи
-        obj = mainArray.filter(item => item.income > 0)
+        obj = mainArray
         obj.forEach((item, index) => {
             if (item.checked) checked = index
         })

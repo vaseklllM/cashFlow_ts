@@ -9,7 +9,7 @@ import {
 } from "../../../interfaces"
 import { IBodyText } from "../interface"
 import { setCheckBox } from "../../../store/serverMoney/action"
-import { Calc } from "../../../utils"
+import { Calc, getterCashFlow } from "../../../utils"
 import CreateTable from "../Creator"
 
 interface IProps {
@@ -26,11 +26,13 @@ function PasiveTable({ cashFlow, searchCashFlow, setCheckBox }: IProps) {
         ? (mainArray = searchCashFlow)
         : (mainArray = cashFlow)
 
+    mainArray = getterCashFlow.getPassive(mainArray)
+
     let obj: ICashFlow[] = []
     let checked: number | null = null
     if (Array.isArray(mainArray)) {
         // filter повертає активи
-        obj = mainArray.filter(item => item.income < 0)
+        obj = mainArray
         obj.forEach((item, index) => {
             if (item.checked) checked = index
         })

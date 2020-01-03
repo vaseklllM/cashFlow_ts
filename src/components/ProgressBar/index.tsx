@@ -2,7 +2,7 @@ import React from "react"
 import { Box, Typography } from "@material-ui/core"
 import "./ProgressBar.scss"
 
-interface props {
+type TProps = {
     width: number
     title: {
         left: string
@@ -10,7 +10,7 @@ interface props {
     }
 }
 
-const ProgressBar = (props: props) => {
+const ProgressBar: React.FC<TProps> = props => {
     const { width, title } = props
     return (
         <div className='ProgressBar'>

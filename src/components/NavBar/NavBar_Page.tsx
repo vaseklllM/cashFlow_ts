@@ -12,7 +12,7 @@ import "./NavBar.scss"
 import Search from "../Search"
 import Valuts from "./Valuts_Text"
 
-const NavBarPage = () => {
+const NavBarPage: React.FC = () => {
     return (
         <AppBar position='fixed'>
             <Toolbar>

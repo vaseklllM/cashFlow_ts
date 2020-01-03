@@ -3,7 +3,7 @@ import { TCashFlow, IServerMoney } from "../../../interfaces"
 import { connect } from "react-redux"
 import { Typography } from "@material-ui/core"
 import CreateGraph from "../../CreateGraph"
-import { getterCashFlow } from "../../../utils"
+import { getActive } from "../../../utils/getterCashFlow"
 
 interface IProps {
     cashFlow: TCashFlow
@@ -21,10 +21,7 @@ const IncomeGraph = (props: IProps) => {
             >
                 Активи
             </Typography>
-            <CreateGraph
-                array={getterCashFlow.getActive(cashFlow)}
-                type='fullPrice'
-            />
+            <CreateGraph array={getActive(cashFlow)} type='fullPrice' />
         </>
     )
 }

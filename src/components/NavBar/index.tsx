@@ -1,7 +1,7 @@
 import React from "react"
 import NavBarPage from "./NavBar_Page"
 
-const NavBar = () => {
+const NavBar: React.FC = () => {
     return <NavBarPage />
 }
 

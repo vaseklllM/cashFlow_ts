@@ -11,7 +11,7 @@ interface IProps {
     setCheckBox(id: number): void
 }
 
-const RowList = (props: IProps) => {
+const RowList: React.FC<IProps> = props => {
     const { rows, emptyArray, colSpan, checked, setCheckBox } = props
 
     let newRow: JSX.Element[] | JSX.Element = (

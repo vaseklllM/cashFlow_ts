@@ -64,8 +64,10 @@ interface IProps {
     searchCashFlowAction(newCashFlow: string): void
 }
 
-const SearchPage = ({ searchCashFlowAction }: IProps) => {
-    const classes = useStyles()
+const SearchPage: React.FC<IProps> = props => {
+    const { searchCashFlowAction } = props
+    
+    const classes = useStyles("")
 
     const onChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
         searchCashFlowAction(event.target.value)

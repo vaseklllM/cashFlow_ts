@@ -9,8 +9,9 @@ import {
 } from "../../../interfaces"
 import { IBodyText } from "../interface"
 import { setCheckBox } from "../../../store/serverMoney/action"
-import { Calc, getterCashFlow } from "../../../utils"
 import CreateTable from "../Creator"
+import { Calc } from "../../../utils"
+import { getPassive } from "../../../utils/getterCashFlow"
 
 interface IProps {
     cashFlow: TCashFlow
@@ -26,7 +27,7 @@ function PasiveTable({ cashFlow, searchCashFlow, setCheckBox }: IProps) {
         ? (mainArray = searchCashFlow)
         : (mainArray = cashFlow)
 
-    mainArray = getterCashFlow.getPassive(mainArray)
+    mainArray = getPassive(mainArray)
 
     let obj: ICashFlow[] = []
     let checked: number | null = null

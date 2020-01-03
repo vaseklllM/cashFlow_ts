@@ -11,7 +11,7 @@ interface IBodyProps {
     minWidth: string
 }
 
-const Body = (props: IBodyProps) => {
+const Body: React.FC<IBodyProps> = props => {
     const {
         text: { emptyArray, collumn, rows },
         checked,

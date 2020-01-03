@@ -12,7 +12,7 @@ import ProgressBarCapital from "../ProgressBar_Capital"
 import ProgressBarincomeToCosts from "../ProgressBar_IncomeToCosts"
 import "./style.scss"
 
-const MainContainer = () => {
+const MainContainer: React.FC = () => {
     return (
         <>
             <Container maxWidth='xl'>

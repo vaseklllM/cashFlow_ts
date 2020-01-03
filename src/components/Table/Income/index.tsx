@@ -9,7 +9,8 @@ import {
 } from "../../../interfaces"
 import { IBodyText } from "../interface"
 import { setCheckBox } from "../../../store/serverMoney/action"
-import { Calc, getterCashFlow } from "../../../utils"
+import { Calc } from "../../../utils"
+import { getIncome } from "../../../utils/getterCashFlow"
 import CreateTable from "../Creator"
 
 interface IProps {
@@ -26,7 +27,7 @@ function IncomeTable({ cashFlow, searchCashFlow, setCheckBox }: IProps) {
         ? (mainArray = searchCashFlow)
         : (mainArray = cashFlow)
 
-    mainArray = getterCashFlow.getIncome(mainArray)
+    mainArray = getIncome(mainArray)
 
     let obj: ICashFlow[] = []
     let checked: number | null = null

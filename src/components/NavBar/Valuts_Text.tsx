@@ -5,11 +5,12 @@ import { Calc } from "../../utils"
 import { CircularProgress } from "@material-ui/core"
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded"
 
-interface IProps {
+type TProps = {
     vallets: TValut
 }
 
-const Valuts_Text = ({ vallets }: IProps) => {
+const Valuts_Text: React.FC<TProps> = props => {
+    const { vallets } = props
     if (vallets === "Error") {
         return <WarningRoundedIcon fontSize='large' />
     }

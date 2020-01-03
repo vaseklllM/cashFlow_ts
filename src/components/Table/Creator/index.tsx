@@ -5,7 +5,7 @@ import { IValut } from "../../../interfaces"
 import { IBodyText } from "../interface"
 import "./style.scss"
 
-interface props {
+interface IProps {
     bodyText: IBodyText
     fullPrice: IValut[]
     checked: number | null
@@ -13,7 +13,7 @@ interface props {
     minWidth: string
 }
 
-const TableCreator = (props: props) => {
+const TableCreator: React.FC<IProps> = props => {
     const { bodyText, fullPrice, checked, setCheckBox, minWidth } = props
     return (
         <>

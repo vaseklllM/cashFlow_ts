@@ -12,14 +12,15 @@ import { Calc } from "../../utils"
 import { connect } from "react-redux"
 import Circule from "./Circule"
 
-interface IProps {
+type TProps = {
     array: TCashFlow
     type: "fullPrice" | "income"
     vallets: TValut
 }
 
-const GraphCreator = (props: IProps) => {
+const GraphCreator: React.FC<TProps> = props => {
     const { array, type, vallets } = props
+
     if (array === "Error") {
         return <Error />
     } else if (Array.isArray(array) && Array.isArray(vallets)) {

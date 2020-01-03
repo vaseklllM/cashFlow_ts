@@ -9,8 +9,9 @@ import {
 } from "../../../interfaces"
 import { IBodyText } from "../interface"
 import { setCheckBox } from "../../../store/serverMoney/action"
-import { Calc, getterCashFlow } from "../../../utils"
+import { Calc } from "../../../utils"
 import CreateTable from "../Creator"
+import { getActive } from "../../../utils/getterCashFlow"
 
 interface IProps {
     cashFlow: TCashFlow
@@ -19,14 +20,16 @@ interface IProps {
 }
 
 // Таблиця активів
-function ActiveTable({ cashFlow, searchCashFlow, setCheckBox }: IProps) {
+const ActiveTable: React.FC<IProps> = props => {
+    const { cashFlow, searchCashFlow, setCheckBox } = props
+
     let mainArray: TCashFlow = "Loading..."
 
     Array.isArray(searchCashFlow)
         ? (mainArray = searchCashFlow)
         : (mainArray = cashFlow)
 
-    mainArray = getterCashFlow.getActive(mainArray)
+    mainArray = getActive(mainArray)
 
     let obj: ICashFlow[] = []
     let checked: number | null = null

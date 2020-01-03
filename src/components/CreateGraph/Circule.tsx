@@ -1,13 +1,13 @@
 import React, { createRef } from "react"
 import Chart from "chart.js"
 
-type IProps = {
+type TProps = {
     names: string[]
     colors: string[]
     values: number[]
 }
 
-class Circule extends React.Component<IProps> {
+class Circule extends React.Component<TProps> {
     private refCanvas = createRef<HTMLCanvasElement>()
     componentDidMount() {
         const { names, colors, values } = this.props

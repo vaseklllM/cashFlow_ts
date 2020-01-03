@@ -8,7 +8,9 @@ interface IProps {
     vallets: TValut
 }
 
-const TitleFullPriceText = ({ fullPrice, vallets }: IProps) => {
+const TitleFullPriceText: React.FC<IProps> = props => {
+    const { fullPrice, vallets } = props
+
     const fullPriceSpan: Array<JSX.Element> = fullPrice.map(item => {
         return (
             <span key={item.cc}>

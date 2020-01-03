@@ -5,12 +5,12 @@ import { ICashFlow, IValut, TValut, TCashFlow } from "../../interfaces"
 import { getCashFlow, getVallet } from "../../store/serverMoney/action"
 import AppPage from "./App-Page"
 
-interface props {
+type TProps = {
     getCashFlow(payload: TCashFlow): void
     getVallet(payload: TValut): void
 }
 
-export class App extends Component<props> {
+export class App extends Component<TProps> {
     componentDidMount(): void {
         const serv: serverMoney = new serverMoney()
         this.getCashFlowFetch(serv)

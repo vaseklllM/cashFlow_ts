@@ -1,7 +1,7 @@
 import React from "react"
 import MainPage from "./Main-Page"
 
-const Main = () => {
+const Main: React.FC = () => {
     return <MainPage />
 }
 

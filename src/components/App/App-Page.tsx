@@ -5,7 +5,7 @@ import NavBar from "../NavBar"
 import Main from "../Main"
 import "./App.scss"
 
-const App = () => {
+const App: React.FC = () => {
     return (
         <Router>
             <Switch>

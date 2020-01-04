@@ -35,10 +35,7 @@ class LineName extends Component<IProps> {
         const { item, onShow, newCashFlowItem, setNewCashFlowItem } = this.props
         if (onShow) {
             const inputValue: ReactText = (() => {
-                if (
-                    newCashFlowItem.name !== "" &&
-                    newCashFlowItem.name !== undefined
-                ) {
+                if (newCashFlowItem.name !== undefined) {
                     return newCashFlowItem.name
                 } else {
                     return item.name
@@ -58,16 +55,10 @@ class LineName extends Component<IProps> {
                         onChange={e => {
                             setNewCashFlowItem({
                                 key: "name",
-                                value:
-                                    e.target.value !== ""
-                                        ? e.target.value
-                                        : item.name
+                                value: e.target.value
                             })
                         }}
                         value={inputValue}
-                        inputProps={{
-                            "aria-label": "description"
-                        }}
                     />
                 </StyledTableCell>
             )

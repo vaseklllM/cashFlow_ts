@@ -1,4 +1,10 @@
-import { IServerMoney, IAction, ICashFlow, TCurrency } from "../../interfaces"
+import {
+    IServerMoney,
+    IAction,
+    ICashFlow,
+    TCurrency,
+    TSearchCashFlow
+} from "../../interfaces"
 import {
     SET_CASH_FLOW,
     SET_VALLET_COURSE,
@@ -43,13 +49,28 @@ const serverMoneyReducer = (
 
         case DELETE_ITEMS_FROM_CASH_FLOW:
             if (Array.isArray(state.cashFlow)) {
+                // Видалення елементів
                 let newCashFlow: ICashFlow[] = state.cashFlow
                 action.payload.forEach((el: number) => {
                     newCashFlow = newCashFlow.filter(i => i.id !== el)
                 })
+                // Видалення елементів під час пошуку
+                let newSearchCashFlow: TSearchCashFlow = state.searchCashFlow
+                if (
+                    Array.isArray(newSearchCashFlow) &&
+                    Array.isArray(action.payload)
+                ) {
+                    for (let i = 0; i < action.payload.length; i++) {
+                        const el = action.payload[i]
+                        newSearchCashFlow = newSearchCashFlow.filter(
+                            i => i.id !== el
+                        )
+                    }
+                }
                 return {
                     ...state,
-                    cashFlow: newCashFlow
+                    cashFlow: newCashFlow,
+                    searchCashFlow: newSearchCashFlow
                 }
             }
             return {
@@ -167,7 +188,7 @@ const serverMoneyReducer = (
                     }
                 })
                 tempItem = { ...tempItem, ...state.newCashFlowItem }
-                // console.log(tempItem);
+                if (tempItem.name === "") tempItem.name = "Введіть назву"
                 // створення нового массиву CashFlow
                 const tempCashFlow: ICashFlow[] = state.cashFlow.map(
                     element => {

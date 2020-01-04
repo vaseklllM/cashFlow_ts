@@ -11,6 +11,7 @@ import {
 import "./NavBar.scss"
 import Search from "../Search"
 import Valuts from "./Valuts_Text"
+import MobileButtons from "./MobileButtons"
 
 const NavBarPage: React.FC = () => {
     return (
@@ -38,7 +39,9 @@ const NavBarPage: React.FC = () => {
                         </Link>
                     </Box>
                 </Hidden>
-                <Hidden mdUp>MenuBtn</Hidden>
+                <Hidden mdUp>
+                    <MobileButtons />
+                </Hidden>
             </Toolbar>
         </AppBar>
     )

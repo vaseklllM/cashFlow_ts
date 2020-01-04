@@ -8,9 +8,9 @@ import {
 } from "../../interfaces"
 import { LinearProgress } from "@material-ui/core"
 import Error from "../Error"
-import { Calc } from "../../utils"
 import { connect } from "react-redux"
 import Circule from "./Circule"
+import { randomColor } from "../../utils/calc"
 
 type TProps = {
     array: TCashFlow
@@ -26,7 +26,7 @@ const GraphCreator: React.FC<TProps> = props => {
     } else if (Array.isArray(array) && Array.isArray(vallets)) {
         const names = array.map((i: ICashFlow) => i.name)
         const values = greateArrValues(array, vallets, type)
-        const colors: string[] = array.map(i => Calc.randomColor())
+        const colors: string[] = array.map(i => randomColor())
         return <Circule colors={colors} names={names} values={values} />
     } else {
         return <LinearProgress />

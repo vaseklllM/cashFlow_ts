@@ -1,7 +1,5 @@
 import React, { Dispatch, Component } from "react"
 import { connect } from "react-redux"
-import "date-fns"
-import { Calc } from "../../../utils"
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker
@@ -10,6 +8,7 @@ import DateFnsUtils from "@date-io/date-fns"
 import { setNewCashFlowItem } from "../../../store/serverMoney/action"
 import { StyledTableCell } from "../utils"
 import { ICashFlow, IServerMoney, TRate, TCurrency } from "../../../interfaces"
+import { showDate } from "../../../utils/calc"
 
 interface ITempCashFlow {
     name?: string
@@ -102,7 +101,7 @@ class LineDate extends Component<IProps> {
         } else {
             return (
                 <StyledTableCell align='right'>
-                    {Calc.showDate(item.dateBuy)}
+                    {showDate(item.dateBuy)}
                 </StyledTableCell>
             )
         }

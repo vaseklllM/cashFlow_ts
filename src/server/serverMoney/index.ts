@@ -1,6 +1,6 @@
 import cashFlow from "./arrayCashFlow"
 import { ICashFlow, IValut } from "../../interfaces"
-import { Calc } from "../../utils"
+import { convertToNumber } from "../../utils/calc"
 
 class serverMoney {
     private valletPrivatbank =
@@ -47,11 +47,11 @@ class serverMoney {
         )
 
         const arr: IValut[] = [
-            { cc: "BTC", sumbol: "₿", value: Calc.convertToNumber(BTC) },
-            { cc: "EUR", sumbol: "€", value: Calc.convertToNumber(EUR) },
-            { cc: "RUB", sumbol: "₽", value: Calc.convertToNumber(RUB) },
+            { cc: "BTC", sumbol: "₿", value: convertToNumber(BTC) },
+            { cc: "EUR", sumbol: "€", value: convertToNumber(EUR) },
+            { cc: "RUB", sumbol: "₽", value: convertToNumber(RUB) },
             { cc: "UAH", sumbol: "₴", value: 1 },
-            { cc: "USD", sumbol: "$", value: Calc.convertToNumber(USD) }
+            { cc: "USD", sumbol: "$", value: convertToNumber(USD) }
         ]
 
         return arr

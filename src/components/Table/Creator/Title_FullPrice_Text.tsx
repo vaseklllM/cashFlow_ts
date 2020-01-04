@@ -1,7 +1,7 @@
 import React from "react"
 import { TValut, IValut, IServerMoney } from "../../../interfaces"
-import { Calc } from "../../../utils"
 import { connect } from "react-redux"
+import { lastConvert } from "../../../utils/calc"
 
 interface IProps {
     fullPrice: IValut[]
@@ -15,7 +15,7 @@ const TitleFullPriceText: React.FC<IProps> = props => {
         return (
             <span key={item.cc}>
                 &nbsp;&nbsp;
-                {Calc.LC(item.value, ` ${item.sumbol}`)}
+                {lastConvert(item.value, ` ${item.sumbol}`)}
             </span>
         )
     })
@@ -36,7 +36,7 @@ const TitleFullPriceText: React.FC<IProps> = props => {
         })
     }
     const newElement: JSX.Element = (
-        <span key='last'> ( {Calc.LC(fullPriceUAH, " ₴")} )</span>
+        <span key='last'> ( {lastConvert(fullPriceUAH, " ₴")} )</span>
     )
 
     fullPriceSpan.push(newElement)

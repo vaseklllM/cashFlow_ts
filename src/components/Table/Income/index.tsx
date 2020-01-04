@@ -9,9 +9,9 @@ import {
 } from "../../../interfaces"
 import { IBodyText } from "../interface"
 import { setCheckBox } from "../../../store/serverMoney/action"
-import { Calc } from "../../../utils"
 import { getIncome } from "../../../utils/getterCashFlow"
 import CreateTable from "../Creator"
+import { mathFullPrice, lastConvert } from "../../../utils/calc"
 
 interface IProps {
     cashFlow: TCashFlow
@@ -47,7 +47,7 @@ function IncomeTable({ cashFlow, searchCashFlow, setCheckBox }: IProps) {
         })
     }
 
-    let fullPrice: IValut[] = Calc.mathFullPrice(obj, ["income"])
+    let fullPrice: IValut[] = mathFullPrice(obj, ["income"])
     return (
         <CreateTable
             fullPrice={fullPrice}
@@ -69,7 +69,7 @@ const bodyText: IBodyText = {
 function createTableContent(obj: ICashFlow[]): string[][] {
     var newObj: string[][] = obj.map(item => {
         const { name } = item
-        return [name, Calc.LC(item.income, " " + item.currency)]
+        return [name, lastConvert(item.income, " " + item.currency)]
     })
     return newObj || null
 }

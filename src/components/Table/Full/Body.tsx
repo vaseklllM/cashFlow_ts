@@ -1,7 +1,6 @@
 import React, { Dispatch } from "react"
 import { StyledTableRow, StyledTableCell } from "../utils"
 import LineName from "./Line_Name"
-import { Calc } from "../../../utils"
 import { LinearProgress, TableBody } from "@material-ui/core"
 import { connect } from "react-redux"
 import { IFullTable } from "../../../store/FullTable/interface"
@@ -14,6 +13,7 @@ import LineIncome from "./Line_Income"
 import LineValute from "./Line_Valute"
 import { setCheckBox } from "../../../store/serverMoney/action"
 import LineControlBtn from "./Line_ControlBtn"
+import { retentionTime, mathRoi, lastConvert } from "../../../utils/calc"
 
 interface IProps {
     bodyText: IFullBodyText
@@ -90,17 +90,17 @@ const Body = (props: IProps) => {
                     <LineName item={item} onShow={onShow} />
                     <LineDate item={item} onShow={onShow} />
                     <StyledTableCell align='right'>
-                        {Calc.retentionTime(dateBuy)}
+                        {retentionTime(dateBuy)}
                     </StyledTableCell>
                     <LinePriceToPcs item={item} onShow={onShow} />
                     <LinePcs item={item} onShow={onShow} />
                     <LineIncome item={item} onShow={onShow} />
                     <LineValute item={item} onShow={onShow} />
                     <StyledTableCell align='right'>
-                        {Calc.LC(item.pcs * item.price, " " + item.currency)}
+                        {lastConvert(item.pcs * item.price, " " + item.currency)}
                     </StyledTableCell>
                     <StyledTableCell align='right'>
-                        {Calc.roi(item)}
+                        {mathRoi(item)}
                     </StyledTableCell>
                 </StyledTableRow>
             )

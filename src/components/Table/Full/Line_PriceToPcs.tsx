@@ -1,11 +1,11 @@
 import React, { Dispatch, Component } from "react"
-import { Calc } from "../../../utils"
 import { StyledTableCell } from "../utils"
 import { ICashFlow, IServerMoney } from "../../../interfaces"
 import { Input } from "@material-ui/core"
 import { connect } from "react-redux"
 import { setNewCashFlowItem } from "../../../store/serverMoney/action"
 import { INewCashFlowItem, IsetNewCashFlowItem } from "../interface"
+import { lastConvert } from "../../../utils/calc"
 
 interface IProps {
     item: ICashFlow
@@ -74,7 +74,7 @@ class LinePriceToPcs extends Component<IProps> {
                     className={onShow ? "activeTd" : ""}
                     align='right'
                 >
-                    {Calc.LC(item.price, " " + item.currency)}
+                    {lastConvert(item.price, " " + item.currency)}
                 </StyledTableCell>
             )
     }

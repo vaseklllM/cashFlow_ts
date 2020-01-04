@@ -2,8 +2,8 @@ import React, { Component } from "react"
 import { IValut, IServerMoney, TValut } from "../../../interfaces"
 import { connect } from "react-redux"
 import { Typography, Box } from "@material-ui/core"
-import { Calc } from "../../../utils"
 import TitleFullPriceText from "./Title_FullPrice_Text"
+import { deepEqual } from "../../../utils/calc"
 
 interface IProps {
     title: string
@@ -16,9 +16,9 @@ class Title extends Component<IProps> {
     shouldComponentUpdate(nextProps: IProps) {
         const { title, fullPrice, vallets } = this.props
         if (title !== nextProps.title) return true
-        if (!Calc.deepEqual(fullPrice, nextProps.fullPrice)) return true
+        if (!deepEqual(fullPrice, nextProps.fullPrice)) return true
         if (Array.isArray(vallets) && Array.isArray(nextProps.vallets)) {
-            if (!Calc.deepEqual(vallets, nextProps.vallets)) return true
+            if (!deepEqual(vallets, nextProps.vallets)) return true
         }
         return false
     }

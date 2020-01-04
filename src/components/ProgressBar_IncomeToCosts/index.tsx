@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import ProgressBar from "../ProgressBar"
 import { connect } from "react-redux"
 import { IServerMoney, TCashFlow, TValut } from "../../interfaces"
-import { getIncome, getCosts, Calc } from "../../utils"
+import { getIncome, getCosts } from "../../utils"
+import { deepEqual, lastConvert } from "../../utils/calc"
 
 interface IIncomeProps {
     cashFlow: TCashFlow
@@ -14,7 +15,7 @@ class ProgressBarIncomeToCosts extends Component<IIncomeProps> {
             Array.isArray(this.props.cashFlow) &&
             Array.isArray(nextProps.cashFlow)
         ) {
-            if (!Calc.deepEqual(this.props.cashFlow, nextProps.cashFlow)) {
+            if (!deepEqual(this.props.cashFlow, nextProps.cashFlow)) {
                 return true
             }
         }
@@ -38,7 +39,7 @@ class ProgressBarIncomeToCosts extends Component<IIncomeProps> {
 
         const title = {
             left: "Відношення витрат до доходів в грн.",
-            right: `${Calc.LC(fullIncome, " грн.")} / ${Calc.LC(num2, " грн.")}`
+            right: `${lastConvert(fullIncome, " грн.")} / ${lastConvert(num2, " грн.")}`
         }
         if (fullIncome < num2) {
             return (

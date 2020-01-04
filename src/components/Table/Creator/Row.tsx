@@ -1,6 +1,6 @@
 import React from "react"
 import { StyledTableRow, StyledTableCell } from "../utils"
-import { Calc } from "../../../utils"
+import { deepEqual } from "../../../utils/calc"
 
 interface IProps {
     row: string[]
@@ -13,7 +13,7 @@ class Row extends React.Component<IProps> {
     shouldComponentUpdate(nextProps: IProps) {
         const { checked, row } = this.props
         if (checked !== nextProps.checked) return true
-        if (!Calc.deepEqual(row, nextProps.row)) return true
+        if (!deepEqual(row, nextProps.row)) return true
         return false
     }
 

@@ -9,9 +9,9 @@ import {
 } from "../../../interfaces"
 import { IBodyText } from "../interface"
 import { setCheckBox } from "../../../store/serverMoney/action"
-import { Calc } from "../../../utils"
 import CreateTable from "../Creator"
 import { getCapital } from "../../../utils/getterCashFlow"
+import { mathFullPrice, lastConvert } from "../../../utils/calc"
 
 interface IProps {
     cashFlow: TCashFlow
@@ -49,7 +49,7 @@ const CapitalTable: React.FC<IProps> = props => {
         })
     }
 
-    let fullPrice: IValut[] = Calc.mathFullPrice(obj, ["price", "pcs"])
+    let fullPrice: IValut[] = mathFullPrice(obj, ["price", "pcs"])
     return (
         <CreateTable
             fullPrice={fullPrice}
@@ -71,7 +71,7 @@ const bodyText: IBodyText = {
 function createTableContent(obj: ICashFlow[]): string[][] {
     var newObj: string[][] = obj.map(item => {
         const { name } = item
-        return [name, Calc.LC(item.price * item.pcs, " " + item.currency)]
+        return [name, lastConvert(item.price * item.pcs, " " + item.currency)]
     })
     return newObj || null
 }

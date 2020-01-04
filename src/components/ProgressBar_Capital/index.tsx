@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import ProgressBar from "../ProgressBar"
 import { connect } from "react-redux"
 import { IServerMoney, IValut, TCashFlow, TValut } from "../../interfaces"
-import { Calc } from "../../utils"
+import { deepEqual, lastConvert } from "../../utils/calc"
 
 interface ICapitalProps {
     cashFlow: TCashFlow
@@ -15,7 +15,7 @@ class ProgressBarCapital extends Component<ICapitalProps> {
             Array.isArray(this.props.cashFlow) &&
             Array.isArray(nextProps.cashFlow)
         ) {
-            if (!Calc.deepEqual(this.props.cashFlow, nextProps.cashFlow)) {
+            if (!deepEqual(this.props.cashFlow, nextProps.cashFlow)) {
                 return true
             }
         }
@@ -29,7 +29,7 @@ class ProgressBarCapital extends Component<ICapitalProps> {
         if (
             Array.isArray(cashFlow) &&
             Array.isArray(vallets) &&
-            vallets.length !== 0 
+            vallets.length !== 0
         ) {
             const capitalArr = cashFlow.filter(
                 item => item.pcs > 0 && item.price !== 0
@@ -63,7 +63,7 @@ class ProgressBarCapital extends Component<ICapitalProps> {
             if (num1 < num2[i]) {
                 const title = {
                     left: "Капитал в грн.",
-                    right: `${Calc.LC(num1)} грн. / ${Calc.LC(num2[i])} грн.`
+                    right: `${lastConvert(num1)} грн. / ${lastConvert(num2[i])} грн.`
                 }
                 return (
                     <ProgressBar

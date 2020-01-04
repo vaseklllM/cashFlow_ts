@@ -9,9 +9,9 @@ import {
 } from "../../../interfaces"
 import { IBodyText } from "../interface"
 import { setCheckBox } from "../../../store/serverMoney/action"
-import { Calc } from "../../../utils"
 import CreateTable from "../Creator"
 import { getActive } from "../../../utils/getterCashFlow"
+import { retentionTime, showDate, mathRoi, mathFullPrice, lastConvert } from "../../../utils/calc"
 
 interface IProps {
     cashFlow: TCashFlow
@@ -49,7 +49,7 @@ const ActiveTable: React.FC<IProps> = props => {
         })
     }
 
-    let fullPrice: IValut[] = Calc.mathFullPrice(obj, ["price", "pcs"])
+    let fullPrice: IValut[] = mathFullPrice(obj, ["price", "pcs"])
     return (
         <CreateTable
             fullPrice={fullPrice}
@@ -81,12 +81,12 @@ function createTableContent(obj: ICashFlow[]): string[][] {
         const { name, dateBuy, pcs, price, currency } = item
         return [
             name,
-            Calc.showDate(dateBuy),
-            Calc.retentionTime(dateBuy),
-            Calc.LC(pcs, " шт."),
-            Calc.LC(price, ` ${currency}`),
-            Calc.LC(pcs * price, ` ${currency}`),
-            Calc.roi(item)
+            showDate(dateBuy),
+            retentionTime(dateBuy),
+            lastConvert(pcs, " шт."),
+            lastConvert(price, ` ${currency}`),
+            lastConvert(pcs * price, ` ${currency}`),
+            mathRoi(item)
         ]
     })
     return newObj || null

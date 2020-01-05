@@ -7,11 +7,17 @@ import {
     IValut,
     TSearchCashFlow
 } from "../../../interfaces"
-import { IBodyText } from "../interface"
+import { IBodyText } from "../../Table/interface"
 import { setCheckBox } from "../../../store/serverMoney/action"
-import CreateTable from "../Creator"
+import CreateTable from "../../Table/Creator"
 import { getPassive } from "../../../utils/getterCashFlow"
-import { retentionTime, showDate, mathRoi, mathFullPrice, lastConvert } from "../../../utils/calc"
+import {
+    retentionTime,
+    showDate,
+    mathRoi,
+    mathFullPrice,
+    lastConvert
+} from "../../../utils/calc"
 
 interface IProps {
     cashFlow: TCashFlow

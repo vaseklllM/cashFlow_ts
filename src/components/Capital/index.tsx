@@ -1,6 +1,6 @@
 import React from "react"
 import { Grid } from "@material-ui/core"
-import GraphCapital from "./Graph_Capital"
+import GraphCapital from "./GraphCapital"
 import TableCapital from "./TableCapital"
 
 const Capital = () => {

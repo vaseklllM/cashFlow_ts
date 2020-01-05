@@ -1,7 +1,7 @@
 import React from "react"
 import { Grid } from "@material-ui/core"
-import { GraphIncome } from "../Graphs"
-import { TableIncome } from "../Table"
+import GraphIncome from "./Graph_Income"
+import TableIncome from "./TableIncome"
 
 const Income = () => {
     return (
@@ -47,5 +47,6 @@ const Income = () => {
     )
 }
 
-
 export default Income
+
+export { GraphIncome, TableIncome }

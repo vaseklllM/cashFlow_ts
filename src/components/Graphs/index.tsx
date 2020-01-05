@@ -1,6 +1,6 @@
 import React from "react"
 import { Grid, Box, Container } from "@material-ui/core"
-import GraphIncome from "./Graph_Income"
+import {GraphIncome} from "../Income"
 import {GraphCosts} from "../Costs"
 import { GraphCapital } from "../Capital"
 import { GraphActive } from "../Active"
@@ -35,4 +35,3 @@ const GraphsPage = () => {
 
 export default GraphsPage
 
-export { GraphIncome }

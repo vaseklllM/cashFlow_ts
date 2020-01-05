@@ -1,6 +1,6 @@
 import React from "react"
 import { Grid } from "@material-ui/core"
-import { TablePasive } from "../Table"
+import TablePasive from "./TablePasive"
 import GraphPasive from "./GraphPasive"
 
 const Pasive = () => {
@@ -39,4 +39,4 @@ const Pasive = () => {
 }
 
 export default Pasive
-export { GraphPasive }
+export { GraphPasive, TablePasive }

@@ -11,14 +11,15 @@ class Bar extends React.Component<TProps> {
     private refCanvas = createRef<HTMLCanvasElement>()
     componentDidMount() {
         const { names, values } = this.props
-        const colors = greateRandomColors(names.length, 0.3, 0.5)
+        const fullDate: TResizeValues = resizeValues(values, names)
+        const colors = greateRandomColors(fullDate.names.length, 0.3, 0.5)
         const obj = this.refCanvas.current
         const data = {
-            labels: names,
+            labels: fullDate.names,
             datasets: [
                 {
                     label: "",
-                    data: values,
+                    data: fullDate.values,
                     backgroundColor: colors.color,
                     borderColor: colors.borderColor,
                     borderWidth: 1.5
@@ -36,6 +37,26 @@ class Bar extends React.Component<TProps> {
 
     render() {
         return <canvas ref={this.refCanvas}></canvas>
+    }
+}
+
+type TResizeValues = {
+    values: number[]
+    names: string[]
+}
+
+function resizeValues(values: number[], names: string[]): TResizeValues {
+    let newValues: number[] = []
+    let newNames: string[] = []
+    for (let i = 0; i < names.length; i++) {
+        if (values[i] !== 0) {
+            newValues.push(values[i])
+            newNames.push(names[i])
+        }
+    }
+    return {
+        values: newValues,
+        names: newNames
     }
 }
 

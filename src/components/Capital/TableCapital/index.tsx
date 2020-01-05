@@ -7,9 +7,9 @@ import {
     IValut,
     TSearchCashFlow
 } from "../../../interfaces"
-import { IBodyText } from "../interface"
+import { IBodyText } from "../../Table/interface"
 import { setCheckBox } from "../../../store/serverMoney/action"
-import CreateTable from "../Creator"
+import CreateTable from "../../Table/Creator"
 import { getCapital } from "../../../utils/getterCashFlow"
 import { mathFullPrice, lastConvert } from "../../../utils/calc"
 

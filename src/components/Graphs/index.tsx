@@ -1,9 +1,9 @@
 import React from "react"
 import { Grid, Box, Container } from "@material-ui/core"
 import GraphIncome from "./Graph_Income"
-import GraphCosts from "./Graph_Costs"
-import GraphActive from "./Graph_Active"
-import GraphCapital from "./Graph_Capital"
+import {GraphCosts} from "../Costs"
+import { GraphCapital } from "../Capital"
+import { GraphActive } from "../Active"
 
 const GraphsPage = () => {
     return (
@@ -35,4 +35,4 @@ const GraphsPage = () => {
 
 export default GraphsPage
 
-export { GraphIncome, GraphCosts, GraphCapital, GraphActive }
+export { GraphIncome }

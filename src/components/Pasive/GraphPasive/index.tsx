@@ -3,7 +3,7 @@ import { TCashFlow, IServerMoney } from "../../../interfaces"
 import { connect } from "react-redux"
 import { Typography, Grid } from "@material-ui/core"
 import CreateGraph from "../../CreateGraph"
-import { getCapital } from "../../../utils/getterCashFlow"
+import { getPassive } from "../../../utils/getterCashFlow"
 
 interface IProps {
     cashFlow: TCashFlow
@@ -13,6 +13,7 @@ interface IProps {
 
 const IncomeGraph = (props: IProps) => {
     const { cashFlow, showtype = "pie", title = "" } = props
+    // if (getPassive(cashFlow).length < 5) return <></>
     if (title !== "") {
         return (
             <Grid item xl={12}>
@@ -25,8 +26,8 @@ const IncomeGraph = (props: IProps) => {
                 </Typography>
                 <CreateGraph
                     showtype={showtype}
-                    array={getCapital(cashFlow)}
-                    type='income'
+                    array={getPassive(cashFlow)}
+                    type='fullPrice'
                 />
             </Grid>
         )
@@ -35,8 +36,8 @@ const IncomeGraph = (props: IProps) => {
             <Grid item xl={12}>
                 <CreateGraph
                     showtype={showtype}
-                    array={getCapital(cashFlow)}
-                    type='income'
+                    array={getPassive(cashFlow)}
+                    type='fullPrice'
                 />
             </Grid>
         )

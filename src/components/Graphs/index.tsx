@@ -21,7 +21,7 @@ const GraphsPage = () => {
                     </Grid>
                 </Grid>
             </Box>
-            <div className='separator-horizontal' />
+            <div className='range-horizontal' />
             <Box mt={1}>
                 <Grid container spacing={3}>
                     <Grid item xl={4} md={6} xs={12}>

@@ -1,21 +1,21 @@
-import React, { Dispatch, Component } from "react"
-import { StyledTableCell } from "../utils"
+import React, { Component, Dispatch } from "react"
+import { StyledTableCell } from "../../Table/utils"
 import { ICashFlow, IServerMoney } from "../../../interfaces"
 import { Input } from "@material-ui/core"
-import { connect } from "react-redux"
 import { setNewCashFlowItem } from "../../../store/serverMoney/action"
-import { INewCashFlowItem, IsetNewCashFlowItem } from "../interface"
+import { connect } from "react-redux"
+import { INewCashFlowItem, IsetNewCashFlowItem } from "../../Table/interface"
 import { lastConvert } from "../../../utils/calc"
 
 interface IProps {
     item: ICashFlow
     onShow: boolean
     newCashFlowItem: INewCashFlowItem
-    setNewCashFlowItem(value: IsetNewCashFlowItem): void
+    setNewCashFlowItem: (value: IsetNewCashFlowItem) => void
 }
 
-// комірка "Ціна загалом"
-class LinePriceToPcs extends Component<IProps> {
+// комірка з Доходом
+class IncomeLine extends Component<IProps> {
     shouldComponentUpdate() {
         const { onShow } = this.props
         if (!onShow) return false
@@ -26,24 +26,24 @@ class LinePriceToPcs extends Component<IProps> {
         const { item, onShow, setNewCashFlowItem } = this.props
         if (onShow) {
             setNewCashFlowItem({
-                key: "price",
-                value: item.price
+                key: "income",
+                value: item.income
             })
         }
     }
-
     render() {
         const { item, onShow, newCashFlowItem, setNewCashFlowItem } = this.props
         if (onShow) {
             const inputValue: string | number = (() => {
-                if (typeof newCashFlowItem.price === "number") {
-                    return newCashFlowItem.price
-                } else if (newCashFlowItem.price === "") {
+                if (typeof newCashFlowItem.income === "number") {
+                    return newCashFlowItem.income
+                } else if (newCashFlowItem.income === "") {
                     return ""
                 } else {
-                    return item.price
+                    return item.income
                 }
             })()
+
             return (
                 <StyledTableCell
                     className='activeTd'
@@ -53,11 +53,11 @@ class LinePriceToPcs extends Component<IProps> {
                     <Input
                         type='number'
                         className='FullTableInput'
-                        placeholder='Ціна за шт.'
+                        placeholder='Доход'
                         onMouseDown={event => event.stopPropagation()}
                         onChange={e => {
                             setNewCashFlowItem({
-                                key: "price",
+                                key: "income",
                                 value: e.target.value
                             })
                         }}
@@ -68,15 +68,16 @@ class LinePriceToPcs extends Component<IProps> {
                     />
                 </StyledTableCell>
             )
-        } else
+        } else {
             return (
                 <StyledTableCell
                     className={onShow ? "activeTd" : ""}
                     align='right'
                 >
-                    {lastConvert(item.price, " " + item.currency)}
+                    {lastConvert(item.income, " " + item.currency)}
                 </StyledTableCell>
             )
+        }
     }
 }
 
@@ -95,4 +96,4 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LinePriceToPcs)
+export default connect(mapStateToProps, mapDispatchToProps)(IncomeLine)

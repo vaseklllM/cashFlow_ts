@@ -1,11 +1,10 @@
-import React, { Component, Dispatch } from "react"
-import { StyledTableCell } from "../utils"
+import React, { Component, Dispatch, ReactText } from "react"
 import { ICashFlow, IServerMoney } from "../../../interfaces"
+import { StyledTableCell } from "../../Table/utils"
 import { Input } from "@material-ui/core"
-import { setNewCashFlowItem } from "../../../store/serverMoney/action"
 import { connect } from "react-redux"
-import { INewCashFlowItem, IsetNewCashFlowItem } from "../interface"
-import { lastConvert } from "../../../utils/calc"
+import { setNewCashFlowItem } from "../../../store/serverMoney/action"
+import { INewCashFlowItem, IsetNewCashFlowItem } from "../../Table/interface"
 
 interface IProps {
     item: ICashFlow
@@ -14,8 +13,8 @@ interface IProps {
     setNewCashFlowItem(value: IsetNewCashFlowItem): void
 }
 
-// комірка з кількістю шт.
-class PcsLine extends Component<IProps> {
+// комірка з назвою елемента
+class LineName extends Component<IProps> {
     shouldComponentUpdate() {
         const { onShow } = this.props
         if (!onShow) return false
@@ -26,8 +25,8 @@ class PcsLine extends Component<IProps> {
         const { item, onShow, setNewCashFlowItem } = this.props
         if (onShow) {
             setNewCashFlowItem({
-                key: "pcs",
-                value: item.pcs
+                key: "name",
+                value: item.name
             })
         }
     }
@@ -35,13 +34,11 @@ class PcsLine extends Component<IProps> {
     render() {
         const { item, onShow, newCashFlowItem, setNewCashFlowItem } = this.props
         if (onShow) {
-            const inputValue: string | number = (() => {
-                if (typeof newCashFlowItem.pcs === "number") {
-                    return newCashFlowItem.pcs
-                } else if (newCashFlowItem.pcs === "") {
-                    return ""
+            const inputValue: ReactText = (() => {
+                if (newCashFlowItem.name !== undefined) {
+                    return newCashFlowItem.name
                 } else {
-                    return item.pcs
+                    return item.name
                 }
             })()
             return (
@@ -51,20 +48,17 @@ class PcsLine extends Component<IProps> {
                     style={{ width: "13%" }}
                 >
                     <Input
-                        type='number'
-                        className='FullTableInput'
-                        placeholder='Кількість'
+                        style={{ textAlign: "left" }}
+                        className='FullTableNameInput'
+                        placeholder='Назва'
                         onMouseDown={event => event.stopPropagation()}
                         onChange={e => {
                             setNewCashFlowItem({
-                                key: "pcs",
+                                key: "name",
                                 value: e.target.value
                             })
                         }}
                         value={inputValue}
-                        inputProps={{
-                            "aria-label": "description"
-                        }}
                     />
                 </StyledTableCell>
             )
@@ -72,9 +66,9 @@ class PcsLine extends Component<IProps> {
             return (
                 <StyledTableCell
                     className={onShow ? "activeTd" : ""}
-                    align='right'
+                    align='left'
                 >
-                    {lastConvert(item.pcs, " шт.")}
+                    {item.name}
                 </StyledTableCell>
             )
     }
@@ -95,4 +89,4 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PcsLine)
+export default connect(mapStateToProps, mapDispatchToProps)(LineName)

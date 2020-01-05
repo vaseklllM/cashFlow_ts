@@ -1,7 +1,7 @@
 import React from "react"
 import ValutTogle from "./ValutTogle"
 import { ICashFlow } from "../../../../interfaces"
-import { StyledTableCell } from "../../utils"
+import { StyledTableCell } from "../../../Table/utils"
 
 interface IProps {
     item: ICashFlow

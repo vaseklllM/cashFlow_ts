@@ -6,7 +6,7 @@ import {
 } from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns"
 import { setNewCashFlowItem } from "../../../store/serverMoney/action"
-import { StyledTableCell } from "../utils"
+import { StyledTableCell } from "../../Table/utils"
 import { ICashFlow, IServerMoney, TRate, TCurrency } from "../../../interfaces"
 import { showDate } from "../../../utils/calc"
 

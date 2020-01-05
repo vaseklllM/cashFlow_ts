@@ -10,7 +10,7 @@ import { withStyles } from "@material-ui/core/styles"
 import { connect } from "react-redux"
 import { setNewCashFlowItem } from "../../../../store/serverMoney/action"
 import { TValut, ICashFlow, IServerMoney } from "../../../../interfaces"
-import { INewCashFlowItem, IsetNewCashFlowItem } from "../../interface"
+import { INewCashFlowItem, IsetNewCashFlowItem } from "../../../Table/interface"
 
 // Styles --------------------
 const BootstrapInput = withStyles((theme: Theme) => ({

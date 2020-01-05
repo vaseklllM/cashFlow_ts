@@ -1,6 +1,6 @@
 import React, { Dispatch } from "react"
 import { IconButton } from "@material-ui/core"
-import { StyledTableCell } from "../../utils"
+import { StyledTableCell } from "../../../Table/utils"
 import AddBoxIcon from "@material-ui/icons/AddBox"
 import { IFullBodyText } from ".."
 import { connect } from "react-redux"
@@ -8,6 +8,7 @@ import { IFullTable } from "../../../../store/FullTable/interface"
 import { setEditElementId } from "../../../../store/FullTable/action"
 import { TCashFlow, IServerMoney } from "../../../../interfaces"
 import { createNewCashFlowItem } from "../../../../store/serverMoney/action"
+
 
 interface IProps {
     bodyText: IFullBodyText

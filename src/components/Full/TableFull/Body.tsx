@@ -1,5 +1,5 @@
 import React, { Dispatch } from "react"
-import { StyledTableRow, StyledTableCell } from "../utils"
+import { StyledTableRow, StyledTableCell } from "../../Table/utils"
 import LineName from "./Line_Name"
 import { LinearProgress, TableBody } from "@material-ui/core"
 import { connect } from "react-redux"
@@ -97,7 +97,10 @@ const Body = (props: IProps) => {
                     <LineIncome item={item} onShow={onShow} />
                     <LineValute item={item} onShow={onShow} />
                     <StyledTableCell align='right'>
-                        {lastConvert(item.pcs * item.price, " " + item.currency)}
+                        {lastConvert(
+                            item.pcs * item.price,
+                            " " + item.currency
+                        )}
                     </StyledTableCell>
                     <StyledTableCell align='right'>
                         {mathRoi(item)}

@@ -1,5 +1,5 @@
 import React, { Dispatch } from "react"
-import { StyledTableCell } from "../../utils"
+import { StyledTableCell } from "../../../Table/utils"
 import { Grid, IconButton } from "@material-ui/core"
 import DeleteIcon from "@material-ui/icons/Delete"
 import { connect } from "react-redux"

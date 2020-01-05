@@ -1,5 +1,5 @@
 import React from "react"
-import { TCashFlow, IServerMoney } from "../../../interfaces"
+import { TCashFlow, IServerMoney, TSearchCashFlow } from "../../../interfaces"
 import { connect } from "react-redux"
 import { Typography, Grid } from "@material-ui/core"
 import CreateGraph from "../../CreateGraph"
@@ -9,11 +9,16 @@ interface IProps {
     cashFlow: TCashFlow
     showtype?: "bar" | "pie"
     title?: string
+    searchCashFlow: TSearchCashFlow
 }
 
 const IncomeGraph = (props: IProps) => {
-    const { cashFlow, showtype = "pie", title = "" } = props
-    // if (getPassive(cashFlow).length < 5) return <></>
+    const { cashFlow, showtype = "pie", title = "", searchCashFlow } = props
+    let mainArray: TCashFlow = cashFlow
+    if (Array.isArray(searchCashFlow)) {
+        mainArray = searchCashFlow
+    }
+
     if (title !== "") {
         return (
             <Grid item xl={12}>
@@ -26,7 +31,7 @@ const IncomeGraph = (props: IProps) => {
                 </Typography>
                 <CreateGraph
                     showtype={showtype}
-                    array={getPassive(cashFlow)}
+                    array={getPassive(mainArray)}
                     type='fullPrice'
                 />
             </Grid>
@@ -36,7 +41,7 @@ const IncomeGraph = (props: IProps) => {
             <Grid item xl={12}>
                 <CreateGraph
                     showtype={showtype}
-                    array={getPassive(cashFlow)}
+                    array={getPassive(mainArray)}
                     type='fullPrice'
                 />
             </Grid>
@@ -49,7 +54,8 @@ interface IMapState {
 }
 
 const mapStateToProps = ({ serverMoney }: IMapState) => ({
-    cashFlow: serverMoney.cashFlow
+    cashFlow: serverMoney.cashFlow,
+    searchCashFlow: serverMoney.searchCashFlow
 })
 
 export default connect(mapStateToProps)(IncomeGraph)

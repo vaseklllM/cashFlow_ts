@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Dispatch } from "react"
+import React, { ChangeEvent, Dispatch, KeyboardEvent, createRef } from "react"
 import { InputBase } from "@material-ui/core"
 import SearchIcon from "@material-ui/icons/Search"
 import { createStyles, fade, Theme, makeStyles } from "@material-ui/core/styles"
@@ -65,13 +65,24 @@ interface IProps {
 }
 
 const SearchPage: React.FC<IProps> = props => {
+    let textInput = createRef<HTMLDivElement>()
     const { searchCashFlowAction } = props
-    
     const classes = useStyles("")
-
     const onChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
-        searchCashFlowAction(event.target.value)
+        if (event.target.value === "") {
+            searchCashFlowAction("")
+        }
     }
+
+    const searchOnPressEnter = (event: KeyboardEvent) => {
+        if (event.key === "Enter" && textInput.current) {
+            const input = textInput.current.querySelector("input")
+            if (input && input.value !== "") {
+                searchCashFlowAction(input.value)
+            }
+        }
+    }
+
     return (
         <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -79,10 +90,12 @@ const SearchPage: React.FC<IProps> = props => {
             </div>
             <InputBase
                 placeholder='Search…'
+                ref={textInput}
                 classes={{
                     root: classes.inputRoot,
                     input: classes.inputInput
                 }}
+                onKeyDown={searchOnPressEnter}
                 onChange={onChangeValue}
                 inputProps={{ "aria-label": "search" }}
             />

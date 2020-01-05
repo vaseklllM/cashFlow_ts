@@ -10,24 +10,28 @@ import { LinearProgress } from "@material-ui/core"
 import Error from "../Error"
 import { connect } from "react-redux"
 import Circule from "./Circule"
-import { randomColor } from "../../utils/calc"
+import { convertToNumber } from "../../utils/calc"
+import BarGraph from "./Bar"
 
 type TProps = {
     array: TCashFlow
     type: "fullPrice" | "income"
     vallets: TValut
+    showtype: "bar" | "pie"
 }
 
 const GraphCreator: React.FC<TProps> = props => {
-    const { array, type, vallets } = props
-
+    const { array, type, vallets, showtype } = props
     if (array === "Error") {
         return <Error />
     } else if (Array.isArray(array) && Array.isArray(vallets)) {
         const names = array.map((i: ICashFlow) => i.name)
         const values = greateArrValues(array, vallets, type)
-        const colors: string[] = array.map(i => randomColor())
-        return <Circule colors={colors} names={names} values={values} />
+        if (showtype === "bar") {
+            return <BarGraph names={names} values={values} />
+        } else {
+            return <Circule names={names} values={values} />
+        }
     } else {
         return <LinearProgress />
     }
@@ -43,9 +47,9 @@ function greateArrValues(
         let valut: IValut = vallets.filter(i => i.cc === el.rate)[0]
         if (valut.value) {
             if (type === "fullPrice") {
-                lastArr.push(valut.value * (el.price * el.pcs))
+                lastArr.push(convertToNumber(valut.value * (el.price * el.pcs)))
             } else if (type === "income") {
-                lastArr.push(valut.value * el.income)
+                lastArr.push(convertToNumber(valut.value * el.income))
             }
         }
     })

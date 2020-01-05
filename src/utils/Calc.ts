@@ -51,10 +51,58 @@ export function deepEqual(obj1: object, obj2: object): boolean {
     return JSON.stringify(obj1) === JSON.stringify(obj2)
 }
 
-// повертає рандомний колір rgb
-export function randomColor(): string {
+export type TGreateRandomColors = {
+    color: string[]
+    borderColor?: string[]
+}
+
+// повертає массив рандомних кольорів rgba
+export function greateRandomColors(
+    quantityColors: number,
+    colorOpacity?: number,
+    borderColorOpacity?: number
+): TGreateRandomColors {
     const rndNum = () => Math.floor(Math.random() * 255)
-    return `rgb(${rndNum()}, ${rndNum()}, ${rndNum()})`
+    // якщо є тільки перший параметр і він правельний то пертає масив з quantityColors кількістю кольорів
+    if (quantityColors > 0 && !colorOpacity && !borderColorOpacity) {
+        let arrColors: string[] = []
+        for (let i = 0; i < quantityColors; i++) {
+            arrColors.push(`rgb(${rndNum()}, ${rndNum()}, ${rndNum()})`)
+        }
+        return {
+            color: arrColors
+        }
+        // якщо є всі параметри і вони парвельні то повертає два массива з quantityColors кількістю кольорів і заданою прозрачністю
+    } else if (
+        quantityColors &&
+        quantityColors > 0 &&
+        colorOpacity &&
+        borderColorOpacity &&
+        colorOpacity <= 1 &&
+        colorOpacity >= 0 &&
+        borderColorOpacity <= 1 &&
+        borderColorOpacity >= 0
+    ) {
+        let arrColors: string[] = []
+        let arrBorderColors: string[] = []
+        for (let i = 0; i < quantityColors; i++) {
+            const r = rndNum()
+            const g = rndNum()
+            const b = rndNum()
+            arrColors.push(`rgba(${r}, ${g}, ${b}, ${colorOpacity})`)
+            arrBorderColors.push(
+                `rgba(${r}, ${g}, ${b}, ${borderColorOpacity})`
+            )
+        }
+        return {
+            color: arrColors,
+            borderColor: arrBorderColors
+        }
+    }
+
+    return {
+        color: []
+    }
 }
 
 // повертає массив ціни всії елементів obj

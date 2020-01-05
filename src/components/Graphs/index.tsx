@@ -35,4 +35,4 @@ const GraphsPage = () => {
 
 export default GraphsPage
 
-export { GraphIncome, GraphCosts }
+export { GraphIncome, GraphCosts, GraphCapital, GraphActive }

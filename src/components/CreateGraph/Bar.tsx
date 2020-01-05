@@ -7,27 +7,27 @@ type TProps = {
     values: number[]
 }
 
-class Circule extends React.Component<TProps> {
+class Bar extends React.Component<TProps> {
     private refCanvas = createRef<HTMLCanvasElement>()
     componentDidMount() {
         const { names, values } = this.props
-
-        const colors = greateRandomColors(names.length, 0.8, 0.8)
+        const colors = greateRandomColors(names.length, 0.3, 0.5)
         const obj = this.refCanvas.current
         const data = {
             labels: names,
             datasets: [
                 {
-                    label: "My First dataset",
+                    label: "",
                     data: values,
-                    backgroundColor: colors.color
-                },
-                {}
+                    backgroundColor: colors.color,
+                    borderColor: colors.borderColor,
+                    borderWidth: 1.5
+                }
             ]
         }
         if (obj) {
             new Chart(obj, {
-                type: "pie",
+                type: "bar",
                 data,
                 options: {}
             })
@@ -39,4 +39,4 @@ class Circule extends React.Component<TProps> {
     }
 }
 
-export default Circule
+export default Bar

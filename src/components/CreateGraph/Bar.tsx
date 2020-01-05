@@ -8,6 +8,7 @@ type TProps = {
 }
 
 class Bar extends React.Component<TProps> {
+    chart: Chart | undefined = undefined
     private refCanvas = createRef<HTMLCanvasElement>()
     componentDidMount() {
         const { names, values } = this.props
@@ -27,7 +28,7 @@ class Bar extends React.Component<TProps> {
             ]
         }
         if (obj) {
-            new Chart(obj, {
+            this.chart = new Chart(obj, {
                 type: "bar",
                 data,
                 options: {}
@@ -36,6 +37,13 @@ class Bar extends React.Component<TProps> {
     }
 
     render() {
+        const { names, values } = this.props
+        if (this.chart && Array.isArray(this.chart.data.datasets)) {
+            this.chart.data.datasets[0].data = values
+            this.chart.data.labels = names
+            this.chart.update()
+        }
+
         return <canvas ref={this.refCanvas}></canvas>
     }
 }

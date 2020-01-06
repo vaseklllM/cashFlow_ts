@@ -9,7 +9,6 @@ import { setEditElementId } from "../../../../store/FullTable/action"
 import { TCashFlow, IServerMoney } from "../../../../interfaces"
 import { createNewCashFlowItem } from "../../../../store/serverMoney/action"
 
-
 interface IProps {
     bodyText: IFullBodyText
     setEditElementId(id: number): void
@@ -18,12 +17,18 @@ interface IProps {
 }
 
 const Main = (props: IProps) => {
-    const { bodyText, setEditElementId, cashFlow, createNewCashFlowItem } = props
+    const {
+        bodyText,
+        setEditElementId,
+        cashFlow,
+        createNewCashFlowItem
+    } = props
     const row: JSX.Element[] = bodyText.collumn.map((item, index) => {
         if (index === 0) {
             return (
                 <StyledTableCell key={index} style={{ paddingLeft: "11px" }}>
                     <IconButton
+                        title='Створити новий елемент'
                         style={{ padding: "5px" }}
                         onClick={() => {
                             const nextElementId:
@@ -75,7 +80,7 @@ const mapStateToProps = ({ fullTable, serverMoney }: IMapState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     setEditElementId: (id: number) => dispatch(setEditElementId(id)),
-    createNewCashFlowItem: (id: number) =>dispatch(createNewCashFlowItem(id))
+    createNewCashFlowItem: (id: number) => dispatch(createNewCashFlowItem(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)

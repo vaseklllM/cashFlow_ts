@@ -12,6 +12,7 @@ import { connect } from "react-redux"
 import Circule from "./Circule"
 import { convertToNumber } from "../../utils/calc"
 import BarGraph from "./Bar"
+import './style.scss'
 
 type TProps = {
     array: TCashFlow

@@ -39,6 +39,7 @@ const RowDelete = (props: IProps) => {
             >
                 <span>Вибрано: {itemSelectedId.length}</span>
                 <IconButton
+                    title='Видалити вибрані елементи'
                     style={{ padding: "5px" }}
                     onClick={() => {
                         deleteItemsFromCashFlow(itemSelectedId)

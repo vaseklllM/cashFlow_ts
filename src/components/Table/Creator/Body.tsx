@@ -19,7 +19,7 @@ const Body: React.FC<IBodyProps> = props => {
         minWidth
     } = props
     return (
-        <Paper className='activeTable' style={{ maxHeight: "800px" }}>
+        <Paper className='activeTable' style={{ maxHeight: "700px" }}>
             <Table style={{ minWidth: minWidth }}>
                 <TableHead className='vasekTest'>
                     <TableRow>

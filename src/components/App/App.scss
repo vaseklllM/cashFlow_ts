@@ -15,14 +15,15 @@ body {
         }
     }
 }
-.FullTableInput, .FullTableNameInput {
+.FullTableInput,
+.FullTableNameInput {
     margin-right: 24px;
     margin-left: 16px;
     input {
         text-align: right;
     }
 }
-.FullTableNameInput{
+.FullTableNameInput {
     input {
         text-align: left;
     }
@@ -30,3 +31,34 @@ body {
 .activeTd {
     padding: 0 !important;
 }
+
+// @keyframes updates {
+//     from {
+//         // border: 2px solid black;
+//         background-color: rgb(137, 43, 226);
+//     }
+
+//     to {
+//         // border: none;
+//         background-color: rgba(137, 43, 226, 0);
+//     }
+// }
+
+// div,
+// tr,
+// th,
+// span,
+// br,
+// button,
+// thead,
+// table,
+// header,
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6, canvas {
+//     animation-duration: 2s;
+//     animation-name: updates;
+// }

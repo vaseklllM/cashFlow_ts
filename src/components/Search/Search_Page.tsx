@@ -89,7 +89,8 @@ const SearchPage: React.FC<IProps> = props => {
                 <SearchIcon />
             </div>
             <InputBase
-                placeholder='Search…'
+                title='Натисніть Enter для пошуку'
+                placeholder='Пошук…'
                 ref={textInput}
                 classes={{
                     root: classes.inputRoot,

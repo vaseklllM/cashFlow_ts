@@ -39,7 +39,6 @@ const Income = () => {
                     </Hidden>
                     <Grid
                         item
-                        xs={12}
                         sm={12}
                         md={12}
                         xl={4}

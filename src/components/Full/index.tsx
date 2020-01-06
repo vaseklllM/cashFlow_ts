@@ -8,17 +8,8 @@ const Full = () => {
             <div className='range-horizontal' />
             <Grid container justify='space-between'>
                 <Grid item container spacing={3}>
-                    <Grid
-                        item
-                        xs={12}
-                        lg={12}
-                        xl={12}
-                        alignItems='center'
-                        container
-                    >
-                        <Grid item xl={12}>
-                            <TableFull />
-                        </Grid>
+                    <Grid item xs={12} alignItems='center' container>
+                        <TableFull />
                     </Grid>
                 </Grid>
             </Grid>

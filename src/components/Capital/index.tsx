@@ -1,5 +1,5 @@
 import React from "react"
-import { Grid } from "@material-ui/core"
+import { Grid, Hidden } from "@material-ui/core"
 import GraphCapital from "./GraphCapital"
 import TableCapital from "./TableCapital"
 
@@ -9,38 +9,42 @@ const Capital = () => {
             <div className='range-horizontal' />
             <Grid container justify='space-between'>
                 <Grid item container spacing={3}>
+                    <Hidden xsDown>
+                        <Grid
+                            item
+                            container
+                            sm={12}
+                            md={6}
+                            xl={4}
+                            alignItems='center'
+                            justify='center'
+                        >
+                            <GraphCapital
+                                showtype='bar'
+                                title='Капитал в гривнях'
+                            />
+                        </Grid>
+                        <Grid
+                            item
+                            container
+                            sm={12}
+                            md={6}
+                            xl={4}
+                            alignItems='center'
+                            justify='center'
+                        >
+                            <GraphCapital title='Капитал в гривнях' />
+                        </Grid>
+                    </Hidden>
                     <Grid
                         item
-                        container
-                        xs={12}
-                        lg={6}
-                        xl={4}
-                        alignItems='center'
-                    >
-                        <GraphCapital
-                            showtype='bar'
-                            title='Капитал в гривнях'
-                        />
-                    </Grid>
-                    <Grid
-                        item
-                        container
-                        xs={12}
-                        lg={6}
-                        xl={4}
-                        alignItems='center'
-                    >
-                        <GraphCapital title='Капитал в гривнях' />
-                    </Grid>
-                    <Grid
-                        item
-                        xs={12}
-                        lg={6}
+                        sm={12}
+                        md={12}
                         xl={4}
                         alignItems='center'
                         container
                     >
-                        <Grid item xl={12}>
+                        <Grid item xs={12}>
                             <TableCapital />
                         </Grid>
                     </Grid>

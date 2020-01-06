@@ -26,11 +26,11 @@ const MainContainer: React.FC = () => {
                 </Box>
                 <div className='range-horizontal' />
                 <Income />
-                {/* <Costs />
+                <Costs />
                 <Capital />
                 <Active />
                 <Pasive />
-                <Full /> */}
+                <Full />
             </Container>
         </>
     )

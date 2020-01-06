@@ -13,8 +13,7 @@ const Valuts_Text: React.FC<TProps> = props => {
     const { vallets } = props
     if (vallets === "Error") {
         return <WarningRoundedIcon fontSize='large' />
-    }
-    if (vallets === "Loading...") {
+    } else if (vallets === "Loading...") {
         return <CircularProgress color='inherit' />
     }
 

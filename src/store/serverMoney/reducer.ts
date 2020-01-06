@@ -89,6 +89,7 @@ const serverMoneyReducer = (
 
         // получає курси валют з сервера
         case SET_VALLET_COURSE:
+            // return { ...state, vallets: "Error" }
             return { ...state, vallets: action.payload }
 
         // Змінює item.checked по id переданому в action.payload

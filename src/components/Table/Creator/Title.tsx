@@ -25,7 +25,6 @@ class Title extends Component<IProps> {
 
     render() {
         const { title, fullPrice } = this.props
-        // console.log(fullPrice)
 
         return (
             <Box
